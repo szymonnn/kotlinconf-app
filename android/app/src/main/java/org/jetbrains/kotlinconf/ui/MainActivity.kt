@@ -129,6 +129,10 @@ class MainActivity : AppCompatActivity(), AnkoComponent<Context>, NavigationMana
                 .commit()
     }
 
+    private fun showIndoorMap() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun showSessionDetails(sessionId: String) {
         val fragment = SessionDetailsFragment.forSession(sessionId)
         supportFragmentManager

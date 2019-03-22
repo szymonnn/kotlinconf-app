@@ -3,6 +3,7 @@
     <string name="kotlin_conf_url">www.kotlinconf.com</string>
     <string name="action_info_title">Information</string>
     <string name="action_info_mapbox_map">Map</string>
+    <string name="action_info_indoor_map">Indoor map</string>
     <string name="search_title">Search</string>
     <string name="room_format_details">Room \"%s\"</string>
     <string name="room_format_list">room \"%s\"</string>

@@ -1,17 +1,19 @@
 package org.jetbrains.kotlinconf.ui
 
-import android.os.Bundle
-import com.mapbox.android.core.permissions.PermissionsListener
-import com.mapbox.android.core.permissions.PermissionsManager
-import com.mapbox.mapboxsdk.camera.CameraPosition
-import com.mapbox.mapboxsdk.geometry.LatLng
-import com.mapbox.mapboxsdk.location.modes.CameraMode
-import com.mapbox.mapboxsdk.location.modes.RenderMode
-import com.mapbox.mapboxsdk.maps.MapboxMap
-import com.mapbox.mapboxsdk.maps.Style
-import com.mapbox.mapboxsdk.maps.SupportMapFragment
-import org.jetbrains.anko.support.v4.toast
-import org.jetbrains.kotlinconf.R
+import android.graphics.*
+import android.os.*
+import android.widget.*
+import com.mapbox.android.core.permissions.*
+import com.mapbox.mapboxsdk.camera.*
+import com.mapbox.mapboxsdk.geometry.*
+import com.mapbox.mapboxsdk.location.modes.*
+import com.mapbox.mapboxsdk.maps.*
+import com.mapbox.mapboxsdk.style.layers.*
+import com.mapbox.mapboxsdk.style.layers.PropertyFactory.*
+import com.mapbox.mapboxsdk.style.sources.*
+import org.jetbrains.anko.support.v4.*
+import org.jetbrains.kotlinconf.*
+
 
 /**
  * Fragment class that handles the display of a Mapbox map via the Mapbox Maps SDK for Android.
@@ -21,37 +23,76 @@ import org.jetbrains.kotlinconf.R
  * More info at https://www.mapbox.com/android-docs/maps/overview and https://docs.mapbox.com/android/core/overview/
  */
 class MapboxMapFragment : SupportMapFragment(), PermissionsListener {
-
     private lateinit var permissionsManager: PermissionsManager
-    private lateinit var mapFragment: SupportMapFragment
-    private var mapboxMap: MapboxMap? = null
-    private val copenhagenConferenceLocation = LatLng(55.682828, 12.584511)
+    private var map: MapboxMap? = null
+    private val location = LatLng(55.6377951, 12.5787219)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mapFragment = activity?.supportFragmentManager?.findFragmentByTag(TAG) as SupportMapFragment
-        mapFragment.getMapAsync { mapboxMap ->
+        val fragment = activity
+                ?.supportFragmentManager
+                ?.findFragmentByTag(TAG) as SupportMapFragment
 
+        fragment.getMapAsync { mapboxMap ->
             // Set the map style. If you want to set a custom map style, replace
             // Style.MAPBOX_STREETS with Style.Builder().fromUrl("customStyleUrl")
-            mapboxMap.setStyle(Style.MAPBOX_STREETS) {
-
+            mapboxMap.setStyle(Style.MAPBOX_STREETS) { style ->
                 // Map is set up and the style has loaded. Now we can add data
                 // and/or make other map adjustments.
-                this.mapboxMap = mapboxMap
+                map = mapboxMap
 
                 // Move the map camera to the site of the KotlinConf location
+                val mapTarget = LatLng(location.latitude, location.longitude)
                 mapboxMap.cameraPosition = CameraPosition.Builder()
-                        .target(LatLng(copenhagenConferenceLocation.latitude,
-                                copenhagenConferenceLocation.longitude))
-                        .zoom(11.988715)
+                        .target(mapTarget)
+                        .zoom(16.0)
                         .build()
 
-                // Start the process of showing the device location icon
-                enableLocationComponent(it)
+                addIndoorLayer(style)
+                enableLocationComponent(style)
+            }
+
+            mapboxMap.addOnMapClickListener { point ->
+                val screenPoint = mapboxMap.projection.toScreenLocation(point)
+                val features = mapboxMap.queryRenderedFeatures(screenPoint, "indoor-fill")
+                if (features.isEmpty()) return@addOnMapClickListener true
+                val selectedFeature = features[0]
+
+                val title = selectedFeature.getStringProperty("name")
+                Toast.makeText(context, "You selected $title", Toast.LENGTH_SHORT).show()
+
+                true
             }
         }
     }
+
+    private fun addIndoorLayer(style: Style) {
+        val indoorId = "indoor-map"
+
+        val indoor = GeoJsonSource(indoorId, loadStringAsset("indoor.geojson"))
+        style.addSource(indoor)
+
+        val indoorFill = FillLayer("indoor-fill", indoorId).withProperties(
+                fillColor(Color.parseColor("#10eeee"))
+        )
+
+        style.addLayer(indoorFill)
+
+        val indoorLines = LineLayer("indoor-line", indoorId).withProperties(
+                lineColor("{stroke}"),
+                lineWidth(0.5f)
+        )
+
+        style.addLayer(indoorLines)
+
+        val textLayer = SymbolLayer("indoor-map-text", indoorId)
+                .withProperties(textField("{name}"))
+
+        style.addLayer(textLayer)
+    }
+
+    private fun loadStringAsset(name: String): String =
+            context!!.assets.open(name).bufferedReader().readText()
 
     /**
      * Enable the Maps SDK's LocationComponent to display the device's location the map
@@ -63,7 +104,7 @@ class MapboxMapFragment : SupportMapFragment(), PermissionsListener {
         if (PermissionsManager.areLocationPermissionsGranted(context)) {
 
             // Activate and set the preferences for the Maps SDK's LocationComponent
-            mapboxMap?.locationComponent?.apply {
+            map?.locationComponent?.apply {
                 activateLocationComponent(activity!!.applicationContext, loadedMapStyle)
                 isLocationComponentEnabled = true
                 cameraMode = CameraMode.NONE
@@ -99,7 +140,7 @@ class MapboxMapFragment : SupportMapFragment(), PermissionsListener {
         if (granted) {
             // Now that user has granted location permissions, once again
             // start the process of showing the device location icon
-            enableLocationComponent(mapboxMap!!.style!!)
+            enableLocationComponent(map!!.style!!)
         } else {
             toast(R.string.user_location_permission_not_granted)
         }

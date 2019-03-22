@@ -15,8 +15,8 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.custom.*
 
 inline fun ViewManager.multilineCollapsingToolbarLayout(
-    theme: Int = 0,
-    init: CollapsingToolbarLayout.() -> Unit
+        theme: Int = 0,
+        init: CollapsingToolbarLayout.() -> Unit
 ): CollapsingToolbarLayout {
     return ankoView({ CollapsingToolbarLayout(it) }, theme = theme, init = init)
 }

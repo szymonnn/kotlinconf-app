@@ -10,9 +10,9 @@ import org.jetbrains.kotlinconf.presentation.*
 import org.jetbrains.kotlinconf.storage.*
 import java.util.*
 import com.mapbox.mapboxsdk.Mapbox
+import org.jetbrains.kotlinconf.BuildConfig.*
 
 class KotlinConfApplication : Application(), AnkoLogger {
-
     val dataRepository: DataRepository by lazy {
         val settingsFactory = PlatformSettings(applicationContext)
         KotlinConfDataRepository(END_POINT, getUserId(), settingsFactory)
@@ -27,8 +27,7 @@ class KotlinConfApplication : Application(), AnkoLogger {
             throwable?.cause?.printStackTrace()
         }
 
-        // Initialize Mapbox
-        Mapbox.getInstance(this, BuildConfig.MAPBOX_ACCESS_TOKEN)
+        Mapbox.getInstance(this, MAPBOX_ACCESS_TOKEN)
     }
 
     override fun attachBaseContext(base: Context?) {
