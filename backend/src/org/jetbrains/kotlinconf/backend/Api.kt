@@ -102,15 +102,13 @@ internal fun Routing.apiFavorite(database: Database, production: Boolean) {
         }
         post {
             val principal = call.validatePrincipal(database) ?: throw Unauthorized()
-            val favorite = call.receive<Favorite>()
-            val sessionId = favorite.sessionId
+            val sessionId = call.receive<String>()
             database.createFavorite(principal.token, sessionId)
             call.respond(HttpStatusCode.Created)
         }
         delete {
             val principal = call.validatePrincipal(database) ?: throw Unauthorized()
-            val favorite = call.receive<Favorite>()
-            val sessionId = favorite.sessionId
+            val sessionId = call.receive<String>()
             database.deleteFavorite(principal.token, sessionId)
             call.respond(HttpStatusCode.OK)
         }
@@ -142,16 +140,15 @@ internal fun Routing.apiVote(database: Database, production: Boolean) {
         }
         post {
             val principal = call.validatePrincipal(database) ?: throw Unauthorized()
-            val vote = call.receive<Vote>()
+            val vote = call.receive<VoteData>()
             val sessionId = vote.sessionId
-            val rating = vote.rating
+            val rating = vote.rating!!.value
 
             val session = getSessionizeData().allData.sessions.firstOrNull { it.id == sessionId } ?: throw NotFound()
             val nowTime = simulatedTime(production)
             val startVotesAt = LocalDateTime.parse(session.startsAt, dateFormat)
             val endVotesAt = LocalDateTime.parse(session.endsAt, dateFormat).plusMinutes(15)
-            val votingPeriodStarted =
-                startVotesAt?.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) } ?: true
+            val votingPeriodStarted = startVotesAt.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) }
             val votingPeriodEnded = endVotesAt?.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) } ?: true
 
             if (!votingPeriodStarted)
@@ -168,7 +165,7 @@ internal fun Routing.apiVote(database: Database, production: Boolean) {
         }
         delete {
             val principal = call.validatePrincipal(database) ?: throw Unauthorized()
-            val vote = call.receive<Vote>()
+            val vote = call.receive<VoteData>()
             val sessionId = vote.sessionId
             database.deleteVote(principal.token, sessionId)
             call.respond(HttpStatusCode.OK)

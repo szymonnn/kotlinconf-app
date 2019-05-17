@@ -37,14 +37,18 @@ fun Application.launchSyncJob(sessionizeUrl: String, sessionizeInterval: Long) {
 private val client = HttpClient {
     install(JsonFeature) {
         serializer = KotlinxSerializer().apply {
-            setMapper(AllData::class, AllData.serializer())
+            setMapper(ConferenceData::class, ConferenceData.serializer())
         }
     }
 }
 
 suspend fun synchronizeWithSessionize(sessionizeUrl: String) {
-    val data = client.get<AllData>(sessionizeUrl)
-    sessionizeData = SessionizeData(data)
+    try {
+        val data = client.get<ConferenceData>(sessionizeUrl)
+        sessionizeData = SessionizeData(data)
+    } catch (cause: Throwable) {
+        throw cause
+    }
 }
 
 fun getSessionizeData() = sessionizeData ?: throw ServiceUnavailable()

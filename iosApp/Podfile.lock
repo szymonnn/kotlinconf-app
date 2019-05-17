@@ -1,0 +1,20 @@
+PODS:
+  - Mapbox-iOS-SDK (4.11.0)
+  - youtube-ios-player-helper (0.1.6)
+
+DEPENDENCIES:
+  - Mapbox-iOS-SDK (~> 4.11)
+  - youtube-ios-player-helper (~> 0.1.4)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Mapbox-iOS-SDK
+    - youtube-ios-player-helper
+
+SPEC CHECKSUMS:
+  Mapbox-iOS-SDK: fa40ce2e941dcded1e49015c8bc98a654e8191a0
+  youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2
+
+PODFILE CHECKSUM: fdfd475e8bdca22e7c29611d6e1f03f4ab9a02f8
+
+COCOAPODS: 1.6.1

@@ -88,30 +88,30 @@ internal class Database(application: Application) {
         }
     }
 
-    suspend fun getFavorites(uuid: String): List<Favorite> = withContext(dispatcher) {
+    suspend fun getFavorites(userId: String): List<String> = withContext(dispatcher) {
         connection.transaction {
             Favorites.select(Favorites.sessionId)
-                .where { Favorites.uuid eq uuid }
-                .execute().map { Favorite(it[0]) }.toList()
+                .where { Favorites.uuid eq userId }
+                .execute().map { it.get<String>(0) }.toList()
         }
     }
 
-    suspend fun getAllFavorites(): List<Favorite> = withContext(dispatcher) {
+    suspend fun getAllFavorites(): List<String> = withContext(dispatcher) {
         connection.transaction {
-            Favorites.select(Favorites.sessionId).execute().map { Favorite(it[0]) }.toList()
+            Favorites.select(Favorites.sessionId).execute().map { it.get<String>(0) }.toList()
         }
     }
 
-    suspend fun getVotes(uuid: String): List<Vote> = withContext(dispatcher) {
+    suspend fun getVotes(uuid: String): List<VoteData> = withContext(dispatcher) {
         connection.transaction {
             Votes.select(Votes.sessionId, Votes.rating).where { Votes.uuid eq uuid }
-                .execute().map { Vote(sessionId = it[0], rating = it[1]) }.toList()
+                .execute().map { VoteData(sessionId = it[0], rating = it[1]) }.toList()
         }
     }
 
-    suspend fun getAllVotes(): List<Vote> = withContext(dispatcher) {
+    suspend fun getAllVotes(): List<VoteData> = withContext(dispatcher) {
         connection.transaction {
-            Votes.select(Votes.sessionId, Votes.rating).execute().map { Vote(it[0], it[1]) }.toList()
+            Votes.select(Votes.sessionId, Votes.rating).execute().map { VoteData(it[0], it[1]) }.toList()
         }
     }
 
