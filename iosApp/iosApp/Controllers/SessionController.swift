@@ -34,11 +34,7 @@ class SessionController : UIViewController, SessionDetailsView {
 
         func setupSpeaker(label: TouchableLabel, speaker: Speaker) {
             label.font = UIFont.headerTextRegular
-
-            let attributes = [
-                NSAttributedString.Key.backgroundColor: UIColor.darkGreyOpac
-            ]
-            label.attributedText = NSMutableAttributedString(string: speaker.fullName + " ▶", attributes: attributes)
+            label.text = speaker.fullName
 
             label.onTouchUp = {
                 let speakerBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -69,8 +65,8 @@ class SessionController : UIViewController, SessionDetailsView {
 
         titleLabel.text = titleText.uppercased()
 
-        descriptionLabel.text = session.descriptionText
-        roomLabel.text = session.room.name + " ▶"
+        descriptionLabel.attributedText = LetterSpacedText(text: session.descriptionText, spacing: 0.52)
+        roomLabel.text = session.room.name
 
         tagsLabel.text = session.tags.joined(separator: " ")
 

@@ -15,7 +15,6 @@ class SpeakerController : UIViewController {
         nameLabel.text = speaker.fullName.uppercased()
 
         if let profilePicture = speaker.profilePicture {
-
             do {
                 let pictureUrl = URL(string: profilePicture)
                 photoView.image = UIImage(data: try Data(contentsOf: pictureUrl!))
@@ -24,7 +23,7 @@ class SpeakerController : UIViewController {
             }
         }
 
-        descriptionLabel.text = speaker.bio
+        descriptionLabel.attributedText = LetterSpacedText(text: speaker.bio, spacing: 0.52)
 
         companyLabel.text = "FILL ME IN SESSIONIZE"
         positionLabel.text = "FILL ME IN SESSIONIZE"

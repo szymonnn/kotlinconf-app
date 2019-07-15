@@ -3,6 +3,7 @@ package org.jetbrains.kotlinconf.presentation
 import kotlinx.coroutines.*
 import org.jetbrains.kotlinconf.*
 import org.jetbrains.kotlinconf.api.*
+import org.jetbrains.kotlinconf.model.*
 
 interface ScheduleView : BaseView {
     fun onUpdate(sessions: List<List<Session>>, favorites: List<Session>)

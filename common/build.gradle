@@ -27,7 +27,7 @@ kotlin {
 
     task debugFatFramework(type: FatFrameworkTask) {
         baseName = frameworkName
-        from iosArm32.binaries.getFramework("DEBUG"), iosArm64.binaries.getFramework("DEBUG")/*, iosX64.binaries.getFramework("DEBUG")*/
+        from iosArm64.binaries.getFramework("DEBUG")//, iosArm64.binaries.getFramework("DEBUG"),*/ iosX64.binaries.getFramework("DEBUG")
 
 //        destinationDir = buildDir.resolve("fat-framework/debug")
 

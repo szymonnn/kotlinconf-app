@@ -6,7 +6,9 @@ let ScheduleCellId = "ScheduleTableCell"
 let ScheduleHeaderId = "ScheduleTableHeader"
 
 @IBDesignable
-class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDataSource, ScheduleView, UIGestureRecognizerDelegate {
+class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDataSource, ScheduleView,
+    UIGestureRecognizerDelegate {
+
     @IBOutlet weak var scheduleTable: UITableView!
 
     private var presenter: SchedulePresenter {
@@ -31,10 +33,6 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationController!.interactivePopGestureRecognizer!.delegate = self
-
-
         scheduleTable.addSubview(refreshControl)
         refreshControl.beginRefreshing()
         presenter.onCreate()
@@ -45,16 +43,9 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         scheduleTable.dataSource = self
         scheduleTable.separatorInset = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 0)
         scheduleTable.separatorColor = UIColor.darkGrey
-
-        navigationController?.isNavigationBarHidden = true
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationController!.interactivePopGestureRecognizer!.isEnabled = false
-    }
     
-
     @IBAction
     func onRefresh(_ refreshControl: UIRefreshControl) {
         presenter.onPullRefresh()
@@ -136,7 +127,6 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
         self.navigationController?.pushViewController(sessionView, animated: true)
         navigationController!.interactivePopGestureRecognizer!.isEnabled = true
-
         cell.backgroundColor = oldColor
     }
 
@@ -153,5 +143,10 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         refreshControl.endRefreshing()
         super.showError(error: error)
     }
-}
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationController!.interactivePopGestureRecognizer!.delegate = self
+        navigationController!.interactivePopGestureRecognizer!.isEnabled = false
+    }
+}

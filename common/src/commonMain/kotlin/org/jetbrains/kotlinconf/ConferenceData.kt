@@ -12,7 +12,8 @@ data class ConferenceData(
     val questions: List<QuestionData> = emptyList(),
     val categories: List<CategoryData> = emptyList(),
     val favorites: List<String> = emptyList(),
-    val votes: List<VoteData> = emptyList()
+    val votes: List<VoteData> = emptyList(),
+    val partners: List<PartnerData> = emptyList()
 )
 
 @Serializable
@@ -94,6 +95,13 @@ data class CategoryItemData(
     val name: String,
     val id: Int,
     val sort: Int
+)
+
+@Serializable
+data class PartnerData(
+    val name: String,
+    val logo: String,
+    val description: String
 )
 
 enum class RatingData(val value: Int) {

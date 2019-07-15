@@ -8,7 +8,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     public static let service: ConferenceService = ConferenceService(
         userId: generateUuid(),
 //        endPoint: "http://localhost:8080/",
-        endPoint: "https://api.kotlinconf.com/",
+//        endPoint: "https://api.kotlinconf.com/",
+        endPoint: "https://konf-staging.kotlin-aws.intellij.net/",
         storage: IosStorage()
     )
 

@@ -1,9 +1,9 @@
-package org.jetbrains.kotlinconf
+package org.jetbrains.kotlinconf.model
 
 import io.ktor.util.date.*
 import kotlinx.serialization.*
+import org.jetbrains.kotlinconf.*
 import org.jetbrains.kotlinconf.data.*
-import org.jetbrains.kotlinconf.model.*
 
 //@Serializable
 class Session internal constructor(
@@ -45,5 +45,3 @@ class Session internal constructor(
     override fun hashCode(): Int = id.hashCode()
 }
 
-@Serializable
-class Room(val id: Int, val name: String, val sort: Int)

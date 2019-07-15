@@ -8,9 +8,9 @@ import org.jetbrains.anko.*
 import org.jetbrains.kotlinconf.*
 import org.jetbrains.kotlinconf.presentation.*
 
-class MainActivity : AppCompatActivity(), AnkoComponent<Context>, AnkoLogger, MainView {
+class MainActivity : AppCompatActivity(), AnkoComponent<Context>, AnkoLogger, HomeView {
     private val repository by lazy { (application as KotlinConfApplication).service }
-    private val presenter by lazy { MainPresenter(this, repository) }
+    private val presenter by lazy { HomePresenter(this, repository) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

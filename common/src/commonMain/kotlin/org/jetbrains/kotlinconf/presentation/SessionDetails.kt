@@ -1,9 +1,9 @@
 package org.jetbrains.kotlinconf.presentation
 
 import kotlinx.coroutines.*
-import org.jetbrains.kotlinconf.*
 import org.jetbrains.kotlinconf.api.*
 import org.jetbrains.kotlinconf.data.*
+import org.jetbrains.kotlinconf.model.*
 
 interface SessionDetailsView : BaseView {
     fun updateRating(rating: RatingData?)

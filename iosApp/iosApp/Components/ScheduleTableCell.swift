@@ -10,6 +10,7 @@ class ScheduleTableCell : UITableViewCell {
     @IBOutlet weak var separatorView: UIView!
     @IBOutlet weak var separatorOffsetConstraint: NSLayoutConstraint!
 
+    @IBOutlet weak var descriptionOffset: NSLayoutConstraint!
     var separatorStyle: UITableViewCell.SeparatorStyle!
 
     func configureLook(
@@ -50,7 +51,7 @@ class ScheduleTableCell : UITableViewCell {
         subtitleLabel.font = UIFont.noteList
 
         titleLabel.textColor = UIColor.darkGrey
-        subtitleLabel.textColor = UIColor.lightGray
+        subtitleLabel.textColor = UIColor.lightGrey
 
         titleLabel.numberOfLines = 0
         titleLabel.lineBreakMode = .byWordWrapping
@@ -58,20 +59,20 @@ class ScheduleTableCell : UITableViewCell {
         favorite.isHidden = false
 
         separatorOffsetConstraint.constant = 33.0
+        descriptionOffset.constant = 8.0
 
         selectedBackgroundView = nil
     }
 
     private func configureNow(data: Session) {
-        self.backgroundColor = UIColor.redOrange
+        self.backgroundColor = UIColor.white
 
         titleLabel.font = UIFont.headerListSmall
         subtitleLabel.font = UIFont.noteListSmall
 
-        titleLabel.textColor = UIColor.white
-        subtitleLabel.textColor = UIColor.white
-
-        separatorView.backgroundColor = UIColor.white
+        titleLabel.textColor = UIColor.darkGrey
+        subtitleLabel.textColor = UIColor.darkGrey50
+        separatorView.backgroundColor = UIColor.lightGrey50
         separatorView.alpha = 0.5
 
         titleLabel.numberOfLines = 1
@@ -79,10 +80,7 @@ class ScheduleTableCell : UITableViewCell {
 
         favorite.isHidden = true
         separatorOffsetConstraint.constant = 33.0
-
-        let background = UIView(frame: self.frame)
-        background.backgroundColor = UIColor.pressedOrange
-        selectedBackgroundView = background
+        descriptionOffset.constant = 1.0
     }
 
     private func configurePlain(data: Session) {
@@ -93,14 +91,15 @@ class ScheduleTableCell : UITableViewCell {
 
         titleLabel.textColor = UIColor.darkGrey
         subtitleLabel.textColor = UIColor.darkGrey50
-        separatorView.backgroundColor = UIColor.darkGrey
-        separatorView.alpha = 1.0
+        separatorView.backgroundColor = UIColor.lightGrey50
+        separatorView.alpha = 0.5
 
         titleLabel.numberOfLines = 1
         titleLabel.lineBreakMode = .byTruncatingTail
 
         favorite.isHidden = true
         separatorOffsetConstraint.constant = 33.0
+        descriptionOffset.constant = 1.0
 
         selectedBackgroundView = nil
     }

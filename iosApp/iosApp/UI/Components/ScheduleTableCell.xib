@@ -33,7 +33,7 @@
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G07-7r-nSb" userLabel="Separator">
                         <rect key="frame" x="33" y="84.5" width="342" height="1"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="0.5" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="KnM-40-w1Y"/>
                         </constraints>
@@ -57,12 +57,13 @@
                     <constraint firstItem="G07-7r-nSb" firstAttribute="leading" secondItem="LlR-QC-tpg" secondAttribute="leading" constant="33" id="gKi-O9-GSj"/>
                     <constraint firstItem="C1r-TL-wSb" firstAttribute="trailing" secondItem="Jry-cz-8vd" secondAttribute="trailing" id="hf1-oz-gr8"/>
                     <constraint firstAttribute="trailing" secondItem="C1r-TL-wSb" secondAttribute="trailing" constant="10" id="k65-ym-87r"/>
-                    <constraint firstItem="Jry-cz-8vd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="C1r-TL-wSb" secondAttribute="bottom" id="lZR-iI-lIi"/>
+                    <constraint firstItem="Jry-cz-8vd" firstAttribute="top" relation="greaterThanOrEqual" secondItem="C1r-TL-wSb" secondAttribute="bottom" constant="8" id="lZR-iI-lIi"/>
                     <constraint firstItem="C1r-TL-wSb" firstAttribute="leading" secondItem="p6h-22-jXQ" secondAttribute="trailing" constant="8" id="oB0-1P-fvL"/>
                     <constraint firstItem="Jry-cz-8vd" firstAttribute="bottom" secondItem="LlR-QC-tpg" secondAttribute="bottomMargin" id="yXJ-id-KpX"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="descriptionOffset" destination="lZR-iI-lIi" id="vZB-PA-Dh4"/>
                 <outlet property="favorite" destination="p6h-22-jXQ" id="idJ-Bo-I3O"/>
                 <outlet property="separatorOffsetConstraint" destination="gKi-O9-GSj" id="hra-GS-3ya"/>
                 <outlet property="separatorView" destination="G07-7r-nSb" id="Rh8-Rn-zJn"/>

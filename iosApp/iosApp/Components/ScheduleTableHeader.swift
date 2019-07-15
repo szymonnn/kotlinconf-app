@@ -9,7 +9,7 @@ class ScheduleTableHeader : UITableViewHeaderFooterView {
     @IBOutlet weak var separatorView: UIView!
 
     func configureLook(start: String, end: String, isNow: Bool) {
-        timeLabel?.text = start + "  .  .  .  " + end
+        timeLabel?.text = start + " . . . " + end
 
         if (isNow) {
             backView.backgroundColor = UIColor.redOrange
@@ -18,7 +18,7 @@ class ScheduleTableHeader : UITableViewHeaderFooterView {
             separatorView.isHidden = false
             separatorView.alpha = 0.5
         } else {
-            backView.backgroundColor = UIColor.darkGrey
+            backView.backgroundColor = UIColor.lightGrey
             nowLabel.isHidden = true
             separatorView.isHidden = true
         }
