@@ -1,9 +1,6 @@
 package org.jetbrains.kotlinconf.presentation
 
-import kotlinx.coroutines.*
-import org.jetbrains.kotlinconf.api.*
-import org.jetbrains.kotlinconf.data.*
-import org.jetbrains.kotlinconf.model.*
+import org.jetbrains.kotlinconf.*
 
 interface SessionDetailsView : BaseView {
     fun updateRating(rating: RatingData?)
@@ -17,9 +14,19 @@ interface SessionDetailsView : BaseView {
  */
 class SessionDetailsPresenter(
     private val view: SessionDetailsView,
-    private val session: Session,
+    private val session: SessionData,
     private val service: ConferenceService
 ) : BasePresenter(view) {
+
+    init {
+//        service.apply {
+//            onFavorites {
+//            }
+//
+//            onRating {
+//            }
+//        }
+    }
 
     /**
      * Handle rating button event.
@@ -27,18 +34,11 @@ class SessionDetailsPresenter(
      * Change offline and revert if submit attempt failed.
      */
     fun onRatingButtonClicked(clicked: RatingData) {
-        launch {
-            view.setRatingClickable(false)
-            view.updateRating(clicked)
-            service.setRating(session, clicked)
-        }.invokeOnCompletion {
-            if (it != null) {
-                view.showError(it)
-                view.updateRating(session.rating)
-            }
+        view.setRatingClickable(false)
+        view.updateRating(clicked)
+//        service.setRating(session.id, clicked)
 
-            view.setRatingClickable(true)
-        }
+        view.setRatingClickable(true)
     }
 
     /**
@@ -47,15 +47,15 @@ class SessionDetailsPresenter(
      * Change offline and revert if submit attempt failed.
      */
     fun onFavoriteButtonClicked() {
-        launch {
-            val newRating = !session.isFavorite
-            view.updateFavorite(newRating)
-            service.setFavorite(session, newRating)
-        }.invokeOnCompletion {
-            if (it != null) {
-                view.showError(it)
-                view.updateFavorite(session.isFavorite)
-            }
-        }
+//        launch {
+//            val newRating = !session.isFavorite
+//            view.updateFavorite(newRating)
+//            service.setFavorite(session, newRating)
+//        }.invokeOnCompletion {
+//            if (it != null) {
+//                view.showError(it)
+//                view.updateFavorite(session.isFavorite)
+//            }
+//        }
     }
 }

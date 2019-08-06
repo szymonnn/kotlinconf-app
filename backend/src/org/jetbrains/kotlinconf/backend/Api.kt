@@ -6,20 +6,16 @@ import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.features.*
 import io.ktor.http.*
-import io.ktor.http.cio.websocket.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.util.pipeline.*
-import io.ktor.websocket.*
-import kotlinx.coroutines.channels.*
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
-import org.jetbrains.kotlinconf.data.*
+import org.jetbrains.kotlinconf.*
 import java.time.*
 import java.time.format.*
 import java.util.*
-import java.util.concurrent.*
+
+private val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss", Locale.US)
 
 internal fun Routing.api(database: Database, production: Boolean, sessionizeUrl: String) {
     apiKeynote(production)
@@ -29,7 +25,6 @@ internal fun Routing.api(database: Database, production: Boolean, sessionizeUrl:
     apiVote(database, production)
     apiFavorite(database, production)
     apiSynchronize(sessionizeUrl)
-    wsVotes(database, production)
 }
 
 /*
@@ -44,14 +39,6 @@ private fun Routing.apiKeynote(production: Boolean) {
             call.respond(comeBackLater)
         }
     }
-}
-
-private fun PipelineContext<Unit, ApplicationCall>.simulatedTime(production: Boolean): ZonedDateTime {
-    val now = ZonedDateTime.now(keynoteTimeZone)
-    return if (production)
-        now
-    else
-        call.parameters["datetimeoverride"]?.let { ZonedDateTime.parse(it) } ?: now
 }
 
 /*
@@ -76,18 +63,12 @@ private fun Routing.apiUsers(database: Database) {
     }
 }
 
-internal suspend fun ApplicationCall.validatePrincipal(database: Database): KotlinConfPrincipal? {
-    val principal = principal<KotlinConfPrincipal>() ?: return null
-    if (!database.validateUser(principal.token)) return null
-    return principal
-}
-
 /*
 GET http://localhost:8080/favorites
 Accept: application/json
 Authorization: Bearer 1238476512873162837
 */
-internal fun Routing.apiFavorite(database: Database, production: Boolean) {
+private fun Routing.apiFavorite(database: Database, production: Boolean) {
     route("favorites") {
         get {
             val principal = call.validatePrincipal(database) ?: throw Unauthorized()
@@ -115,14 +96,12 @@ internal fun Routing.apiFavorite(database: Database, production: Boolean) {
     }
 }
 
-private val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss", Locale.US)
-
 /*
 GET http://localhost:8080/votes
 Accept: application/json
 Authorization: Bearer 1238476512873162837
 */
-internal fun Routing.apiVote(database: Database, production: Boolean) {
+private fun Routing.apiVote(database: Database, production: Boolean) {
     route("votes") {
         get {
             val principal = call.validatePrincipal(database) ?: throw Unauthorized()
@@ -144,24 +123,29 @@ internal fun Routing.apiVote(database: Database, production: Boolean) {
             val sessionId = vote.sessionId
             val rating = vote.rating!!.value
 
-            val session = getSessionizeData().allData.sessions.firstOrNull { it.id == sessionId } ?: throw NotFound()
+            val session = getSessionizeData().sessions.firstOrNull { it.id == sessionId } ?: throw NotFound()
             val nowTime = simulatedTime(production)
             val startVotesAt = LocalDateTime.parse(session.startsAt, dateFormat)
             val endVotesAt = LocalDateTime.parse(session.endsAt, dateFormat).plusMinutes(15)
             val votingPeriodStarted = startVotesAt.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) }
             val votingPeriodEnded = endVotesAt?.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) } ?: true
 
-            if (!votingPeriodStarted)
+            if (!votingPeriodStarted) {
                 return@post call.respond(comeBackLater)
-            if (votingPeriodEnded)
+            }
+
+            if (votingPeriodEnded) {
                 return@post call.respond(tooLate)
+            }
 
             val timestamp = LocalDateTime.now(Clock.systemUTC())
-            if (database.changeVote(principal.token, sessionId, rating, timestamp))
-                call.respond(HttpStatusCode.Created)
-            else
-                call.respond(HttpStatusCode.OK)
-            signalSession(sessionId)
+            val status = if (database.changeVote(principal.token, sessionId, rating, timestamp)) {
+                HttpStatusCode.Created
+            } else {
+                HttpStatusCode.OK
+            }
+
+            call.respond(status)
         }
         delete {
             val principal = call.validatePrincipal(database) ?: throw Unauthorized()
@@ -169,72 +153,40 @@ internal fun Routing.apiVote(database: Database, production: Boolean) {
             val sessionId = vote.sessionId
             database.deleteVote(principal.token, sessionId)
             call.respond(HttpStatusCode.OK)
-            signalSession(sessionId)
         }
     }
 }
-
 
 /*
 GET http://localhost:8080/all
 Accept: application/json
 Authorization: Bearer 1238476512873162837
 */
-internal fun Routing.apiAll(database: Database) {
+private fun Routing.apiAll(database: Database) {
     get("all") {
         val data = getSessionizeData()
         val principal = call.validatePrincipal(database)
         val responseData = if (principal != null) {
             val votes = database.getVotes(principal.token)
             val favorites = database.getFavorites(principal.token)
-            val personalizedData = data.allData.copy(votes = votes, favorites = favorites)
-            SessionizeData(personalizedData)
-        } else data
+            ConferenceData(data, favorites, votes)
+        } else ConferenceData(data)
 
-        call.withETag(responseData.etag, putHeader = true) {
-            call.respond(responseData.allData)
-        }
+        call.respond(responseData)
     }
 }
 
-internal fun Routing.apiSession() {
+private fun Routing.apiSession() {
     route("sessions") {
         get {
             val data = getSessionizeData()
-            val sessions = data.allData.sessions
-            call.withETag(sessions.hashCode().toString(), putHeader = true) {
-                call.respond(sessions)
-            }
+            call.respond(data.sessions)
         }
         get("{sessionId}") {
             val data = getSessionizeData()
             val id = call.parameters["sessionId"] ?: throw BadRequest()
-            val sessions = data.allData.sessions?.singleOrNull { it.id == id } ?: throw NotFound()
-            call.withETag(sessions.hashCode().toString(), putHeader = true) {
-                call.respond(sessions)
-            }
-        }
-    }
-}
-
-// maps sessionId to the "session updated" signal (a signal is just Unit -- it carries no additional data).
-internal val sessionSignals = ConcurrentHashMap<String, ConflatedBroadcastChannel<Unit>>()
-
-internal fun signalSession(sessionId: String) =
-    sessionSignals[sessionId]?.offer(Unit) // offer to anyone who's interested
-
-internal fun trackSession(sessionId: String): ConflatedBroadcastChannel<Unit> =
-    sessionSignals.computeIfAbsent(sessionId) { ConflatedBroadcastChannel(Unit) }
-
-internal fun Routing.wsVotes(database: Database, production: Boolean) {
-    val route = if (production) fakeSessionId else "{sessionId}"
-    webSocket("sessions/$route/votes") {
-        val id = call.parameters["sessionId"] ?: fakeSessionId
-        trackSession(id).openSubscription().consume {
-            consumeEach {
-                @UseExperimental(ImplicitReflectionSerializer::class)
-                outgoing.send(Frame.Text(Json.stringify(database.getVotesSummary(id))))
-            }
+            val session = data.sessions.singleOrNull { it.id == id } ?: throw NotFound()
+            call.respond(session)
         }
     }
 }
@@ -242,9 +194,23 @@ internal fun Routing.wsVotes(database: Database, production: Boolean) {
 /*
 GET http://localhost:8080/sessionizeSync
 */
-internal fun Routing.apiSynchronize(sessionizeUrl: String) {
+private fun Routing.apiSynchronize(sessionizeUrl: String) {
     get("sessionizeSync") {
         synchronizeWithSessionize(sessionizeUrl)
         call.respond(HttpStatusCode.OK)
     }
+}
+
+private suspend fun ApplicationCall.validatePrincipal(database: Database): KotlinConfPrincipal? {
+    val principal = principal<KotlinConfPrincipal>() ?: return null
+    if (!database.validateUser(principal.token)) return null
+    return principal
+}
+
+private fun PipelineContext<Unit, ApplicationCall>.simulatedTime(production: Boolean): ZonedDateTime {
+    val now = ZonedDateTime.now(keynoteTimeZone)
+    return if (production)
+        now
+    else
+        call.parameters["datetimeoverride"]?.let { ZonedDateTime.parse(it) } ?: now
 }

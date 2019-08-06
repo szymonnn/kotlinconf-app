@@ -1,11 +1,9 @@
 package org.jetbrains.kotlinconf.presentation
 
-import kotlinx.coroutines.*
-import org.jetbrains.kotlinconf.api.*
-import org.jetbrains.kotlinconf.model.*
+import org.jetbrains.kotlinconf.*
 
 interface SpeakersView : BaseView {
-    fun onUpdate(speakers: List<Speaker>)
+    fun onUpdate(speakers: List<SpeakerData>)
 }
 
 class SpeakersPresenter(
@@ -14,9 +12,9 @@ class SpeakersPresenter(
 ) : BasePresenter(view) {
 
     fun onCreate() {
-        launch {
-            val model = service.reloadModel()
-            view.onUpdate(model.speakers)
-        }
+//        launch {
+//            val model = service.reloadModel()
+//            view.onUpdate(model.speakers)
+//        }
     }
 }

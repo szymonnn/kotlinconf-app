@@ -29,13 +29,13 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         return refreshControl
     }()
 
-    private var tableData: [[Session]] = []
+//    private var tableData: [[Session]] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         scheduleTable.addSubview(refreshControl)
         refreshControl.beginRefreshing()
-        presenter.onCreate()
+//        presenter.onCreate()
 
         scheduleTable.register(UINib(nibName: ScheduleCellId, bundle: nil), forCellReuseIdentifier: ScheduleCellId)
         scheduleTable.register(UINib(nibName: ScheduleHeaderId, bundle: nil), forHeaderFooterViewReuseIdentifier: ScheduleHeaderId)
@@ -51,11 +51,11 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         presenter.onPullRefresh()
     }
 
-    func onUpdate(sessions: [[Session]], favorites: [Session]) {
-        tableData = [favorites] + sessions
-        scheduleTable.reloadData()
-        refreshControl.endRefreshing()
-    }
+//    func onUpdate(sessions: [[Session]], favorites: [Session]) {
+//        tableData = [favorites] + sessions
+//        scheduleTable.reloadData()
+//        refreshControl.endRefreshing()
+//    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return tableData.count
@@ -94,15 +94,15 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
         let result = tableView.dequeueReusableCell(withIdentifier: ScheduleCellId, for: indexPath) as! ScheduleTableCell
 
-        let session = tableData[section][row]
-        let inFavoriteSection = section == 0
-        let isLast = row + 1 == tableData[section].count
-        
-        result.configureLook(
-            inFavoriteSection: inFavoriteSection,
-            isLast: isLast,
-            session: session
-        )
+//        let session = tableData[section][row]
+//        let inFavoriteSection = section == 0
+//        let isLast = row + 1 == tableData[section].count
+//
+//        result.configureLook(
+//            inFavoriteSection: inFavoriteSection,
+//            isLast: isLast,
+//            session: session
+//        )
 
         return result
     }
@@ -112,22 +112,22 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
         let sessionBoard = UIStoryboard(name: "Main", bundle: nil)
         let sessionView = sessionBoard.instantiateViewController(withIdentifier: "Session") as! SessionController
-        let session = tableData[indexPath.section][indexPath.item]
-        sessionView.session = session
-
-        let cell = tableView.cellForRow(at: indexPath)!
-        let oldColor = cell.backgroundColor
-
-        let isNow: Bool = session.startsAt.toReadableDateTimeString() == "2018 Oct 4 10:15"
-        if (isNow) {
-            cell.backgroundColor = UIColor.pressedOrange
-        } else {
-            cell.backgroundColor = UIColor.lightGray
-        }
-
-        self.navigationController?.pushViewController(sessionView, animated: true)
-        navigationController!.interactivePopGestureRecognizer!.isEnabled = true
-        cell.backgroundColor = oldColor
+//        let session = tableData[indexPath.section][indexPath.item]
+//        sessionView.session = session
+//
+//        let cell = tableView.cellForRow(at: indexPath)!
+//        let oldColor = cell.backgroundColor
+//
+//        let isNow: Bool = session.startsAt.toReadableDateTimeString() == "2018 Oct 4 10:15"
+//        if (isNow) {
+//            cell.backgroundColor = UIColor.pressedOrange
+//        } else {
+//            cell.backgroundColor = UIColor.lightGray
+//        }
+//
+//        self.navigationController?.pushViewController(sessionView, animated: true)
+//        navigationController!.interactivePopGestureRecognizer!.isEnabled = true
+//        cell.backgroundColor = oldColor
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

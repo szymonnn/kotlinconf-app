@@ -11,9 +11,9 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
     @IBOutlet weak var showPartners: TouchableLabel!
     @IBOutlet weak var showFaq: TouchableLabel!
 
-    private var liveSessions: [Session] = []
-    private var speakers: [Speaker] = []
-    private var partners: [Partner] = []
+//    private var liveSessions: [Session] = []
+//    private var speakers: [Speaker] = []
+//    private var partners: [Partner] = []
 
     private var presenter: HomePresenter {
         return HomePresenter(view: self, service: AppDelegate.service)
@@ -31,7 +31,7 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
         partnersView.dataSource = self
         partnersView.delegate = self
 
-        presenter.onCreate()
+//        presenter.onCreate()
 
         showSpeakers.onTouchUp = {
             self.showScreen(name: "Speakers")
@@ -54,68 +54,68 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
         config(controller)
         self.navigationController?.pushViewController(controller, animated: true)
     }
-
-    func onLiveSessions(sessions: [Session]) {
-        self.liveSessions = sessions
-        videosView.reloadData()
-    }
-
-    func onSpeakers(speakers: [Speaker]) {
-        self.speakers = speakers
-        speakersView.reloadData()
-    }
-
-    func onPartners(partners: [Partner]) {
-        self.partners = partners
-        partnersView.reloadData()
-    }
+//
+//    func onLiveSessions(sessions: [Session]) {
+//        self.liveSessions = sessions
+//        videosView.reloadData()
+//    }
+//
+//    func onSpeakers(speakers: [Speaker]) {
+//        self.speakers = speakers
+//        speakersView.reloadData()
+//    }
+//
+//    func onPartners(partners: [Partner]) {
+//        self.partners = partners
+//        partnersView.reloadData()
+//    }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch collectionView {
-        case videosView:
-            return liveSessions.count
-        case speakersView:
-            return speakers.count
-        case partnersView:
-            return partners.count
-        default:
-            return 0
-        }
+//        switch collectionView {
+//        case videosView:
+//            return liveSessions.count
+//        case speakersView:
+//            return speakers.count
+//        case partnersView:
+//            return partners.count
+//        default:
+//            return 0
+//        }
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch collectionView {
-        case videosView:
-            let item = collectionView.dequeueReusableCell(withReuseIdentifier: "LiveVideo", for: indexPath) as! LiveVideo
-            item.session = liveSessions[indexPath.row]
-            return item
-        case speakersView:
-            let item = collectionView.dequeueReusableCell(withReuseIdentifier: "SpeakerCard", for: indexPath) as! SpeakerCard
-            item.speaker = speakers[indexPath.row]
-            return item
-        default:
-            let item = collectionView.dequeueReusableCell(withReuseIdentifier: "PartnerCard", for: indexPath) as! PartnerCard
-            item.partner = partners[indexPath.row]
-            return item
-        }
+//        switch collectionView {
+//        case videosView:
+//            let item = collectionView.dequeueReusableCell(withReuseIdentifier: "LiveVideo", for: indexPath) as! LiveVideo
+//            item.session = liveSessions[indexPath.row]
+//            return item
+//        case speakersView:
+//            let item = collectionView.dequeueReusableCell(withReuseIdentifier: "SpeakerCard", for: indexPath) as! SpeakerCard
+//            item.speaker = speakers[indexPath.row]
+//            return item
+//        default:
+//            let item = collectionView.dequeueReusableCell(withReuseIdentifier: "PartnerCard", for: indexPath) as! PartnerCard
+//            item.partner = partners[indexPath.row]
+//            return item
+//        }
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch collectionView {
-        case videosView:
-            let session = liveSessions[indexPath.row]
-            showScreen(name: "Session", config: { controller in
-                (controller as! SessionController).session = session
-            })
-        case speakersView:
-            let speaker = speakers[indexPath.row]
-            print("Select speaker: " + speaker.fullName)
-            showScreen(name: "Speaker",config: { controller in
-                (controller as! SpeakerController).speaker = speaker
-            })
-        default:
-            return
-        }
+//        switch collectionView {
+//        case videosView:
+//            let session = liveSessions[indexPath.row]
+//            showScreen(name: "Session", config: { controller in
+//                (controller as! SessionController).session = session
+//            })
+//        case speakersView:
+//            let speaker = speakers[indexPath.row]
+//            print("Select speaker: " + speaker.fullName)
+//            showScreen(name: "Speaker",config: { controller in
+//                (controller as! SpeakerController).speaker = speaker
+//            })
+//        default:
+//            return
+//        }
     }
 }
 

@@ -2,7 +2,7 @@ package org.jetbrains.kotlinconf.storage
 
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
-import org.jetbrains.kotlinconf.api.*
+import org.jetbrains.kotlinconf.*
 import kotlin.properties.*
 import kotlin.reflect.*
 
@@ -13,49 +13,26 @@ interface ApplicationStorage {
     fun getString(key: String): String?
 }
 
-@UnstableDefault
-inline fun <reified T> ApplicationStorage.bind(
-    key: String,
+@UseExperimental(UnstableDefault::class)
+inline operator fun <reified T> ApplicationStorage.invoke(
     serializer: KSerializer<T>,
-    block: () -> T
-): ReadWriteProperty<ConferenceService, T> {
-    val value = getString(key)?.let { Json.parse(serializer, it) } ?: block()
+    crossinline block: () -> T
+): ReadWriteProperty<ConferenceService, T> = object : ReadWriteProperty<ConferenceService, T> {
+    private var currentValue: T? = null
 
-    return object : ReadWriteProperty<ConferenceService, T> {
-        private var currentValue: T = value
+    override fun setValue(thisRef: ConferenceService, property: KProperty<*>, value: T) {
+        val key = property.name
+        currentValue = value
+        putString(key, Json.stringify(serializer, value))
+    }
 
-        override fun setValue(thisRef: ConferenceService, property: KProperty<*>, value: T) {
-            currentValue = value
-            putString(key, Json.stringify(serializer, value))
-        }
+    override fun getValue(thisRef: ConferenceService, property: KProperty<*>): T {
+        currentValue?.let { return it }
 
-        override fun getValue(thisRef: ConferenceService, property: KProperty<*>): T = currentValue
+        val key = property.name
+        val result = getString(key)?.let { Json.parse(serializer, it) } ?: block()
+        currentValue = result
+
+        return result
     }
 }
-/*
-    /*
-     * Local storage
-     */
-    private inline fun <reified T : Any> read(key: String, elementSerializer: KSerializer<T>) = storage
-        .getString(key, "")
-        .takeUnless { it.isBlank() }
-        ?.let {
-            try {
-                Json.parse(elementSerializer, it)
-            } catch (_: Throwable) {
-                null
-            }
-        }
-
-    private inline fun <reified T : Any> write(key: String, obj: T?, elementSerializer: KSerializer<T>) {
-    }
-
-    private inline fun <reified T : Any> preferences(): ReadWriteProperty<Any?, T?> {
-        val key = T::class.simpleName!!
-        val serializer = T::serializer
-
-        observable(read(key, elementSerializer)) { _, _, new ->
-            write(key, new, elementSerializer)
-        }
-    }
- */

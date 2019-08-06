@@ -9,7 +9,7 @@ class SpeakersController : UIViewController, UITableViewDataSource, SpeakersView
         return SpeakersPresenter(view: self, service: AppDelegate.service)
     }
 
-    private var speakers: [Speaker] = []
+//    private var speakers: [Speaker] = []
 
     override func viewDidLoad() {
         speakersList.dataSource = self
@@ -18,19 +18,19 @@ class SpeakersController : UIViewController, UITableViewDataSource, SpeakersView
         presenter.onCreate()
     }
 
-    func onUpdate(speakers: [Speaker]) {
-        self.speakers = speakers
-        speakersList.reloadData()
-    }
+//    func onUpdate(speakers: [Speaker]) {
+//        self.speakers = speakers
+//        speakersList.reloadData()
+//    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return speakers.count
+        return 0 //speakers.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpeakerCell") as! SpeakerCellView
 
-        cell.speaker = speakers[indexPath.row]
+//        cell.speaker = speakers[indexPath.row]
         return cell
     }
 
@@ -44,10 +44,10 @@ class SpeakersController : UIViewController, UITableViewDataSource, SpeakersView
         let board = UIStoryboard(name: "Main", bundle: nil)
         let controller = board.instantiateViewController(withIdentifier: "Speaker") as! SpeakerController
 
-        let speaker = speakers[indexPath.row]
-        controller.speaker = speaker
-
-        self.navigationController?.pushViewController(controller, animated: true)
+//        let speaker = speakers[indexPath.row]
+//        controller.speaker = speaker
+//
+//        self.navigationController?.pushViewController(controller, animated: true)
     }
 }
 
@@ -56,19 +56,19 @@ class SpeakerCellView : UITableViewCell {
     @IBOutlet weak var speakerPosition: UILabel!
     @IBOutlet weak var speakerPhoto: UIImageView!
 
-    var speaker: Speaker! {
-        didSet {
-            speakerName.text = speaker.fullName
-            speakerPosition.text = "FILL\nFILL"
-            if let profilePicture = speaker.profilePicture {
-
-                do {
-                    let pictureUrl = URL(string: profilePicture)
-                    speakerPhoto.image = UIImage(data: try Data(contentsOf: pictureUrl!))
-                } catch {
-                    print("Failed to load image: " + profilePicture)
-                }
-            }
-        }
-    }
+//    var speaker: Speaker! {
+//        didSet {
+//            speakerName.text = speaker.fullName
+//            speakerPosition.text = "FILL\nFILL"
+//            if let profilePicture = speaker.profilePicture {
+//
+//                do {
+//                    let pictureUrl = URL(string: profilePicture)
+//                    speakerPhoto.image = UIImage(data: try Data(contentsOf: pictureUrl!))
+//                } catch {
+//                    print("Failed to load image: " + profilePicture)
+//                }
+//            }
+//        }
+//    }
 }

@@ -7,7 +7,7 @@ import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import kotlinx.coroutines.*
-import org.jetbrains.kotlinconf.data.*
+import org.jetbrains.kotlinconf.*
 import java.time.*
 import java.util.concurrent.*
 
@@ -35,20 +35,15 @@ fun Application.launchSyncJob(sessionizeUrl: String, sessionizeInterval: Long) {
 }
 
 private val client = HttpClient {
-    install(JsonFeature) {
-        serializer = KotlinxSerializer().apply {
-            setMapper(ConferenceData::class, ConferenceData.serializer())
-        }
-    }
+    install(JsonFeature)
 }
 
 suspend fun synchronizeWithSessionize(sessionizeUrl: String) {
     try {
-        val data = client.get<ConferenceData>(sessionizeUrl)
-        sessionizeData = SessionizeData(data)
+        sessionizeData = client.get<SessionizeData>(sessionizeUrl)
     } catch (cause: Throwable) {
         throw cause
     }
 }
 
-fun getSessionizeData() = sessionizeData ?: throw ServiceUnavailable()
+fun getSessionizeData(): SessionizeData = sessionizeData ?: throw ServiceUnavailable()

@@ -3,8 +3,8 @@ package org.jetbrains.kotlinconf.backend
 import com.zaxxer.hikari.*
 import io.ktor.application.*
 import kotlinx.coroutines.*
+import org.jetbrains.kotlinconf.*
 import kotlin.coroutines.*
-import org.jetbrains.kotlinconf.data.*
 import org.jetbrains.squash.connection.*
 import org.jetbrains.squash.definition.*
 import org.jetbrains.squash.dialects.h2.*
@@ -20,18 +20,20 @@ internal class Database(application: Application) {
     private val connection: DatabaseConnection
 
     init {
-        val config = application.environment.config.config("database")
-        val url = config.property("connection").getString()
-        val poolSize = config.property("poolSize").getString().toInt()
+        val appConfig = application.environment.config.config("database")
+        val url = appConfig.property("connection").getString()
+        val poolSize = appConfig.property("poolSize").getString().toInt()
         application.log.info("Connecting to database at '$url'")
 
         dispatcher = newFixedThreadPoolContext(poolSize, "database-pool")
-        val cfg = HikariConfig()
-        cfg.jdbcUrl = url
-        cfg.maximumPoolSize = poolSize
-        cfg.validate()
 
-        connectionPool = HikariDataSource(cfg)
+        val hikariConfig = HikariConfig().apply {
+            jdbcUrl = url
+            maximumPoolSize = poolSize
+            validate()
+        }
+
+        connectionPool = HikariDataSource(hikariConfig)
 
         connection = H2Connection { connectionPool.connection }
         connection.transaction {

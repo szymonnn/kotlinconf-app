@@ -21,7 +21,7 @@ class SessionController : UIViewController, SessionDetailsView {
     @IBOutlet weak var speakerSecond: TouchableLabel!
 
     private var presenter: SessionDetailsPresenter!
-    var session: Session!
+//    var session: Session!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,18 +32,18 @@ class SessionController : UIViewController, SessionDetailsView {
 
         videoBox.load(withVideoId: "wZZ7oFKsKzY")
 
-        func setupSpeaker(label: TouchableLabel, speaker: Speaker) {
-            label.font = UIFont.headerTextRegular
-            label.text = speaker.fullName
-
-            label.onTouchUp = {
-                let speakerBoard = UIStoryboard(name: "Main", bundle: nil)
-                let speakerController = speakerBoard.instantiateViewController(withIdentifier: "Speaker") as! SpeakerController
-
-                speakerController.speaker = speaker
-                self.navigationController?.pushViewController(speakerController, animated: true)
-            }
-        }
+//        func setupSpeaker(label: TouchableLabel, speaker: Speaker) {
+//            label.font = UIFont.headerTextRegular
+//            label.text = speaker.fullName
+//
+//            label.onTouchUp = {
+//                let speakerBoard = UIStoryboard(name: "Main", bundle: nil)
+//                let speakerController = speakerBoard.instantiateViewController(withIdentifier: "Speaker") as! SpeakerController
+//
+//                speakerController.speaker = speaker
+//                self.navigationController?.pushViewController(speakerController, animated: true)
+//            }
+//        }
 
         let speakers = session.speakers
         setupSpeaker(label: speakerFirst, speaker: speakers[0])

@@ -1,4 +1,4 @@
-package org.jetbrains.kotlinconf.api
+package org.jetbrains.kotlinconf
 
 import io.ktor.http.*
 

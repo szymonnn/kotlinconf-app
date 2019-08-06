@@ -1,10 +1,9 @@
 package org.jetbrains.kotlinconf.ui
 
-import android.arch.core.*
 import android.support.v4.app.*
 import org.jetbrains.anko.*
+import org.jetbrains.kotlinconf.*
 import org.jetbrains.kotlinconf.R
-import org.jetbrains.kotlinconf.api.*
 import org.jetbrains.kotlinconf.presentation.*
 
 abstract class BaseFragment : Fragment(), BaseView {

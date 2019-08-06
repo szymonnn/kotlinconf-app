@@ -4,7 +4,6 @@ import android.app.*
 import android.content.*
 import android.support.multidex.*
 import org.jetbrains.anko.*
-import org.jetbrains.kotlinconf.api.*
 import org.jetbrains.kotlinconf.storage.*
 import java.util.*
 

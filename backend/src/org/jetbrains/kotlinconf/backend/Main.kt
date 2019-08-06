@@ -8,6 +8,7 @@ import io.ktor.http.content.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import io.ktor.serialization.*
 import io.ktor.util.*
 import io.ktor.websocket.*
 
@@ -55,7 +56,7 @@ internal fun Application.main() {
     }
 
     install(ContentNegotiation) {
-        register(ContentType.Application.Json, KotlinxConverter())
+        serialization()
     }
 
     install(CORS) {

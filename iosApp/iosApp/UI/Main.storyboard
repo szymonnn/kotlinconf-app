@@ -591,7 +591,7 @@
             <objects>
                 <viewController id="UyV-14-mut" userLabel="Home" customClass="HomeController" customModule="KotlinConf" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kmb-7k-Xk1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="1563"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvg-kq-IIq">
@@ -1133,7 +1133,6 @@ Denmark</string>
                 <navigationController id="1M3-pa-0on" userLabel="Schedule Navigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="schedule" id="k02-2B-gTi"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4eV-ss-Hfd">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

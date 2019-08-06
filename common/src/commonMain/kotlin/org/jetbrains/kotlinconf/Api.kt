@@ -1,4 +1,4 @@
-package org.jetbrains.kotlinconf.api
+package org.jetbrains.kotlinconf
 
 import io.ktor.client.*
 import io.ktor.client.features.*
@@ -8,12 +8,11 @@ import io.ktor.client.request.*
 import io.ktor.client.response.*
 import io.ktor.http.*
 import kotlinx.io.core.*
-import org.jetbrains.kotlinconf.data.*
 
 /**
  * Adapter to handle backend API and manage auth information.
  */
-class ApiAdapter(private val endPoint: String, private val userId: String) {
+class Api(private val endPoint: String, private val userId: String) {
 
     private val client = HttpClient {
         install(JsonFeature) {
