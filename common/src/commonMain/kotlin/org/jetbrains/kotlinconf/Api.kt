@@ -8,11 +8,15 @@ import io.ktor.client.request.*
 import io.ktor.client.response.*
 import io.ktor.http.*
 import kotlinx.io.core.*
+import kotlin.native.concurrent.*
 
 /**
  * Adapter to handle backend API and manage auth information.
  */
-class Api(private val endPoint: String, private val userId: String) {
+@ThreadLocal
+internal object Api {
+    //    val endpoint = "https://konf-staging.kotlin-aws.intellij.net/"
+    val endpoint = "http://0.0.0.0:8080"
 
     private val client = HttpClient {
         install(JsonFeature) {
@@ -40,17 +44,18 @@ class Api(private val endPoint: String, private val userId: String) {
     }
 
     /**
-     * Create user with id [userId].
-     *
      * @return status of request.
      */
-    suspend fun createUser(userId: String): Boolean = client.request<HttpResponse> {
-        apiUrl("users")
-        method = HttpMethod.Post
-        body = userId
-    }.use {
-        println("User created: ${it.status}")
-        it.status.isSuccess()
+    suspend fun sign(userId: String): Boolean {
+
+        return client.request<HttpResponse> {
+            apiUrl("users")
+            method = HttpMethod.Post
+            body = userId
+        }.use {
+            println("User created: ${it.status}")
+            it.status.isSuccess()
+        }
     }
 
     /**
@@ -77,12 +82,18 @@ class Api(private val endPoint: String, private val userId: String) {
         body = sessionId
     }
 
+    /**
+     * Vote for session.
+     */
     suspend fun postVote(userId: String, vote: VoteData): Unit = client.post {
         apiUrl("votes", userId)
         json()
         body = vote
     }
 
+    /**
+     * Remove vote.
+     */
     suspend fun deleteVote(userId: String, sessionId: String): Unit = client.delete {
         apiUrl("votes", userId)
         body = sessionId
@@ -98,7 +109,7 @@ class Api(private val endPoint: String, private val userId: String) {
         }
         header(HttpHeaders.CacheControl, "no-cache")
         url {
-            takeFrom(endPoint)
+            takeFrom(endpoint)
             encodedPath = path
         }
     }

@@ -2,7 +2,9 @@ package org.jetbrains.kotlinconf.storage
 
 import platform.Foundation.*
 
-class IosStorage : ApplicationStorage {
+internal actual fun ApplicationStorage(): ApplicationStorage = IosStorage()
+
+internal class IosStorage : ApplicationStorage {
     private val delegate: NSUserDefaults = NSUserDefaults.standardUserDefaults()
 
     override fun putBoolean(key: String, value: Boolean) {

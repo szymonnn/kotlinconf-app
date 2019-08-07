@@ -3,7 +3,7 @@ import UIKit
 import youtube_ios_player_helper
 import KotlinConfAPI
 
-class SessionController : UIViewController, SessionDetailsView {
+class SessionController : UIViewController, SessionView {
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var videoBox: YTPlayerView!
 
@@ -20,41 +20,49 @@ class SessionController : UIViewController, SessionDetailsView {
     @IBOutlet weak var speakerFirst: TouchableLabel!
     @IBOutlet weak var speakerSecond: TouchableLabel!
 
-    private var presenter: SessionDetailsPresenter!
-//    var session: Session!
+    private var presenter: SessionPresenter! {
+        return SessionPresenter(view: self)
+    }
+
+    var session: SessionData!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         startButton.setImage(UIImage(named: "favoriteEmpty.png"), for: .normal)
         startButton.setImage(UIImage(named: "favoriteSelected.png"), for: .selected)
-        startButton.isSelected = session.isFavorite
+
 
         videoBox.load(withVideoId: "wZZ7oFKsKzY")
 
-//        func setupSpeaker(label: TouchableLabel, speaker: Speaker) {
-//            label.font = UIFont.headerTextRegular
-//            label.text = speaker.fullName
-//
-//            label.onTouchUp = {
-//                let speakerBoard = UIStoryboard(name: "Main", bundle: nil)
-//                let speakerController = speakerBoard.instantiateViewController(withIdentifier: "Speaker") as! SpeakerController
-//
-//                speakerController.speaker = speaker
-//                self.navigationController?.pushViewController(speakerController, animated: true)
-//            }
-//        }
+    }
 
-        let speakers = session.speakers
-        setupSpeaker(label: speakerFirst, speaker: speakers[0])
-        if (speakers.count > 1) {
-            speakerSecond.isHidden = false
-            setupSpeaker(label: speakerSecond, speaker: speakers[1])
-        } else {
-            speakerSecond.isHidden = true
+    func onSession(session: SessionData, speakers: [SpeakerData], isFavorite: Bool, rating: RatingData?) {
+        startButton.isSelected = isFavorite
+        onVoteChange(rating: rating)
+
+
+        func setupSpeaker(label: TouchableLabel, speaker: SpeakerData) {
+            label.font = UIFont.headerTextRegular
+            label.text = speaker.fullName
+
+            label.onTouchUp = {
+                let speakerBoard = UIStoryboard(name: "Main", bundle: nil)
+                let speakerController = speakerBoard.instantiateViewController(withIdentifier: "Speaker") as! SpeakerController
+
+                speakerController.speaker = speaker
+                self.navigationController?.pushViewController(speakerController, animated: true)
+            }
         }
 
-        presenter = SessionDetailsPresenter(view: self, session: session, service: AppDelegate.service)
+//        let speakers = session.speakers
+//        setupSpeaker(label: speakerFirst, speaker: speakers[0])
+//        if (speakers.count > 1) {
+//            speakerSecond.isHidden = false
+//            setupSpeaker(label: speakerSecond, speaker: speakers[1])
+//        } else {
+//            speakerSecond.isHidden = true
+//        }
 
         let titleText = session.title
         if (titleText.count > 30) {
@@ -66,11 +74,20 @@ class SessionController : UIViewController, SessionDetailsView {
         titleLabel.text = titleText.uppercased()
 
         descriptionLabel.attributedText = LetterSpacedText(text: session.descriptionText, spacing: 0.52)
-        roomLabel.text = session.room.name
+//        roomLabel.text = session.room.name
+//        tagsLabel.text = session.tags.joined(separator: " ")
+    }
 
-        tagsLabel.text = session.tags.joined(separator: " ")
+    func onVoteChange(rating: RatingData?) {
+        voteDown.isSelected = rating == RatingData.bad
+        voteUp.isSelected = rating == RatingData.good
+        voteSoso.isSelected = rating == RatingData.ok
 
-        updateRating(rating: session.rating)
+        setRatingClickable(clickable: true)
+    }
+
+    func onUpdateFavorite(isFavorite: Bool) {
+        startButton.isSelected = isFavorite
     }
 
     @IBAction func backButtonTouch(_ sender: Any) {
@@ -78,35 +95,31 @@ class SessionController : UIViewController, SessionDetailsView {
     }
 
     @IBAction func voteUpTouch(_ sender: Any) {
-        presenter.onRatingButtonClicked(clicked: RatingData.good)
+        sendRating(rating: RatingData.good)
     }
 
     @IBAction func voteSosoTouch(_ sender: Any) {
-        presenter.onRatingButtonClicked(clicked: RatingData.ok)
+        sendRating(rating: RatingData.ok)
     }
 
     @IBAction func voteDownTouch(_ sender: Any) {
-        presenter.onRatingButtonClicked(clicked: RatingData.bad)
+        sendRating(rating: RatingData.bad)
     }
 
     @IBAction func favoriteClick(_ sender: Any) {
         startButton.isSelected = !startButton.isSelected
-        presenter.onFavoriteButtonClicked()
+        presenter.favoriteTouch()
     }
 
-    func updateRating(rating: RatingData?) {
-        voteDown.isSelected = rating == RatingData.bad
-        voteUp.isSelected = rating == RatingData.good
-        voteSoso.isSelected = rating == RatingData.ok
+
+    private func sendRating(rating: RatingData) {
+        setRatingClickable(clickable: false)
+        presenter.voteTouch(rating: rating)
     }
 
-    func setRatingClickable(clickable: Bool) {
+    private func setRatingClickable(clickable: Bool) {
         voteDown.isEnabled = clickable
         voteUp.isEnabled = clickable
         voteSoso.isEnabled = clickable
-    }
-
-    func updateFavorite(isFavorite: Bool) {
-        startButton.isSelected = isFavorite
     }
 }

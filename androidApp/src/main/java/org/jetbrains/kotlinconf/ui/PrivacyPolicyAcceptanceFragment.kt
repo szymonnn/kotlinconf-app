@@ -29,7 +29,7 @@ class PrivacyPolicyAcceptanceFragment : BaseDialogFragment() {
             .setCancelable(false)
             .setView(createView())
             .setPositiveButton(R.string.submit_button) { _, _ ->
-                privacyPolicyPresenter.onAcceptPrivacyPolicyClicked()
+                privacyPolicyPresenter.acceptPrivacyPolicy()
             }
             .create()
         dialog.setOnShowListener {

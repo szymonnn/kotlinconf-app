@@ -21,43 +21,63 @@
             <objects>
                 <viewController storyboardIdentifier="ScheduleController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fbL-dW-tKq" userLabel="Schedule" customClass="ScheduleController" customModule="KotlinConf" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="amc-C4-hXk">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SCHEDULE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GcJ-oI-DYS">
-                                <rect key="frame" x="33" y="109" width="381" height="64"/>
-                                <fontDescription key="fontDescription" name="DrukCy-Bold" family="Druk Cy" pointSize="64"/>
-                                <color key="textColor" name="redOrange"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ci6-09-eck" userLabel="ScheduleTable">
-                                <rect key="frame" x="0.0" y="180" width="414" height="633"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="112" estimatedRowHeight="-1" sectionHeaderHeight="144" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aP3-J2-s5g">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="separatorColor" name="darkGrey"/>
+                                <color key="sectionIndexBackgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableCell" id="OOV-4t-lW7" userLabel="Schedule Table Cell">
+                                        <rect key="frame" x="0.0" y="144" width="414" height="112"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OOV-4t-lW7" id="D81-p5-3H1">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="112"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYG-R3-WF0" customClass="SessionCardView" customModule="KotlinConf" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="0.0" width="398" height="108"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="7"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="iYG-R3-WF0" firstAttribute="top" secondItem="D81-p5-3H1" secondAttribute="top" id="2d4-3N-Pyf"/>
+                                                <constraint firstAttribute="trailing" secondItem="iYG-R3-WF0" secondAttribute="trailing" constant="8" id="9VO-GM-JDY"/>
+                                                <constraint firstItem="iYG-R3-WF0" firstAttribute="leading" secondItem="D81-p5-3H1" secondAttribute="leading" constant="8" id="XMo-gQ-Z6E"/>
+                                                <constraint firstAttribute="bottom" secondItem="iYG-R3-WF0" secondAttribute="bottom" constant="4" id="nTQ-zU-gSL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ci6-09-eck" firstAttribute="bottom" secondItem="2g3-eo-w5O" secondAttribute="bottom" id="7cC-gt-Hjt"/>
-                            <constraint firstItem="ci6-09-eck" firstAttribute="trailing" secondItem="GcJ-oI-DYS" secondAttribute="trailing" id="Fei-qo-hvI"/>
-                            <constraint firstItem="GcJ-oI-DYS" firstAttribute="top" secondItem="2g3-eo-w5O" secondAttribute="top" constant="21" id="J9r-vp-gDm"/>
-                            <constraint firstItem="ci6-09-eck" firstAttribute="leading" secondItem="amc-C4-hXk" secondAttribute="leading" id="Scd-3w-9bU"/>
-                            <constraint firstAttribute="trailing" secondItem="ci6-09-eck" secondAttribute="trailing" id="TBY-Hq-qxU"/>
-                            <constraint firstItem="ci6-09-eck" firstAttribute="top" secondItem="GcJ-oI-DYS" secondAttribute="bottom" constant="7" id="knH-5J-cq9"/>
-                            <constraint firstItem="GcJ-oI-DYS" firstAttribute="leading" secondItem="2g3-eo-w5O" secondAttribute="leading" constant="33" id="oAH-Hn-A9i"/>
+                            <constraint firstItem="aP3-J2-s5g" firstAttribute="top" secondItem="2g3-eo-w5O" secondAttribute="top" id="F9t-gg-WLO"/>
+                            <constraint firstItem="2g3-eo-w5O" firstAttribute="trailing" secondItem="aP3-J2-s5g" secondAttribute="trailing" id="OLH-vv-eoR"/>
+                            <constraint firstItem="aP3-J2-s5g" firstAttribute="leading" secondItem="2g3-eo-w5O" secondAttribute="leading" id="cvK-Q6-xFO"/>
+                            <constraint firstItem="2g3-eo-w5O" firstAttribute="bottom" secondItem="aP3-J2-s5g" secondAttribute="bottom" id="ncf-io-zno"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2g3-eo-w5O"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="schedule" id="iHU-xz-2fR" userLabel="Schedule Item"/>
-                    <navigationItem key="navigationItem" title="SCHEDULE" id="8Nw-S5-6Ak"/>
+                    <navigationItem key="navigationItem" id="8Nw-S5-6Ak"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
-                        <outlet property="scheduleTable" destination="ci6-09-eck" id="PTD-DK-sC5"/>
+                        <outlet property="scheduleTable" destination="aP3-J2-s5g" id="V0N-6S-zCY"/>
                         <segue destination="EXc-s1-4Xq" kind="show" identifier="Session" id="RNN-GJ-Vbr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="63D-ge-bdu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-614" y="1929"/>
+            <point key="canvasLocation" x="-614.49275362318849" y="1928.5714285714284"/>
         </scene>
         <!--Speakers-->
         <scene sceneID="tqq-wP-lnD">
@@ -591,7 +611,7 @@
             <objects>
                 <viewController id="UyV-14-mut" userLabel="Home" customClass="HomeController" customModule="KotlinConf" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kmb-7k-Xk1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="1563"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dvg-kq-IIq">
@@ -1133,6 +1153,7 @@ Denmark</string>
                 <navigationController id="1M3-pa-0on" userLabel="Schedule Navigation" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="schedule" id="k02-2B-gTi"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4eV-ss-Hfd">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1366,7 +1387,7 @@ Denmark</string>
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gXt-Tm-lKK"/>
+        <segue reference="qJq-pZ-cyJ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="redOrange"/>
 </document>

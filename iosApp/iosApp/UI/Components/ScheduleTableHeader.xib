@@ -8,64 +8,56 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Druk-Bold-Desktop.otf">
+            <string>DrukCy-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view userInteractionEnabled="NO" contentMode="scaleToFill" restorationIdentifier="ScheduleTableHeader" id="udH-FS-bEP" customClass="ScheduleTableHeader" customModule="KotlinConf" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="32"/>
+        <view userInteractionEnabled="NO" contentMode="scaleToFill" restorationIdentifier="ScheduleTableHeader" id="udH-FS-bEP" userLabel="ScheduleTableHeader" customClass="ScheduleTableHeader" customModule="KotlinConf" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="147"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H3o-oU-ad9" userLabel="Back">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="32"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dRH-5Q-tff" userLabel="Background">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="147"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eLq-CX-sNV">
-                            <rect key="frame" x="33" y="6.5" width="42.5" height="19.5"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ffee break coffee break coffee coffee break coffee coffee break coffee break coffee coffee break coffee " textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EB0-Vr-1R6" userLabel="Notice">
+                            <rect key="frame" x="0.0" y="12" width="375" height="18"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <color key="textColor" red="1" green="0.24705882352941178" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOW" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Mt-VF-Fet">
-                            <rect key="frame" x="325" y="6.5" width="40" height="19.5"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:00–14:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TGu-fg-l5p" userLabel="Time">
+                            <rect key="frame" x="25" y="47" width="350" height="80"/>
+                            <fontDescription key="fontDescription" name="DrukCy-Bold" family="Druk Cy" pointSize="80"/>
+                            <color key="textColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a1G-nX-XJy" userLabel="Separator">
-                            <rect key="frame" x="0.0" y="31" width="375" height="1"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="1" id="FD8-N7-oGT"/>
-                            </constraints>
-                        </view>
                     </subviews>
-                    <color key="backgroundColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="trailing" secondItem="a1G-nX-XJy" secondAttribute="trailing" id="8N3-BX-fDr"/>
-                        <constraint firstItem="1Mt-VF-Fet" firstAttribute="baseline" secondItem="eLq-CX-sNV" secondAttribute="baseline" id="TbI-Pb-mfX"/>
-                        <constraint firstAttribute="trailing" secondItem="1Mt-VF-Fet" secondAttribute="trailing" constant="10" id="XL5-c5-iGr"/>
-                        <constraint firstItem="a1G-nX-XJy" firstAttribute="leading" secondItem="H3o-oU-ad9" secondAttribute="leading" id="bIb-vp-rad"/>
-                        <constraint firstAttribute="bottom" secondItem="a1G-nX-XJy" secondAttribute="bottom" id="iwx-NA-qzi"/>
-                        <constraint firstItem="eLq-CX-sNV" firstAttribute="leading" secondItem="H3o-oU-ad9" secondAttribute="leading" constant="33" id="sVy-3y-EQT"/>
-                        <constraint firstItem="1Mt-VF-Fet" firstAttribute="centerY" secondItem="H3o-oU-ad9" secondAttribute="centerY" id="vBQ-uA-sfc"/>
+                        <constraint firstItem="EB0-Vr-1R6" firstAttribute="top" secondItem="dRH-5Q-tff" secondAttribute="top" constant="12" id="BOT-wZ-X2N"/>
+                        <constraint firstItem="EB0-Vr-1R6" firstAttribute="leading" secondItem="dRH-5Q-tff" secondAttribute="leading" id="V7n-Rg-jFb"/>
+                        <constraint firstAttribute="trailing" secondItem="EB0-Vr-1R6" secondAttribute="trailing" id="bsO-Qt-3Hr"/>
+                        <constraint firstItem="TGu-fg-l5p" firstAttribute="leading" secondItem="dRH-5Q-tff" secondAttribute="leading" constant="25" id="i9F-SR-c97"/>
+                        <constraint firstAttribute="trailing" secondItem="TGu-fg-l5p" secondAttribute="trailing" id="orQ-We-6sd"/>
+                        <constraint firstAttribute="bottom" secondItem="TGu-fg-l5p" secondAttribute="bottom" constant="20" id="tu6-72-fZj"/>
                     </constraints>
                 </view>
             </subviews>
+            <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="H3o-oU-ad9" firstAttribute="top" secondItem="udH-FS-bEP" secondAttribute="top" id="2EW-d2-Fcb"/>
-                <constraint firstItem="H3o-oU-ad9" firstAttribute="leading" secondItem="udH-FS-bEP" secondAttribute="leading" id="hHL-lE-Dnz"/>
-                <constraint firstAttribute="trailing" secondItem="H3o-oU-ad9" secondAttribute="trailing" id="kpE-Xg-UQn"/>
-                <constraint firstAttribute="bottom" secondItem="H3o-oU-ad9" secondAttribute="bottom" id="mEn-Sx-HeY"/>
+                <constraint firstAttribute="bottom" secondItem="dRH-5Q-tff" secondAttribute="bottom" id="4fE-th-W0b"/>
+                <constraint firstItem="dRH-5Q-tff" firstAttribute="leading" secondItem="udH-FS-bEP" secondAttribute="leading" id="A93-nX-EJZ"/>
+                <constraint firstAttribute="trailing" secondItem="dRH-5Q-tff" secondAttribute="trailing" id="Al0-ZB-lJm"/>
+                <constraint firstItem="dRH-5Q-tff" firstAttribute="top" secondItem="udH-FS-bEP" secondAttribute="top" id="fgd-6T-roF"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="backView" destination="H3o-oU-ad9" id="ApW-bc-TR3"/>
-                <outlet property="nowLabel" destination="1Mt-VF-Fet" id="2YW-Hn-pUA"/>
-                <outlet property="separatorView" destination="a1G-nX-XJy" id="azC-ij-s46"/>
-                <outlet property="timeLabel" destination="eLq-CX-sNV" id="gaZ-aH-pcN"/>
-            </connections>
-            <point key="canvasLocation" x="-348" y="-303.14842578710648"/>
+            <point key="canvasLocation" x="-348" y="-251.42428785607197"/>
         </view>
     </objects>
 </document>

@@ -102,7 +102,7 @@ extension UIFont {
 func LetterSpacedText(text: String, spacing: Float) -> NSAttributedString {
     let result = NSMutableAttributedString(string: text)
     result.addAttribute(
-        NSAttributedStringKey.kern, value: spacing, range: NSRange(location: 0, length: text.count)
+        NSAttributedString.Key.kern, value: spacing, range: NSRange(location: 0, length: text.count)
     )
     return result
 }

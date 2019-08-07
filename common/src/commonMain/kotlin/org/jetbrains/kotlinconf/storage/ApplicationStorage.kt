@@ -6,7 +6,9 @@ import org.jetbrains.kotlinconf.*
 import kotlin.properties.*
 import kotlin.reflect.*
 
-interface ApplicationStorage {
+internal expect fun ApplicationStorage(): ApplicationStorage
+
+internal interface ApplicationStorage {
     fun putBoolean(key: String, value: Boolean)
     fun getBoolean(key: String, defaultValue: Boolean): Boolean
     fun putString(key: String, value: String)
@@ -14,7 +16,7 @@ interface ApplicationStorage {
 }
 
 @UseExperimental(UnstableDefault::class)
-inline operator fun <reified T> ApplicationStorage.invoke(
+internal inline operator fun <reified T> ApplicationStorage.invoke(
     serializer: KSerializer<T>,
     crossinline block: () -> T
 ): ReadWriteProperty<ConferenceService, T> = object : ReadWriteProperty<ConferenceService, T> {

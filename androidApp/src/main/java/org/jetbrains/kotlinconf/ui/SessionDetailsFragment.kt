@@ -9,14 +9,14 @@ import org.jetbrains.anko.*
 import org.jetbrains.kotlinconf.*
 import org.jetbrains.kotlinconf.data.*
 import org.jetbrains.kotlinconf.presentation.*
-import org.jetbrains.kotlinconf.ui.views.*
+import org.jetbrains.kotlinconf.presentation.SessionView
 
-class SessionDetailsFragment : BaseFragment(), SessionDetailsView {
+class SessionDetailsFragment : BaseFragment(), SessionView {
     private lateinit var session: Session
     private val sessionView: SessionView by lazy { SessionView(this) }
 
     private val repository by lazy { (activity!!.application as KotlinConfApplication).service }
-    private val presenter by lazy { SessionDetailsPresenter(this, session, repository) }
+    private val presenter by lazy { SessionPresenter(this, session, repository) }
 
     private val Session.timeString: String get() = (startsAt to endsAt).toReadableString()
     private val Session.roomText: String get() = "Room $room"
@@ -33,9 +33,9 @@ class SessionDetailsFragment : BaseFragment(), SessionDetailsView {
 
         with(sessionView) {
             favoriteButton.setOnClickListener { presenter.onFavoriteButtonClicked() }
-            goodButton.setOnClickListener { presenter.onRatingButtonClicked(RatingData.GOOD) }
-            okButton.setOnClickListener { presenter.onRatingButtonClicked(RatingData.OK) }
-            badButton.setOnClickListener { presenter.onRatingButtonClicked(RatingData.BAD) }
+            goodButton.setOnClickListener { presenter.voteTouch(RatingData.GOOD) }
+            okButton.setOnClickListener { presenter.voteTouch(RatingData.OK) }
+            badButton.setOnClickListener { presenter.voteTouch(RatingData.BAD) }
         }
     }
 
@@ -77,10 +77,10 @@ class SessionDetailsFragment : BaseFragment(), SessionDetailsView {
     }
 
 
-    override fun updateFavorite(isFavorite: Boolean) {
+    override fun onUpdateFavorite(isFavorite: Boolean) {
     }
 
-    override fun updateRating(rating: RatingData?) {
+    override fun onVoteChange(rating: RatingData?) {
         fun selectButton(target: RatingData): Int = when (rating) {
             target -> R.drawable.round_toggle_button_background_selected
             else -> R.drawable.round_toggle_button_background

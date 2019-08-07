@@ -8,15 +8,17 @@ class LiveVideo : UICollectionViewCell {
     @IBOutlet weak var speaker: UILabel!
     @IBOutlet weak var video: YTPlayerView!
 
-//    var session: Session! {
-//        didSet {
+    var card: SessionCard! {
+        didSet {
+//            let session = card.session
+
 //            sessionTitle.text = session.title
-//
-//            speaker.text = session.speakers.map { (speaker) -> String in
+
+//            speaker.text = card.speakers.map { (speaker) -> String in
 //                speaker.fullName
 //            }.joined(separator: ", ")
-//
-//            video.load(withVideoId: "YbF8Q8LxAJs")
-//        }
-//    }
+
+            video.load(withVideoId: "YbF8Q8LxAJs")
+        }
+    }
 }

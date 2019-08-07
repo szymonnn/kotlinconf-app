@@ -1,7 +1,6 @@
 import Foundation
 import UIKit
 
-@IBDesignable
 class ScheduleTableHeader : UITableViewHeaderFooterView {
     @IBOutlet weak var backView: UIView!
     @IBOutlet weak var timeLabel: UILabel!

@@ -1,6 +1,7 @@
 package org.jetbrains.kotlinconf
 
 import kotlinx.serialization.*
+import kotlinx.serialization.internal.*
 
 @Serializable
 class ConferenceData(
@@ -114,5 +115,17 @@ enum class RatingData(val value: Int) {
 
     companion object {
         fun valueOf(value: Int): RatingData = values().find { it.value == value }!!
+
+        fun serializer(): KSerializer<RatingData> = object : KSerializer<RatingData> {
+
+            override val descriptor: SerialDescriptor
+                get() = IntDescriptor.withName("RatingDataDescriptor")
+
+            override fun deserialize(decoder: Decoder): RatingData = valueOf(decoder.decodeInt())
+
+            override fun serialize(encoder: Encoder, obj: RatingData) {
+                encoder.encodeInt(obj.value)
+            }
+        }
     }
 }

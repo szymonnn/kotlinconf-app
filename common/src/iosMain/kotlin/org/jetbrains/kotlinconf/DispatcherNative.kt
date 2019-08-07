@@ -1,6 +1,8 @@
 package org.jetbrains.kotlinconf
 
 import kotlinx.coroutines.*
+import platform.Foundation.*
+import platform.UIKit.*
 import platform.darwin.*
 import kotlin.coroutines.*
 
@@ -13,4 +15,8 @@ private object UI : CoroutineDispatcher() {
             block.run()
         }
     }
+}
+
+internal actual fun generateUserId(): String {
+    return (UIDevice.currentDevice.identifierForVendor ?: NSUUID.UUID()).UUIDString
 }
