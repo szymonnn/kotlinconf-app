@@ -24,13 +24,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="112" estimatedRowHeight="-1" sectionHeaderHeight="144" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aP3-J2-s5g">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="112" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aP3-J2-s5g">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <searchBar key="tableHeaderView" contentMode="redraw" id="XBY-FM-DuO">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </searchBar>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableCell" id="OOV-4t-lW7" userLabel="Schedule Table Cell">
-                                        <rect key="frame" x="0.0" y="144" width="414" height="112"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleTableCell" id="OOV-4t-lW7" userLabel="Schedule Table Cell" customClass="ScheduleTableCell" customModule="KotlinConf" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="414" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OOV-4t-lW7" id="D81-p5-3H1">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="112"/>
@@ -54,6 +59,10 @@
                                                 <constraint firstAttribute="bottom" secondItem="iYG-R3-WF0" secondAttribute="bottom" constant="4" id="nTQ-zU-gSL"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <connections>
+                                            <outlet property="card" destination="iYG-R3-WF0" id="h5V-Uo-JwW"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -67,7 +76,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2g3-eo-w5O"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="schedule" id="iHU-xz-2fR" userLabel="Schedule Item"/>
+                    <tabBarItem key="tabBarItem" title="Schedule" image="schedule" id="iHU-xz-2fR" userLabel="Schedule Item"/>
                     <navigationItem key="navigationItem" id="8Nw-S5-6Ak"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
@@ -199,6 +208,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="K44-XQ-TQI"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Speakers" image="speakers" id="4xv-BK-iBb">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="0.086274509803921567" green="0.49019607843137253" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="speakersList" destination="ZFt-xt-GYJ" id="fh5-kB-fDm"/>
@@ -207,7 +223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ruF-1T-dE4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1380" y="3446"/>
+            <point key="canvasLocation" x="-1374" y="1929"/>
         </scene>
         <!--Session-->
         <scene sceneID="BCs-a6-Khj">
@@ -337,7 +353,7 @@
                                                         <rect key="frame" x="367" y="1" width="46" height="38"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6BZ-bQ-2av" userLabel="VoteDown">
-                                                                <rect key="frame" x="13.5" y="8" width="19" height="22"/>
+                                                                <rect key="frame" x="15" y="8" width="16" height="22"/>
                                                                 <state key="normal" image="voteDown"/>
                                                                 <connections>
                                                                     <action selector="voteDownTouch:" destination="EXc-s1-4Xq" eventType="touchUpInside" id="L5v-a7-Zps"/>
@@ -355,7 +371,7 @@
                                                         <rect key="frame" x="320" y="1" width="46" height="38"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bT2-Gg-B0f" userLabel="VoteSoso">
-                                                                <rect key="frame" x="2" y="-4" width="42" height="46"/>
+                                                                <rect key="frame" x="3" y="-4" width="40" height="46"/>
                                                                 <inset key="contentEdgeInsets" minX="12" minY="12" maxX="12" maxY="12"/>
                                                                 <state key="normal" image="voteSoso"/>
                                                                 <connections>
@@ -374,7 +390,7 @@
                                                         <rect key="frame" x="273" y="1" width="46" height="38"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="woE-Xj-EdY" userLabel="VoteUp">
-                                                                <rect key="frame" x="1.5" y="-4" width="43" height="46"/>
+                                                                <rect key="frame" x="3" y="-4" width="40" height="46"/>
                                                                 <inset key="contentEdgeInsets" minX="12" minY="12" maxX="12" maxY="12"/>
                                                                 <state key="normal" image="voteUp"/>
                                                                 <connections>
@@ -604,7 +620,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aND-eP-j8b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-614" y="3446"/>
+            <point key="canvasLocation" x="-1375" y="3446"/>
         </scene>
         <!--Home-->
         <scene sceneID="0sw-Or-7H1">
@@ -993,7 +1009,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Mmn-7e-LpQ"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="home" id="lcB-0X-tR2" userLabel="Home Item"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home" id="lcB-0X-tR2" userLabel="Home Item"/>
                     <size key="freeformSize" width="414" height="1563"/>
                     <connections>
                         <outlet property="partnersView" destination="eWg-Rf-qip" id="qb2-cR-nig"/>
@@ -1020,7 +1036,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" red="0.97647058823529409" green="0.97647058823529409" blue="0.97647058823529409" alpha="0.93999999999999995" colorSpace="calibratedRGB"/>
-                        <color key="selectedImageTintColor" name="redOrange"/>
+                        <color key="tintColor" red="0.086274509803921567" green="0.49019607843137253" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="selectedImageTintColor" red="1" green="0.24705882352941178" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="unselectedItemTintColor">
                                 <color key="value" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1029,6 +1046,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="UyV-14-mut" kind="relationship" relationship="viewControllers" id="YyZ-lV-vba"/>
+                        <segue destination="HNe-zI-CNe" kind="relationship" relationship="viewControllers" id="HSK-fJ-7aZ"/>
                         <segue destination="fbL-dW-tKq" kind="relationship" relationship="viewControllers" id="aDW-zE-3gu"/>
                         <segue destination="6lZ-CV-Cas" kind="relationship" relationship="viewControllers" id="a98-aP-F2z"/>
                     </connections>
@@ -1138,14 +1156,14 @@ Denmark</string>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0xc-IW-W2q"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="venue" id="PfG-R0-w1h" userLabel="Venue Item"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map" id="PfG-R0-w1h" userLabel="Venue Item"/>
                     <connections>
                         <outlet property="mapView" destination="JrM-b4-LiB" id="tmz-xK-fUv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JWj-eu-CRJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="845" y="1929"/>
+            <point key="canvasLocation" x="149" y="1929"/>
         </scene>
         <!--Schedule Navigation-->
         <scene sceneID="zFA-5Y-BYK">
@@ -1362,11 +1380,12 @@ Denmark</string>
         <image name="back_white" width="16" height="29"/>
         <image name="favoriteEmpty" width="42" height="41"/>
         <image name="getIcon" width="14" height="14"/>
-        <image name="home" width="20" height="24"/>
+        <image name="home" width="32" height="24"/>
         <image name="logo" width="179" height="44"/>
+        <image name="map" width="28" height="19"/>
         <image name="rectangle" width="375" height="376"/>
-        <image name="schedule" width="26" height="24"/>
-        <image name="venue" width="25" height="25"/>
+        <image name="schedule" width="22" height="22"/>
+        <image name="speakers" width="20" height="25"/>
         <image name="voteDown" width="19" height="17"/>
         <image name="voteSoso" width="18" height="19"/>
         <image name="voteUp" width="19" height="17"/>
@@ -1387,7 +1406,7 @@ Denmark</string>
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qJq-pZ-cyJ"/>
+        <segue reference="gXt-Tm-lKK"/>
+        <segue reference="HWp-hd-oXB"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" name="redOrange"/>
 </document>

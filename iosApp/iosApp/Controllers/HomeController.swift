@@ -99,7 +99,7 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case videosView:
-            let session = liveSessions[indexPath.row]
+//            let session = liveSessions[indexPath.row]
             showScreen(name: "Session", config: { controller in
 //                (controller as! SessionController).session = session
             })
