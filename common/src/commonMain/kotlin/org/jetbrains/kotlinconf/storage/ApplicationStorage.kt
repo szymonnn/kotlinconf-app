@@ -32,9 +32,14 @@ internal inline operator fun <reified T> ApplicationStorage.invoke(
         currentValue?.let { return it }
 
         val key = property.name
-        val result = getString(key)?.let { Json.parse(serializer, it) } ?: block()
-        currentValue = result
 
+        val result = try {
+            getString(key)?.let { Json.parse(serializer, it) }
+        } catch (cause: Throwable) {
+            null
+        } ?: block()
+
+        currentValue = result
         return result
     }
 }

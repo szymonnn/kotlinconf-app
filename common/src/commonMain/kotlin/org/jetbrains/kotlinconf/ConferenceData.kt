@@ -1,5 +1,8 @@
+@file:UseSerializers(GMTDateSerializer::class)
+
 package org.jetbrains.kotlinconf
 
+import io.ktor.util.date.*
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.*
 
@@ -28,9 +31,9 @@ data class SessionData(
     val speakers: List<String>,
     @SerialName("description")
     val descriptionText: String,
-    val startsAt: String,
+    val startsAt: GMTDate,
+    val endsAt: GMTDate,
     val title: String,
-    val endsAt: String,
     val roomId: Int?,
     val questionAnswers: List<QuestionAnswerData> = emptyList(),
     val categoryItems: List<Int> = emptyList()

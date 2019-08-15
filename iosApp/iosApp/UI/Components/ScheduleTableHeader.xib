@@ -24,16 +24,32 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="105"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:00–14:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TGu-fg-l5p" userLabel="Time">
-                            <rect key="frame" x="25" y="5" width="350" height="80"/>
+                            <rect key="frame" x="25" y="5" width="286" height="80"/>
                             <fontDescription key="fontDescription" name="DrukCy-Bold" family="Druk Cy" pointSize="80"/>
+                            <color key="textColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="04" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01x-Ou-YoD" userLabel="Day">
+                            <rect key="frame" x="342" y="10" width="17" height="15"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                            <color key="textColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DEC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MM7-Lv-3IB">
+                            <rect key="frame" x="333.5" y="25" width="25.5" height="15"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                             <color key="textColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="01x-Ou-YoD" secondAttribute="trailing" constant="16" id="Kp4-9B-0bm"/>
+                        <constraint firstItem="MM7-Lv-3IB" firstAttribute="trailing" secondItem="01x-Ou-YoD" secondAttribute="trailing" id="Xwh-nu-KIn"/>
                         <constraint firstItem="TGu-fg-l5p" firstAttribute="leading" secondItem="dRH-5Q-tff" secondAttribute="leading" constant="25" id="i9F-SR-c97"/>
-                        <constraint firstAttribute="trailing" secondItem="TGu-fg-l5p" secondAttribute="trailing" id="orQ-We-6sd"/>
+                        <constraint firstItem="01x-Ou-YoD" firstAttribute="top" secondItem="TGu-fg-l5p" secondAttribute="top" constant="5" id="jxg-65-0tr"/>
+                        <constraint firstItem="MM7-Lv-3IB" firstAttribute="top" secondItem="01x-Ou-YoD" secondAttribute="bottom" id="n7d-ql-IsF"/>
+                        <constraint firstAttribute="trailing" secondItem="TGu-fg-l5p" secondAttribute="trailing" constant="64" id="orQ-We-6sd"/>
                         <constraint firstAttribute="bottom" secondItem="TGu-fg-l5p" secondAttribute="bottom" constant="20" id="tu6-72-fZj"/>
                     </constraints>
                 </view>
@@ -49,7 +65,9 @@
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="header" destination="TGu-fg-l5p" id="9ZK-pW-dkt"/>
+                <outlet property="dayLabel" destination="01x-Ou-YoD" id="p2c-iV-yVv"/>
+                <outlet property="monthLabel" destination="MM7-Lv-3IB" id="jCi-Og-mjK"/>
+                <outlet property="timeLabel" destination="TGu-fg-l5p" id="OJ4-bx-AIJ"/>
             </connections>
             <point key="canvasLocation" x="-348" y="-237.93103448275863"/>
         </view>

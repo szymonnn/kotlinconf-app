@@ -8,6 +8,10 @@ extension UIColor {
         return UIColor(red: 1.0, green: 63.0 / 255.0, blue: 0.0, alpha: 1.0)
     }
 
+    @nonobjc class var whiteCardTap: UIColor {
+        return UIColor(red: 216.0 / 255.0, green: 216.0 / 255.0, blue: 216.0 / 255.0, alpha: 1.0)
+    }
+
     @nonobjc class var defaultGray: UIColor {
         return UIColor(red: 244.0 / 255.0, green: 244.0 / 255.0, blue: 244.0 / 255.0, alpha: 1.0)
     }

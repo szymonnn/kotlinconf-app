@@ -3,123 +3,137 @@ import UIKit
 import youtube_ios_player_helper
 import KotlinConfAPI
 
-class SessionController : UIViewController, SessionView {
-    @IBOutlet weak var startButton: UIButton!
-    @IBOutlet weak var videoBox: YTPlayerView!
-
-    @IBOutlet weak var roomLabel: UILabel!
-    @IBOutlet weak var slidesLabel: UILabel!
+class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
+    @IBOutlet weak var speaker1: UIButton!
+    @IBOutlet weak var speaker2: UIButton!
+    @IBOutlet weak var video: YTPlayerView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var tagsLabel: UILabel!
-
-    @IBOutlet weak var voteDown: UIButton!
-    @IBOutlet weak var voteSoso: UIButton!
-    @IBOutlet weak var voteUp: UIButton!
-
-    @IBOutlet weak var speakerFirst: TouchableLabel!
-    @IBOutlet weak var speakerSecond: TouchableLabel!
+    @IBOutlet weak var locationLabel: UIButton!
+    @IBOutlet weak var voteBar: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
 
     private var presenter: SessionPresenter! {
         return SessionPresenter(view: self)
     }
 
-    var session: SessionData!
+    private var ratingObserver: Observable<AnyObject>? = nil
+    private var favoriteObserver: Observable<AnyObject>? = nil
+    private var liveObserver: Observable<AnyObject>? = nil
+
+    var card: SessionCard!
+    private var borders: [CALayer]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        startButton.setImage(UIImage(named: "favoriteEmpty.png"), for: .normal)
-        startButton.setImage(UIImage(named: "favoriteSelected.png"), for: .selected)
-
-
-        videoBox.load(withVideoId: "wZZ7oFKsKzY")
-
+        scrollView.delegate = self
     }
 
-    func onSession(session: SessionData, speakers: [SpeakerData], isFavorite: Bool, rating: RatingData?) {
-        startButton.isSelected = isFavorite
-        onVoteChange(rating: rating)
+    @objc func onTouch(sender:UIGestureRecognizer) {
+        voteBar.isHidden = true
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        let session = card.session
+        voteBar.isHidden = true
 
-        func setupSpeaker(label: TouchableLabel, speaker: SpeakerData) {
-            label.font = UIFont.headerTextRegular
-            label.text = speaker.fullName
+        // Title
+        titleLabel.text = session.title.uppercased()
 
-            label.onTouchUp = {
-                let speakerBoard = UIStoryboard(name: "Main", bundle: nil)
-                let speakerController = speakerBoard.instantiateViewController(withIdentifier: "Speaker") as! SpeakerController
+        // Description
+        descriptionLabel.text = session.descriptionText
 
-                speakerController.speaker = speaker
-                self.navigationController?.pushViewController(speakerController, animated: true)
-            }
-        }
-
-//        let speakers = session.speakers
-//        setupSpeaker(label: speakerFirst, speaker: speakers[0])
-//        if (speakers.count > 1) {
-//            speakerSecond.isHidden = false
-//            setupSpeaker(label: speakerSecond, speaker: speakers[1])
-//        } else {
-//            speakerSecond.isHidden = true
-//        }
-
-        let titleText = session.title
-        if (titleText.count > 30) {
-            titleLabel.font = UIFont.headerScreenSmall
+        // Speakers
+        let firstSpeaker = card.speakers[0]
+        speaker1.setTitle(firstSpeaker.fullName, for: .normal)
+        if (card.speakers.count > 1) {
+            speaker2.isHidden = false
+            let secondSpeaker = card.speakers[1]
+            speaker2.setTitle(secondSpeaker.fullName, for: .normal)
         } else {
-            titleLabel.font = UIFont.headerScreen
+            speaker2.isHidden = true
         }
 
-        titleLabel.text = titleText.uppercased()
+        // Time
+        timeLabel.text = card.time
 
-        descriptionLabel.attributedText = LetterSpacedText(text: session.descriptionText, spacing: 0.52)
-//        roomLabel.text = session.room.name
-//        tagsLabel.text = session.tags.joined(separator: " ")
+        liveObserver = card.isLive.onChange(block: { isLive in
+            self.liveChange(isLive!.boolValue)
+        })
+
+        // Location
+        locationLabel.setTitle(card.location.name, for: .normal)
+
+        // Favorite
+        favoriteObserver = card.isFavorite.onChange(block: { isFavorite in
+            self.favoriteChange(isFavorite!.boolValue)
+        })
+
+        // Rating
+        ratingObserver = card.ratingData.onChange(block: { rating in
+            self.ratingChange(rating)
+        })
+
+        // button borders
+        borders = [speaker1, speaker2, locationLabel].map({ button in
+            button!.titleLabel!.sizeToFit()
+            let width = button!.titleLabel!.bounds.size.width
+            return button!.layer.addBorders(width + 24)
+        })
     }
 
-    func onVoteChange(rating: RatingData?) {
-        voteDown.isSelected = rating == RatingData.bad
-        voteUp.isSelected = rating == RatingData.good
-        voteSoso.isSelected = rating == RatingData.ok
-
-        setRatingClickable(clickable: true)
-    }
-
-    func onUpdateFavorite(isFavorite: Bool) {
-        startButton.isSelected = isFavorite
+    override func viewDidDisappear(_ animated: Bool) {
+        borders.forEach({ layer in
+            layer.removeFromSuperlayer()
+        })
+        releaseObservers()
     }
 
     @IBAction func backButtonTouch(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
 
-    @IBAction func voteUpTouch(_ sender: Any) {
-        sendRating(rating: RatingData.good)
+    @IBAction func voteTouch(_ sender: Any) {
+        voteBar.isHidden = false
     }
 
-    @IBAction func voteSosoTouch(_ sender: Any) {
-        sendRating(rating: RatingData.ok)
+    @IBAction func favoriteTouch(_ sender: Any) {
     }
 
-    @IBAction func voteDownTouch(_ sender: Any) {
-        sendRating(rating: RatingData.bad)
+    private func liveChange(_ isLive: Bool) {
+        video.isHidden = !isLive
     }
 
-    @IBAction func favoriteClick(_ sender: Any) {
-        startButton.isSelected = !startButton.isSelected
-        presenter.favoriteTouch()
+    private func ratingChange(_ rating: RatingData?) {
     }
 
-
-    private func sendRating(rating: RatingData) {
-        setRatingClickable(clickable: false)
-        presenter.voteTouch(rating: rating)
+    private func favoriteChange(_ isFavorite: Bool) {
     }
 
-    private func setRatingClickable(clickable: Bool) {
-        voteDown.isEnabled = clickable
-        voteUp.isEnabled = clickable
-        voteSoso.isEnabled = clickable
+//    @IBAction func favoriteClick(_ sender: Any) {
+//        startButton.isSelected = !startButton.isSelected
+//        presenter.favoriteTouch()
+//    }
+//
+//    private func sendRating(rating: RatingData) {
+//        setRatingClickable(clickable: false)
+//        presenter.voteTouch(rating: rating)
+//    }
+//
+//    private func setRatingClickable(clickable: Bool) {
+//        voteDown.isEnabled = clickable
+//        voteUp.isEnabled = clickable
+//        voteSoso.isEnabled = clickable
+//    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        voteBar.isHidden = true
+    }
+
+    private func releaseObservers() {
+        ratingObserver?.close()
+        favoriteObserver?.close()
+        liveObserver?.close()
     }
 }

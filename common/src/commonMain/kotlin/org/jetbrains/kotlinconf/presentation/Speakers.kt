@@ -2,16 +2,12 @@ package org.jetbrains.kotlinconf.presentation
 
 import org.jetbrains.kotlinconf.*
 
-interface SpeakersView : BaseView {
-    fun onSpeakers(speakers: List<SpeakerData>)
-}
+interface SpeakersView : BaseView
 
 class SpeakersPresenter(
     private val view: SpeakersView
 ) : BasePresenter(view) {
-    init {
-        ConferenceService.publicData.onChange {
-            view.onSpeakers(it.speakers)
-        }
+    val speakers: Observable<List<SpeakerData>> = ConferenceService.publicData.onChange {
+        it.speakers
     }
 }

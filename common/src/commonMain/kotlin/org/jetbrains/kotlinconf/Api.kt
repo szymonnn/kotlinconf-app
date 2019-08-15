@@ -53,7 +53,6 @@ internal object Api {
             method = HttpMethod.Post
             body = userId
         }.use {
-            println("User created: ${it.status}")
             it.status.isSuccess()
         }
     }

@@ -4,12 +4,6 @@ import KotlinConfAPI
 
 class HomeController : UIViewController, UICollectionViewDataSource, HomeView, UIGestureRecognizerDelegate {
     @IBOutlet weak var videosView: UICollectionView!
-    @IBOutlet weak var speakersView: UICollectionView!
-    @IBOutlet weak var partnersView: UICollectionView!
-
-    @IBOutlet weak var showSpeakers: TouchableLabel!
-    @IBOutlet weak var showPartners: TouchableLabel!
-    @IBOutlet weak var showFaq: TouchableLabel!
 
     private var liveSessions: [SessionCard] = []
     private var speakers: [SpeakerData] = []
@@ -20,29 +14,13 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
     }
 
     override func viewDidLoad() {
-        navigationController?.isNavigationBarHidden = true
-
         videosView.dataSource = self
         videosView.delegate = self
+    }
 
-        speakersView.dataSource = self
-        speakersView.delegate = self
-
-        partnersView.dataSource = self
-        partnersView.delegate = self
-
-        showSpeakers.onTouchUp = {
-            self.showScreen(name: "Speakers")
-        }
-
-        showPartners.onTouchUp = {
-            self.showScreen(name: "Partners")
-        }
-
-        showFaq.onTouchUp = {
-            self.showScreen(name: "FAQ")
-        }
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.tintColor = UIColor.redOrange
     }
 
     func onLiveSessions(sessions: [SessionCard]) {
@@ -53,9 +31,6 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
     func onDataReceive(data: SessionizeData) {
         speakers = data.speakers
         partners = data.partners
-
-        speakersView.reloadData()
-        partnersView.reloadData()
     }
 
     func showScreen(name: String, config: (UIViewController) -> Void = { controller -> Void in return }) {
@@ -70,10 +45,10 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
         switch collectionView {
         case videosView:
             return liveSessions.count
-        case speakersView:
-            return speakers.count
-        case partnersView:
-            return partners.count
+//        case speakersView:
+//            return speakers.count
+//        case partnersView:
+//            return partners.count
         default:
             return 0
         }
@@ -85,10 +60,10 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
             let item = collectionView.dequeueReusableCell(withReuseIdentifier: "LiveVideo", for: indexPath) as! LiveVideo
             item.card = liveSessions[indexPath.row]
             return item
-        case speakersView:
-            let item = collectionView.dequeueReusableCell(withReuseIdentifier: "SpeakerCard", for: indexPath) as! SpeakerCard
-            item.speaker = speakers[indexPath.row]
-            return item
+//        case speakersView:
+//            let item = collectionView.dequeueReusableCell(withReuseIdentifier: "SpeakerCard", for: indexPath) as! SpeakerCard
+//            item.speaker = speakers[indexPath.row]
+//            return item
         default:
             let item = collectionView.dequeueReusableCell(withReuseIdentifier: "PartnerCard", for: indexPath) as! PartnerCard
             item.partner = partners[indexPath.row]
@@ -103,12 +78,12 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
             showScreen(name: "Session", config: { controller in
 //                (controller as! SessionController).session = session
             })
-        case speakersView:
-            let speaker = speakers[indexPath.row]
-            print("Select speaker: " + speaker.fullName)
-            showScreen(name: "Speaker",config: { controller in
-                (controller as! SpeakerController).speaker = speaker
-            })
+//        case speakersView:
+//            let speaker = speakers[indexPath.row]
+//
+//            showScreen(name: "Speaker",config: { controller in
+//                (controller as! SpeakerController).speaker = speaker
+//            })
         default:
             return
         }
@@ -119,12 +94,13 @@ extension HomeController : UIScrollViewDelegate, UICollectionViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let view: UICollectionView = {
             switch scrollView {
-            case self.videosView:
-                return self.videosView
-            case self.speakersView:
-                return self.speakersView
             default:
-                return self.partnersView
+//            case self.videosView:
+                return self.videosView
+//            case self.speakersView:
+//                return self.speakersView
+//            default:
+//                return self.partnersView
             }
         }()
 
