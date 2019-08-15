@@ -20,8 +20,6 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
     }
 
     override func viewDidLoad() {
-        navigationController?.isNavigationBarHidden = true
-
         videosView.dataSource = self
         videosView.delegate = self
 
@@ -42,7 +40,11 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
         showFaq.onTouchUp = {
             self.showScreen(name: "FAQ")
         }
+    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.tintColor = UIColor.redOrange
     }
 
     func onLiveSessions(sessions: [SessionCard]) {
@@ -105,7 +107,7 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
             })
         case speakersView:
             let speaker = speakers[indexPath.row]
-            print("Select speaker: " + speaker.fullName)
+
             showScreen(name: "Speaker",config: { controller in
                 (controller as! SpeakerController).speaker = speaker
             })

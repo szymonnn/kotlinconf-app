@@ -1,25 +1,45 @@
 package org.jetbrains.kotlinconf
 
-class Observable<T : Any> {
-    private val watchers = mutableSetOf<(T) -> Unit>()
+class Observable<T>(var current: T) {
+    private val subscriptions = mutableSetOf<(T) -> Unit>()
+    private var onClose: () -> Unit = {}
 
-    fun onChange(block: (T) -> Unit): Subscription {
-        watchers.add(block)
+    fun <O> onChange(block: (T) -> O): Observable<O> {
+        val value = block(current)
+        val result = Observable(value)
 
-        return object : Subscription {
-            override fun cancel() {
-                watchers.remove(block)
-            }
+        val element: (T) -> Unit = {
+            result.change(block(it))
         }
+
+        subscriptions.add(element)
+        result.onClose = {
+            subscriptions.remove(element)
+        }
+
+        return result
     }
 
     fun change(value: T) {
-        watchers.forEach {
+        current = value
+
+        subscriptions.forEach {
             it(value)
         }
     }
-}
 
-interface Subscription {
-    fun cancel()
+    inline fun tryUpdate(newValue: T, block: () -> Unit) {
+        val old = current
+        try {
+            change(newValue)
+            block()
+        } catch (cause: Throwable) {
+            change(old)
+            throw cause
+        }
+    }
+
+    fun close() {
+        onClose()
+    }
 }

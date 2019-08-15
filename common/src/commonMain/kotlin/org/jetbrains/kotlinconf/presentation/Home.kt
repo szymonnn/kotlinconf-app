@@ -10,10 +10,4 @@ interface HomeView : BaseView {
 class HomePresenter(
     private val view: HomeView
 ) : BasePresenter(view) {
-    init {
-        with(ConferenceService) {
-            publicData.onChange(view::onDataReceive)
-            liveSessions.onChange(view::onLiveSessions)
-        }
-    }
 }

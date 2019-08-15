@@ -4,5 +4,4 @@ interface BaseView {
     fun showError(error: Throwable)
 }
 
-open class BasePresenter(private val baseView: BaseView)
-
+open class BasePresenter(internal val baseView: BaseView)

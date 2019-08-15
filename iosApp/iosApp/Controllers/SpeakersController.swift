@@ -17,6 +17,11 @@ class SpeakersController : UIViewController, UITableViewDataSource, UITableViewD
         speakersList.delegate = self
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tabBarController?.tabBar.tintColor = UIColor.deepSkyBlue
+    }
+
     func onSpeakers(speakers: [SpeakerData]) {
         self.speakers = speakers
         speakersList.reloadData()

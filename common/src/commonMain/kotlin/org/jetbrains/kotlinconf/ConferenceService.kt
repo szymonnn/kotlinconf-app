@@ -6,7 +6,7 @@ import kotlinx.serialization.internal.*
 import org.jetbrains.kotlinconf.presentation.*
 import org.jetbrains.kotlinconf.storage.*
 import kotlin.coroutines.*
-import kotlin.native.concurrent.ThreadLocal
+import kotlin.native.concurrent.*
 
 /**
  * [ConferenceService] handles data and builds model.
@@ -31,32 +31,46 @@ internal object ConferenceService : CoroutineScope {
     /**
      * Public conference information.
      */
-    val publicData = Observable<SessionizeData>()
+    val publicData = Observable(SessionizeData())
     private var _publicData: SessionizeData by storage(SessionizeData.serializer()) { SessionizeData() }
 
     /**
      * Favorites list.
      */
-    val favorites = Observable<Set<String>>()
+    val favorites = Observable<Set<String>>(emptySet())
     private var _favorites: Set<String> by storage(String.serializer().set) { emptySet() }
 
     /**
      * Votes list.
      */
-    val votes = Observable<Map<String, RatingData>>()
+    val votes = Observable<Map<String, RatingData>>(emptyMap())
     private var _votes: Map<String, RatingData> by storage((String.serializer() to RatingData.serializer()).map) { emptyMap() }
 
     /**
      * Live sessions.
      */
-    val liveSessions = Observable<List<SessionCard>>()
+    val liveSessions = Observable<Set<String>>(emptySet())
     private var _live: Set<String> = emptySet()
 
+    private var cards: MutableMap<String, SessionCard> = mutableMapOf()
+
     init {
+        acceptPrivacyPolicy()
+
         launch {
             userId?.let { Api.sign(it) }
             if (_publicData.sessions.isEmpty()) {
                 refresh()
+            }
+        }
+
+        /**
+         * TODO: clear removed votes
+         */
+        votes.onChange {
+            it.entries.forEach { (id, rating) ->
+                val card = sessionCard(id)
+                card.ratingData.change(rating)
             }
         }
     }
@@ -66,7 +80,6 @@ internal object ConferenceService : CoroutineScope {
      * Representation.
      * ------------------------------
      */
-
     /**
      * Check if session is favorite.
      */
@@ -97,48 +110,57 @@ internal object ConferenceService : CoroutineScope {
      * Get sorted session groups.
      */
     fun sessionGroups(): List<SessionGroup> = _publicData
-            .sessions
-            .makeGroups()
+        .sessions
+        .makeGroups()
 
     /**
      * Get sorted favorite session groups.
      */
     fun favoriteGroups(): List<SessionGroup> = _favorites
-            .map { session(it) }
-            .makeGroups()
+        .map { session(it) }
+        .makeGroups()
 
     /**
      * Find speaker by id.
      */
     fun speaker(id: String): SpeakerData =
-            _publicData.speakers.find { it.id == id } ?: error("Internal error. Speaker with id $id not found.")
+        _publicData.speakers.find { it.id == id } ?: error("Internal error. Speaker with id $id not found.")
 
     /**
      * Find session by id.
      */
     fun session(id: String): SessionData =
-            _publicData.sessions.find { it.id == id } ?: error("Internal error. Session with id $id not found.")
+        _publicData.sessions.find { it.id == id } ?: error("Internal error. Session with id $id not found.")
+
+    /**
+     * Find room by id.
+     */
+    fun room(id: Int): RoomData =
+        _publicData.rooms.find { it.id == id } ?: error("Internal error. Room with id $id not found.")
 
     /**
      * Get session card.
      */
-    fun sessionCard(id: String): SessionCard = SessionCard(
-            session(id),
-            sessionSpeakers(id),
-            id in _favorites,
-            _votes[id],
-            id in _live
-    )
+    fun sessionCard(id: String): SessionCard {
+        cards[id]?.let { return it }
 
-    /**
-     * Group sessions by title.
-     */
-    private fun List<SessionData>.makeGroups(): List<SessionGroup> = groupBy { it.startsAt + " " + it.endsAt }
-            .toList()
-            .map { (title, sessions) ->
-                val cards = sessions.map { sessionCard(it.id) }
-                SessionGroup(title, cards)
-            }
+        val session = session(id)
+        val roomId = session.roomId ?: error("No room id in session: ${session.id}")
+
+        val result = SessionCard(
+            session,
+            "${session.startsAt.time()}-${session.endsAt.time()}",
+            room(roomId),
+            sessionSpeakers(id),
+            favorites.onChange { id in it },
+            votes.onChange { it[id] },
+            liveSessions.onChange { id in it }
+        )
+
+        cards[id] = result
+        return result
+    }
+
 
     /**
      * ------------------------------
@@ -150,37 +172,42 @@ internal object ConferenceService : CoroutineScope {
      * Vote for session.
      */
     fun vote(sessionId: String, rating: RatingData?) {
-        val userId = userId ?: error("Privacy policy isn't accepted.")
-
         launch {
-            if (rating != null) {
-                val vote = VoteData(sessionId, rating)
-                Api.postVote(userId, vote)
-            } else {
-                Api.deleteVote(userId, sessionId)
+            val userId = userId ?: error("Privacy policy isn't accepted.")
+            val ratingData = sessionCard(sessionId).ratingData
+
+            ratingData.tryUpdate(rating) {
+                if (rating != null) {
+                    val vote = VoteData(sessionId, rating)
+                    Api.postVote(userId, vote)
+                } else {
+                    Api.deleteVote(userId, sessionId)
+                }
             }
 
             updateVote(sessionId, rating)
-        }.invokeOnCompletion {
-            votes.change(_votes)
         }
     }
 
     /**
      * Mark session as favorite.
      */
-    fun markFavorite(sessionId: String, isFavorite: Boolean) {
-        val userId = userId ?: error("Privacy policy isn't accepted.")
-
+    fun markFavorite(sessionId: String) {
         launch {
-            if (isFavorite) {
-                Api.postFavorite(userId, sessionId)
-            } else {
-                Api.deleteFavorite(userId, sessionId)
+            val userId = userId ?: error("Privacy policy isn't accepted.")
+
+            val favorite = sessionCard(sessionId).isFavorite
+            val isFavorite = !favorite.current
+
+            favorite.tryUpdate(isFavorite) {
+                if (isFavorite) {
+                    Api.postFavorite(userId, sessionId)
+                } else {
+                    Api.deleteFavorite(userId, sessionId)
+                }
             }
+
             updateFavorite(sessionId, isFavorite)
-        }.invokeOnCompletion {
-            favorites.change(_favorites)
         }
     }
 
@@ -209,6 +236,9 @@ internal object ConferenceService : CoroutineScope {
                 _favorites = favorites.toSet()
                 _votes = votes.mapNotNull { vote -> vote.rating?.let { vote.sessionId to it } }.toMap()
             }
+
+            publicData.change(_publicData)
+            favorites.change(_favorites)
         }
     }
 
@@ -225,15 +255,42 @@ internal object ConferenceService : CoroutineScope {
     }
 
     private fun updateFavorite(sessionId: String, isFavorite: Boolean) {
+        if (isFavorite) check(sessionId !in _favorites)
+        if (!isFavorite) check(sessionId in _favorites)
+
         val result = mutableSetOf<String>()
         result.addAll(_favorites)
 
-        if (isFavorite) {
+        if (!isFavorite) {
             result.remove(sessionId)
         } else {
             result.add(sessionId)
         }
 
         _favorites = result
+        favorites.change(_favorites)
     }
 }
+
+/**
+ * 1. user click vote button
+ * 2. update observable
+ * 3. send request
+ * 4. onFail -> show error, revert observable
+ * 5. onSuccess -> do nothing
+ **/
+/**
+ * Group sessions by title.
+ */
+private fun List<SessionData>.makeGroups(): List<SessionGroup> = groupBy { it.startsAt }
+    .map { (startsAt, sessions) ->
+        val monthName = startsAt.month.value
+        val day = startsAt.dayOfMonth
+        val endsAt = sessions.first().endsAt
+        val time = "${startsAt.time()}-${endsAt.time()}"
+
+        val cards = sessions.map { ConferenceService.sessionCard(it.id) }
+
+        SessionGroup(monthName, day, time, cards)
+    }
+

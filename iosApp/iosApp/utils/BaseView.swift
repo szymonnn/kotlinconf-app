@@ -45,3 +45,28 @@ extension UIViewController: BaseView {
         self.present(alertController, animated: true, completion: nil)
     }
 }
+
+extension UIView {
+    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
+}
+
+extension CALayer {
+    func addBorders(_ width: CGFloat) -> CALayer {
+        let layer = CALayer()
+        layer.borderWidth = 1.0
+        layer.borderColor = UIColor.white.cgColor
+        layer.cornerRadius = 7.0
+
+        let size = CGSize(width: width + 24.0, height: 36.0)
+
+        layer.frame = CGRect(origin: CGPoint(x: -12.0, y: 0.0), size: size)
+
+        self.addSublayer(layer)
+        return layer
+    }
+}

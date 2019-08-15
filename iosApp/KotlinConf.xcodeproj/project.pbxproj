@@ -15,11 +15,13 @@
 		2C38A897228ED0F500BAF882 /* Druk-Bold-Desktop.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2C38A896228ED0F500BAF882 /* Druk-Bold-Desktop.otf */; };
 		2C38A899228EEBD000BAF882 /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C38A898228EEBD000BAF882 /* SessionController.swift */; };
 		2C416BA0229591C300BBA441 /* VenueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C416B9F229591C300BBA441 /* VenueController.swift */; };
+		2C46F0FE230AA48800D40386 /* ScheduleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C46F0FD230AA48800D40386 /* ScheduleHeader.swift */; };
+		2C46F100230ABB4900D40386 /* TopButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C46F0FF230ABB4900D40386 /* TopButton.swift */; };
 		2C5231A32302D91A00A73DEE /* ScheduleTableCoffeeBreakBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C5231A22302D91A00A73DEE /* ScheduleTableCoffeeBreakBar.xib */; };
-		2C5231A52302DF9300A73DEE /* ScheduleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5231A42302DF9300A73DEE /* ScheduleTableCell.swift */; };
 		2C5231A72302F5E400A73DEE /* ScheduleHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C5231A62302F5E400A73DEE /* ScheduleHeader.xib */; };
 		2C674AF022FD4DC6001CA3F5 /* SessionCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C674AEF22FD4DC6001CA3F5 /* SessionCardView.xib */; };
 		2C674AF222FD5258001CA3F5 /* SessionCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C674AF122FD5258001CA3F5 /* SessionCardView.swift */; };
+		2C7496F7230BE20E001F8562 /* PopupUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7496F6230BE20E001F8562 /* PopupUtils.swift */; };
 		2C7CD27422B7B497000B3BD0 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CD27322B7B497000B3BD0 /* BaseView.swift */; };
 		2C7CD27A22B8F455000B3BD0 /* KotlinConfAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7CD27922B8F455000B3BD0 /* KotlinConfAPI.framework */; };
 		2C7CD27B22B8F455000B3BD0 /* KotlinConfAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7CD27922B8F455000B3BD0 /* KotlinConfAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -34,6 +36,7 @@
 		8D82EE36F5FB5EC1BC6B26EE /* Pods_KotlinConf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C31466D3383AF769D0B19EA /* Pods_KotlinConf.framework */; };
 		B33E0797228D6EC800F313A1 /* ScheduleTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33E0796228D6EC800F313A1 /* ScheduleTableHeader.swift */; };
 		B33E079C228D86DB00F313A1 /* ScheduleTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33E079B228D86DB00F313A1 /* ScheduleTableHeader.xib */; };
+		B3C643F52305896D00C35EEA /* ScheduleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C643F42305896D00C35EEA /* ScheduleTableCell.swift */; };
 		F861D7E1207FA40F0085E80D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F861D7E0207FA40F0085E80D /* AppDelegate.swift */; };
 		F861D7EB207FA4100085E80D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F861D7E9207FA4100085E80D /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -62,11 +65,13 @@
 		2C38A896228ED0F500BAF882 /* Druk-Bold-Desktop.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Druk-Bold-Desktop.otf"; sourceTree = "<group>"; };
 		2C38A898228EEBD000BAF882 /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		2C416B9F229591C300BBA441 /* VenueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueController.swift; sourceTree = "<group>"; };
+		2C46F0FD230AA48800D40386 /* ScheduleHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleHeader.swift; sourceTree = "<group>"; };
+		2C46F0FF230ABB4900D40386 /* TopButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopButton.swift; sourceTree = "<group>"; };
 		2C5231A22302D91A00A73DEE /* ScheduleTableCoffeeBreakBar.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleTableCoffeeBreakBar.xib; sourceTree = "<group>"; };
-		2C5231A42302DF9300A73DEE /* ScheduleTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableCell.swift; sourceTree = "<group>"; };
 		2C5231A62302F5E400A73DEE /* ScheduleHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleHeader.xib; sourceTree = "<group>"; };
 		2C674AEF22FD4DC6001CA3F5 /* SessionCardView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SessionCardView.xib; sourceTree = "<group>"; };
 		2C674AF122FD5258001CA3F5 /* SessionCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCardView.swift; sourceTree = "<group>"; };
+		2C7496F6230BE20E001F8562 /* PopupUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupUtils.swift; sourceTree = "<group>"; };
 		2C7CD27322B7B497000B3BD0 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		2C7CD27922B8F455000B3BD0 /* KotlinConfAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KotlinConfAPI.framework; path = "../common/build/fat-framework/KotlinConfAPI.framework"; sourceTree = "<group>"; };
 		2CF01418229586E800C235D1 /* TouchableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableLabel.swift; sourceTree = "<group>"; };
@@ -82,6 +87,7 @@
 		B33E0796228D6EC800F313A1 /* ScheduleTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableHeader.swift; sourceTree = "<group>"; };
 		B33E079B228D86DB00F313A1 /* ScheduleTableHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleTableHeader.xib; sourceTree = "<group>"; };
 		B39CBAB822BBC3A2005975C1 /* KotlinConf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KotlinConf.entitlements; sourceTree = "<group>"; };
+		B3C643F42305896D00C35EEA /* ScheduleTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableCell.swift; sourceTree = "<group>"; };
 		F861D7DD207FA40F0085E80D /* KotlinConf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KotlinConf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F861D7E0207FA40F0085E80D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F861D7EA207FA4100085E80D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -117,6 +123,7 @@
 			children = (
 				2C7CD27322B7B497000B3BD0 /* BaseView.swift */,
 				2C1952F9228C1BF300BA0BB9 /* Screen.swift */,
+				2C7496F6230BE20E001F8562 /* PopupUtils.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -165,12 +172,14 @@
 		B33E0795228D6EB500F313A1 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B3C643F42305896D00C35EEA /* ScheduleTableCell.swift */,
 				B33E0796228D6EC800F313A1 /* ScheduleTableHeader.swift */,
 				2CF01418229586E800C235D1 /* TouchableLabel.swift */,
 				2CFA8EC322DCB398008B32E2 /* LiveVideo.swift */,
 				2CFA8EC922DDF1F4008B32E2 /* InfoCards.swift */,
 				2C674AF122FD5258001CA3F5 /* SessionCardView.swift */,
-				2C5231A42302DF9300A73DEE /* ScheduleTableCell.swift */,
+				2C46F0FD230AA48800D40386 /* ScheduleHeader.swift */,
+				2C46F0FF230ABB4900D40386 /* TopButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -348,9 +357,11 @@
 			files = (
 				2C38A899228EEBD000BAF882 /* SessionController.swift in Sources */,
 				2CF01419229586E800C235D1 /* TouchableLabel.swift in Sources */,
+				2C46F0FE230AA48800D40386 /* ScheduleHeader.swift in Sources */,
 				2CFA8EC822DCB5DF008B32E2 /* HomeController.swift in Sources */,
 				2CFA8ECC22DF0512008B32E2 /* SpeakersController.swift in Sources */,
 				2C674AF222FD5258001CA3F5 /* SessionCardView.swift in Sources */,
+				2C7496F7230BE20E001F8562 /* PopupUtils.swift in Sources */,
 				2C195303228C32EE00BA0BB9 /* ScheduleController.swift in Sources */,
 				2C416BA0229591C300BBA441 /* VenueController.swift in Sources */,
 				2CFA8ECE22DF0AD8008B32E2 /* PartnersController.swift in Sources */,
@@ -358,12 +369,13 @@
 				F861D7E1207FA40F0085E80D /* AppDelegate.swift in Sources */,
 				2CFA8EC422DCB398008B32E2 /* LiveVideo.swift in Sources */,
 				2C1952F7228C14FE00BA0BB9 /* MainTabController.swift in Sources */,
+				2C46F100230ABB4900D40386 /* TopButton.swift in Sources */,
 				2C1952FA228C1BF300BA0BB9 /* Screen.swift in Sources */,
 				B33E0797228D6EC800F313A1 /* ScheduleTableHeader.swift in Sources */,
 				2CF0141B22958ACB00C235D1 /* SpeakerController.swift in Sources */,
 				2C7CD27422B7B497000B3BD0 /* BaseView.swift in Sources */,
 				2CFA8ED022DF0AFB008B32E2 /* FAQController.swift in Sources */,
-				2C5231A52302DF9300A73DEE /* ScheduleTableCell.swift in Sources */,
+				B3C643F52305896D00C35EEA /* ScheduleTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

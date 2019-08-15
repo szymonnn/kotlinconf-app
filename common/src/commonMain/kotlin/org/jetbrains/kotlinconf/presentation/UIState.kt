@@ -6,7 +6,9 @@ import org.jetbrains.kotlinconf.*
  * Session displayed in single schedule group.
  */
 class SessionGroup(
-    val groupName: String,
+    val month: String,
+    val day: Int,
+    val time: String,
     val sessions: List<SessionCard>
 )
 
@@ -15,8 +17,10 @@ class SessionGroup(
  */
 data class SessionCard(
     val session: SessionData,
+    val time: String,
+    val location: RoomData,
     val speakers: List<SpeakerData>,
-    val isFavorite: Boolean,
-    val ratingData: RatingData?,
-    val isLive: Boolean
+    val isFavorite: Observable<Boolean>,
+    val ratingData: Observable<RatingData?>,
+    val isLive: Observable<Boolean>
 )

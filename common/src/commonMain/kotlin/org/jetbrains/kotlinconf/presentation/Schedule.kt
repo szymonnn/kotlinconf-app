@@ -2,31 +2,25 @@ package org.jetbrains.kotlinconf.presentation
 
 import org.jetbrains.kotlinconf.*
 
-interface ScheduleView : BaseView {
-    fun onSessions(session: List<SessionGroup>)
-    fun onFavorites(session: List<SessionGroup>)
-    fun onVotes(session: Map<String, RatingData>)
-}
+interface ScheduleView : BaseView
 
 class SchedulePresenter(
     private val view: ScheduleView
 ) : BasePresenter(view) {
-    init {
-        println("Create conference: $view")
-        print(ConferenceService)
-        with(ConferenceService) {
-            publicData.onChange {
-                view.onSessions(sessionGroups())
-            }
-            favorites.onChange {
-                view.onFavorites(favoriteGroups())
-            }
+    val schedule: Observable<List<SessionGroup>> = ConferenceService.publicData.onChange {
+        ConferenceService.sessionGroups()
+    }
 
-            votes.onChange(view::onVotes)
+    val favorites: Observable<List<SessionGroup>> = ConferenceService.favorites.onChange {
+        ConferenceService.favoriteGroups()
+    }
 
-            view.onSessions(sessionGroups())
-            view.onFavorites(favoriteGroups())
-        }
+    fun vote(sessionId: String, rating: RatingData?) {
+        ConferenceService.vote(sessionId, rating)
+    }
+
+    fun favorite(sessionId: String) {
+        ConferenceService.markFavorite(sessionId)
     }
 
     fun pullToRefresh() {

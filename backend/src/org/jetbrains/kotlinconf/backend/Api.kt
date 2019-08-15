@@ -9,6 +9,8 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import io.ktor.util.*
+import io.ktor.util.date.*
 import io.ktor.util.pipeline.*
 import org.jetbrains.kotlinconf.*
 import java.time.*
@@ -125,10 +127,13 @@ private fun Routing.apiVote(database: Database, production: Boolean) {
 
             val session = getSessionizeData().sessions.firstOrNull { it.id == sessionId } ?: throw NotFound()
             val nowTime = simulatedTime(production)
-            val startVotesAt = LocalDateTime.parse(session.startsAt, dateFormat)
-            val endVotesAt = LocalDateTime.parse(session.endsAt, dateFormat).plusMinutes(15)
+
+            fun GMTDate.toLocalTime(): LocalDateTime = LocalDateTime.ofInstant(toJvmDate().toInstant(), keynoteTimeZone)
+
+            val startVotesAt = session.startsAt.toLocalTime()
+            val endVotesAt = session.endsAt.toLocalTime().plusMinutes(15)!!
             val votingPeriodStarted = startVotesAt.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) }
-            val votingPeriodEnded = endVotesAt?.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) } ?: true
+            val votingPeriodEnded = endVotesAt.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) }
 
             if (!votingPeriodStarted) {
                 return@post call.respond(comeBackLater)
