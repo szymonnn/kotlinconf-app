@@ -15,6 +15,10 @@ class SpeakersController : UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         speakersList.dataSource = self
         speakersList.delegate = self
+
+        presenter.speakers.onChange(block: { speakers in
+            return self.onSpeakers(speakers: speakers as! [SpeakerData])
+        })
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -38,10 +42,6 @@ class SpeakersController : UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
 
-    @IBAction func backButtonTouchUp(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
-    }
-
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
 
@@ -63,7 +63,8 @@ class SpeakerCellView : UITableViewCell {
     var speaker: SpeakerData! {
         didSet {
             speakerName.text = speaker.fullName
-            speakerPosition.text = "FILL\nFILL"
+            speakerPosition.text = speaker.tagLine
+
             if let profilePicture = speaker.profilePicture {
 
                 do {

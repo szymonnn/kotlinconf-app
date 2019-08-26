@@ -8,8 +8,8 @@ class Observable<T>(var current: T) {
         val value = block(current)
         val result = Observable(value)
 
-        val element: (T) -> Unit = {
-            result.change(block(it))
+        val element: (T) -> Unit = { value ->
+            result.change(block(value))
         }
 
         subscriptions.add(element)

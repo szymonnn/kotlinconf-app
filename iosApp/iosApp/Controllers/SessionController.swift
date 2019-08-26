@@ -3,7 +3,7 @@ import UIKit
 import youtube_ios_player_helper
 import KotlinConfAPI
 
-class SessionController : UIViewController, SessionView {
+class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
     @IBOutlet weak var speaker1: UIButton!
     @IBOutlet weak var speaker2: UIButton!
     @IBOutlet weak var video: YTPlayerView!
@@ -11,6 +11,8 @@ class SessionController : UIViewController, SessionView {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var locationLabel: UIButton!
+    @IBOutlet weak var voteBar: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
 
     private var presenter: SessionPresenter! {
         return SessionPresenter(view: self)
@@ -23,8 +25,21 @@ class SessionController : UIViewController, SessionView {
     var card: SessionCard!
     private var borders: [CALayer]!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        scrollView.delegate = self
+    }
+
+    @objc func onTouch(sender:UIGestureRecognizer) {
+        voteBar.isHidden = true
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         let session = card.session
+        voteBar.isHidden = true
+
+        // Title
+        titleLabel.text = session.title.uppercased()
 
         // Description
         descriptionLabel.text = session.descriptionText
@@ -79,7 +94,15 @@ class SessionController : UIViewController, SessionView {
         self.navigationController?.popViewController(animated: true)
     }
 
+    @IBAction func voteTouch(_ sender: Any) {
+        voteBar.isHidden = false
+    }
+
+    @IBAction func favoriteTouch(_ sender: Any) {
+    }
+
     private func liveChange(_ isLive: Bool) {
+        video.isHidden = !isLive
     }
 
     private func ratingChange(_ rating: RatingData?) {
@@ -103,6 +126,11 @@ class SessionController : UIViewController, SessionView {
 //        voteUp.isEnabled = clickable
 //        voteSoso.isEnabled = clickable
 //    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        voteBar.isHidden = true
+    }
+
     private func releaseObservers() {
         ratingObserver?.close()
         favoriteObserver?.close()

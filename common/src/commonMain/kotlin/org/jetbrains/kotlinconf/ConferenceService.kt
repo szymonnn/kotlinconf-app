@@ -31,20 +31,20 @@ internal object ConferenceService : CoroutineScope {
     /**
      * Public conference information.
      */
-    val publicData = Observable(SessionizeData())
     private var _publicData: SessionizeData by storage(SessionizeData.serializer()) { SessionizeData() }
+    val publicData: Observable<SessionizeData> = Observable(_publicData)
 
     /**
      * Favorites list.
      */
-    val favorites = Observable<Set<String>>(emptySet())
     private var _favorites: Set<String> by storage(String.serializer().set) { emptySet() }
+    val favorites: Observable<Set<String>> = Observable(_favorites)
 
     /**
      * Votes list.
      */
-    val votes = Observable<Map<String, RatingData>>(emptyMap())
     private var _votes: Map<String, RatingData> by storage((String.serializer() to RatingData.serializer()).map) { emptyMap() }
+    val votes = Observable(_votes)
 
     /**
      * Live sessions.
@@ -101,9 +101,9 @@ internal object ConferenceService : CoroutineScope {
     /**
      * Get sessions for speaker.
      */
-    fun speakerSessions(speakerId: String): List<SessionData> {
+    fun speakerSessions(speakerId: String): List<SessionCard> {
         val sessionIds = speaker(speakerId).sessions
-        return sessionIds.map { session(it) }
+        return sessionIds.map { sessionCard(it) }
     }
 
     /**

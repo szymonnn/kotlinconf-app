@@ -15,7 +15,6 @@ class ScheduleTableCell : UITableViewCell {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        card.mainView.backgroundColor = UIColor.whiteCardTap
         touchHandler?()
     }
 

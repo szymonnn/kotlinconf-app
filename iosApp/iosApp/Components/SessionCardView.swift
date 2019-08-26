@@ -151,4 +151,10 @@ class SessionCardView : UIView, Baloon {
         voteButton.setImage(image, for: .normal)
         hide()
     }
+
+    func cleanup() {
+        liveObservable?.close()
+        ratingObservable?.close()
+        favoriteObservable?.close()
+    }
 }

@@ -7,10 +7,7 @@ enum Section {
     case favorites
 }
 
-class ScheduleController
-: UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, ScheduleView, BaloonContainer {
-
-
+class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, ScheduleView, BaloonContainer {
     @IBOutlet weak var scheduleTable: UITableView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var searchContainer: UIView!
@@ -51,9 +48,6 @@ class ScheduleController
 
     override func viewDidLoad() {
         scheduleTable.addSubview(refreshControl)
-        refreshControl.beginRefreshing()
-        presenter.pullToRefresh()
-
         scheduleTable.register(UINib(nibName: "ScheduleTableHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "ScheduleTableHeader")
         scheduleTable.register(UINib(nibName: "ScheduleTableCoffeeBreakBar", bundle: nil), forHeaderFooterViewReuseIdentifier: "ScheduleTableCoffeeBreakBar")
 
