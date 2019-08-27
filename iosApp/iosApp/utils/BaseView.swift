@@ -56,15 +56,15 @@ extension UIView {
 }
 
 extension CALayer {
-    func addBorders(_ width: CGFloat) -> CALayer {
+    func addBorders(_ size: CGSize, _ xOffset: CGFloat, _ yOffset: CGFloat) -> CALayer {
         let layer = CALayer()
         layer.borderWidth = 1.0
         layer.borderColor = UIColor.white.cgColor
         layer.cornerRadius = 7.0
 
-        let size = CGSize(width: width + 24.0, height: 36.0)
+        let size = CGSize(width: size.width + 2.0 * xOffset, height: size.height + 2.0 * yOffset)
 
-        layer.frame = CGRect(origin: CGPoint(x: -12.0, y: 0.0), size: size)
+        layer.frame = CGRect(origin: CGPoint(x: 0.0 - xOffset, y: 0.0 - yOffset), size: size)
 
         self.addSublayer(layer)
         return layer

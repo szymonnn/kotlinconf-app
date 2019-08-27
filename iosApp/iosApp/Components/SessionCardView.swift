@@ -4,13 +4,16 @@ import KotlinConfAPI
 
 class SessionCardView : UIView, Baloon {
     @IBOutlet var mainView: UIView!
+    @IBOutlet weak var container: UIView!
 
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var speakers: UILabel!
+    @IBOutlet weak var fadeOut: UIImageView!
 
     @IBOutlet weak var liveIcon: UIImageView!
     @IBOutlet weak var liveLabel: UILabel!
 
+    @IBOutlet weak var locationArrow: UIImageView!
     @IBOutlet weak var location: UILabel!
 
     @IBOutlet weak var voteButton: UIButton!
@@ -22,9 +25,7 @@ class SessionCardView : UIView, Baloon {
 
     @IBOutlet weak var voteBar: UIView!
 
-    var container: BaloonContainer? = nil
-    var favoriteTouch: () -> Void = { }
-    var voteTouch: (RatingData?) -> Void = { _ in }
+    var baloonContainer: BaloonContainer? = nil
 
     private var liveObservable: Observable<AnyObject>? = nil
     private var ratingObservable: Observable<AnyObject>? = nil
@@ -60,6 +61,8 @@ class SessionCardView : UIView, Baloon {
         }
     }
 
+    var onTouch: () -> Void = {}
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configure()
@@ -68,6 +71,11 @@ class SessionCardView : UIView, Baloon {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        onTouch()
     }
 
     private func configure() {
@@ -103,7 +111,7 @@ class SessionCardView : UIView, Baloon {
             completion: nil
         )
 
-        container?.show(popup: self)
+        baloonContainer?.show(popup: self)
     }
 
     func hide() {
@@ -119,19 +127,19 @@ class SessionCardView : UIView, Baloon {
     }
 
     @IBAction func vodeGood(_ sender: Any) {
-        voteTouch(.good)
+        Conference.vote(sessionId: card.session.id, rating: .good)
     }
 
     @IBAction func voteOk(_ sender: Any) {
-        voteTouch(.ok)
+        Conference.vote(sessionId: card.session.id, rating: .ok)
     }
 
     @IBAction func voteBad(_ sender: Any) {
-        voteTouch(.bad)
+        Conference.vote(sessionId: card.session.id, rating: .bad)
     }
 
     @IBAction func favoriteTouch(_ sender: Any) {
-        favoriteTouch()
+        Conference.markFavorite(sessionId: card.session.id)
     }
 
     private func configureVote(rating: RatingData?) {
@@ -156,5 +164,21 @@ class SessionCardView : UIView, Baloon {
         liveObservable?.close()
         ratingObservable?.close()
         favoriteObservable?.close()
+    }
+
+    func setupDarkMode() {
+        container.backgroundColor = UIColor.cardGray
+        title.textColor = UIColor.white
+        speakers.textColor = UIColor.white
+        location.textColor = UIColor.white60
+        liveLabel.textColor = UIColor.white60
+
+        fadeOut.image = UIImage(named: "fadeOutDark")
+        locationArrow.image = UIImage(named: "mapLight")
+
+        voteButton.isHidden = true
+
+        favoriteButton.setImage(UIImage(named: "favoriteLight"), for: .normal)
+        favoriteButton.setImage(UIImage(named: "favoriteWhite"), for: .selected)
     }
 }

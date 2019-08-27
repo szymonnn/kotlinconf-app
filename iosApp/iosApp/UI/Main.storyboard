@@ -319,11 +319,8 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Brx-Hg-RSt" userLabel="Container1">
                                                                         <rect key="frame" x="0.0" y="0.0" width="354" height="45"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eV2-wr-Dgs" userLabel="Speaker1">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="206" height="45"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="HZb-YX-Xtp"/>
-                                                                                </constraints>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eV2-wr-Dgs" userLabel="Speaker1">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="45"/>
                                                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                                                 <state key="normal" title="Amanda Hichman Dominiguez">
                                                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -332,18 +329,19 @@
                                                                         </subviews>
                                                                         <constraints>
                                                                             <constraint firstItem="eV2-wr-Dgs" firstAttribute="top" secondItem="Brx-Hg-RSt" secondAttribute="top" id="H6J-kR-GPW"/>
+                                                                            <constraint firstItem="eV2-wr-Dgs" firstAttribute="top" secondItem="Brx-Hg-RSt" secondAttribute="top" id="MRI-sj-MGM"/>
                                                                             <constraint firstItem="eV2-wr-Dgs" firstAttribute="leading" secondItem="Brx-Hg-RSt" secondAttribute="leading" id="PZb-ei-KmJ"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="eV2-wr-Dgs" secondAttribute="bottom" id="TMT-Wc-Uek"/>
                                                                             <constraint firstAttribute="height" constant="45" id="fP9-3c-QZ1"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="eV2-wr-Dgs" secondAttribute="trailing" id="fkQ-35-jfF"/>
+                                                                            <constraint firstItem="eV2-wr-Dgs" firstAttribute="leading" secondItem="Brx-Hg-RSt" secondAttribute="leading" id="vGS-KM-t67"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wlP-RR-4AG" userLabel="Container2">
                                                                         <rect key="frame" x="0.0" y="45" width="354" height="45"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Acb-z2-5At" userLabel="Speaker2">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="206" height="45"/>
-                                                                                <constraints>
-                                                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="cze-QZ-CAZ"/>
-                                                                                </constraints>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Acb-z2-5At" userLabel="Speaker2">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="45"/>
                                                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                                                 <state key="normal" title="Amanda Hichman Dominiguez">
                                                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -351,8 +349,12 @@
                                                                             </button>
                                                                         </subviews>
                                                                         <constraints>
+                                                                            <constraint firstAttribute="trailing" secondItem="Acb-z2-5At" secondAttribute="trailing" id="2qx-KL-R4Q"/>
                                                                             <constraint firstItem="Acb-z2-5At" firstAttribute="top" secondItem="wlP-RR-4AG" secondAttribute="top" id="JKq-6t-sdw"/>
+                                                                            <constraint firstItem="Acb-z2-5At" firstAttribute="top" secondItem="wlP-RR-4AG" secondAttribute="top" id="Ji9-4h-RTU"/>
+                                                                            <constraint firstItem="Acb-z2-5At" firstAttribute="leading" secondItem="wlP-RR-4AG" secondAttribute="leading" id="Z4z-5H-aJw"/>
                                                                             <constraint firstAttribute="height" constant="45" id="ZXx-qa-wSm"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="Acb-z2-5At" secondAttribute="bottom" id="bhM-U9-hW1"/>
                                                                             <constraint firstItem="Acb-z2-5At" firstAttribute="leading" secondItem="wlP-RR-4AG" secondAttribute="leading" id="hxC-ab-Lag"/>
                                                                         </constraints>
                                                                     </view>
@@ -392,21 +394,21 @@
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOD-1S-UUi" userLabel="Description">
-                                                                <rect key="frame" x="0.0" y="387" width="366" height="648"/>
+                                                                <rect key="frame" x="0.0" y="387" width="366" height="179.5"/>
                                                                 <attributedString key="attributedText">
                                                                     <fragment>
-                                                                        <string key="content">Alicia is the first woman of color mobile developer to create a domestic violence app Purple Evolution, Inc(PEVO) dedicated to helping victims escape abuse. She used her acquired skills as a developer to make a difference. Alicia also dedicated her time to empowering women in tech with Wo Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia men Who Code, she has received several major acknowledgments from Apple at WWDC15 and WWDC16 being the first black woman to be in an Apple 2016 new beginnings video and GitHub in there I am a developer video. Alicia is the first woman of color mobile developer to create a domestic violence app Purple Evolution, Inc(PEVO) dedicated to helping victims escape abuse. She used her acquired skills as a developer to make a difference. Alicia also dedicated her time to empowering women in tech with Wo Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia men Who Code, she has received several major acknowledgments from Apple at WWDC15 and WWDC16 being the first black woman to be in an Apple 2016 new beginnings video and GitHub in there I am a developer video.</string>
+                                                                        <string key="content">Alicia is the first woman of color mobile developer to create a domestic violence app Purple Evolution, Inc(PEVO) dedicated to helping victims escape abuse. She used her acquired skills as a developer to make a difference. Alicia also dedicated her time to empowering women in tech with Women Who Code, she has received several major acknowledgments from Apple at WWDC15 and WWDC16 being the first black woman to be in an Apple 2016 new beginnings video and GitHub in there I am a developer video.</string>
                                                                         <attributes>
                                                                             <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            <font key="NSFont" size="15" name=".AppleSystemUIFont"/>
-                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="24" tighteningFactorForTruncation="0.0"/>
+                                                                            <font key="NSFont" metaFont="system" size="15"/>
+                                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="1" tighteningFactorForTruncation="0.0"/>
                                                                         </attributes>
                                                                     </fragment>
                                                                 </attributedString>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="USw-FX-Y3f" userLabel="Location">
-                                                                <rect key="frame" x="139" y="267.5" width="84" height="45"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="USw-FX-Y3f" userLabel="Location">
+                                                                <rect key="frame" x="139" y="267.5" width="227" height="45"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="45" id="za0-nj-q5u"/>
                                                                 </constraints>
@@ -466,6 +468,7 @@
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="tRO-OR-KcH" firstAttribute="top" secondItem="CwO-JY-0hS" secondAttribute="top" constant="24" id="2w6-5b-HbY"/>
+                                                            <constraint firstAttribute="trailing" secondItem="USw-FX-Y3f" secondAttribute="trailing" id="6NC-DR-qpN"/>
                                                             <constraint firstItem="njG-Mw-lhO" firstAttribute="leading" secondItem="CwO-JY-0hS" secondAttribute="leading" constant="12" id="B5D-cJ-pYO"/>
                                                             <constraint firstItem="ouv-Kj-1xl" firstAttribute="leading" secondItem="Lwi-HR-rQL" secondAttribute="trailing" constant="19" id="BgW-Hg-wmn"/>
                                                             <constraint firstItem="njG-Mw-lhO" firstAttribute="top" secondItem="tRO-OR-KcH" secondAttribute="bottom" constant="18" id="Bqo-om-aVb"/>
@@ -526,6 +529,7 @@
                         <outlet property="scrollView" destination="Gqt-hT-ABL" id="8mi-NY-LWr"/>
                         <outlet property="speaker1" destination="eV2-wr-Dgs" id="RFO-CT-biX"/>
                         <outlet property="speaker2" destination="Acb-z2-5At" id="7Km-aG-l6u"/>
+                        <outlet property="speakers" destination="njG-Mw-lhO" id="ejL-lJ-cpt"/>
                         <outlet property="timeLabel" destination="X6N-Vg-pbz" id="RG5-jO-9UZ"/>
                         <outlet property="titleLabel" destination="tRO-OR-KcH" id="n4T-nL-0yb"/>
                         <outlet property="video" destination="xsh-AO-xRn" id="U2U-yv-ulM"/>
@@ -725,6 +729,10 @@
                                                                                 <constraint firstAttribute="width" constant="14" id="nv0-xQ-lOk"/>
                                                                             </constraints>
                                                                             <state key="normal" image="favoriteWhiteEmpty"/>
+                                                                            <state key="selected" image="favoriteWhite"/>
+                                                                            <connections>
+                                                                                <action selector="favoriteTouch:" destination="CLe-hd-pwc" eventType="touchUpInside" id="d6J-ea-Brz"/>
+                                                                            </connections>
                                                                         </button>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breakout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wba-OT-c4q" userLabel="Location">
                                                                             <rect key="frame" x="37" y="230" width="50.5" height="15"/>
@@ -781,18 +789,18 @@
                                                 <color key="textColor" name="white"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ONd-Qy-Yum" userLabel="UpcomingFavorites">
+                                                <rect key="frame" x="10" y="524" width="394" height="786"/>
+                                            </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#KOTLINCONF" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUn-aD-KWy">
                                                 <rect key="frame" x="24" y="1358" width="297" height="80"/>
                                                 <fontDescription key="fontDescription" name="DrukCy-Bold" family="Druk Cy" pointSize="80"/>
                                                 <color key="textColor" name="white"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ONd-Qy-Yum">
-                                                <rect key="frame" x="10" y="524" width="394" height="786"/>
-                                            </stackView>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5yL-nf-T6k">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5yL-nf-T6k" userLabel="Twitter">
                                                 <rect key="frame" x="0.0" y="1462" width="414" height="440"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="440" id="j8w-mt-adu"/>
                                                 </constraints>
@@ -819,9 +827,9 @@
                                                 <color key="textColor" name="white"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eKl-Ls-SCa">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="eKl-Ls-SCa" userLabel="Partners">
                                                 <rect key="frame" x="0.0" y="2050" width="414" height="400"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" red="0.1529411765" green="0.15686274510000001" blue="0.17254901959999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="400" id="4le-ZD-xan"/>
                                                 </constraints>
@@ -842,6 +850,15 @@
                                                     </collectionViewCell>
                                                 </cells>
                                             </collectionView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r9o-Xt-dnn" userLabel="SeeParners">
+                                                <rect key="frame" x="343" y="1946" width="47" height="30"/>
+                                                <state key="normal" title="See All">
+                                                    <color key="titleColor" red="1" green="0.24705882352941178" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="showParners:" destination="UyV-14-mut" eventType="touchUpInside" id="ktN-EI-2Ti"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="OVd-CJ-2lp" firstAttribute="leading" secondItem="yfK-ti-5hQ" secondAttribute="leading" constant="21" id="3Nn-bW-xPK"/>
@@ -856,11 +873,13 @@
                                             <constraint firstItem="eKl-Ls-SCa" firstAttribute="top" secondItem="fTp-EA-4OM" secondAttribute="bottom" constant="24" id="Zgn-3q-muV"/>
                                             <constraint firstItem="ONd-Qy-Yum" firstAttribute="top" secondItem="urM-D8-Kqy" secondAttribute="bottom" constant="16" id="cFf-kq-1NS"/>
                                             <constraint firstAttribute="trailing" secondItem="w2a-4a-asZ" secondAttribute="trailing" id="eAA-gn-rFq"/>
+                                            <constraint firstItem="r9o-Xt-dnn" firstAttribute="top" secondItem="fTp-EA-4OM" secondAttribute="top" id="ejr-pI-ogE"/>
                                             <constraint firstItem="OVd-CJ-2lp" firstAttribute="top" secondItem="yfK-ti-5hQ" secondAttribute="top" constant="27" id="evN-Fp-uF7"/>
                                             <constraint firstItem="fTp-EA-4OM" firstAttribute="leading" secondItem="yfK-ti-5hQ" secondAttribute="leading" constant="24" id="fSh-bl-THj"/>
                                             <constraint firstItem="eUn-aD-KWy" firstAttribute="top" secondItem="ONd-Qy-Yum" secondAttribute="bottom" constant="48" id="gnC-MR-5ww"/>
                                             <constraint firstItem="fTp-EA-4OM" firstAttribute="top" secondItem="5yL-nf-T6k" secondAttribute="bottom" constant="44" id="h93-HC-zy7"/>
                                             <constraint firstItem="5yL-nf-T6k" firstAttribute="leading" secondItem="yfK-ti-5hQ" secondAttribute="leading" id="kTr-Y2-C92"/>
+                                            <constraint firstAttribute="trailing" secondItem="r9o-Xt-dnn" secondAttribute="trailing" constant="24" id="keA-7D-se5"/>
                                             <constraint firstAttribute="bottom" secondItem="eKl-Ls-SCa" secondAttribute="bottom" constant="50" id="oiq-YY-zV7"/>
                                             <constraint firstItem="urM-D8-Kqy" firstAttribute="leading" secondItem="yfK-ti-5hQ" secondAttribute="leading" constant="24" id="pBh-76-W6j"/>
                                             <constraint firstAttribute="trailing" secondItem="ONd-Qy-Yum" secondAttribute="trailing" constant="10" id="s6D-B3-HBq"/>
@@ -892,6 +911,7 @@
                     <tabBarItem key="tabBarItem" title="Home" image="home" id="lcB-0X-tR2" userLabel="Home Item"/>
                     <size key="freeformSize" width="414" height="2500"/>
                     <connections>
+                        <outlet property="upcomingFavorites" destination="ONd-Qy-Yum" id="OA0-rf-jMm"/>
                         <outlet property="videosView" destination="w2a-4a-asZ" id="LdE-D9-jqI"/>
                         <segue destination="HNe-zI-CNe" kind="show" id="HWp-hd-oXB"/>
                         <segue destination="b7q-Jg-rgR" kind="show" id="hPQ-oa-w2C"/>

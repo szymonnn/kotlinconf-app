@@ -50,8 +50,20 @@ object ConferenceService : CoroutineScope {
     /**
      * Live sessions.
      */
-    val liveSessions = Observable<Set<String>>(emptySet())
+    private val _liveSessions = Observable<Set<String>>(emptySet())
+    private val _upcomingFavorites = Observable<Set<String>>(emptySet())
 
+    val liveSessions: Observable<List<SessionCard>> = _liveSessions.onChange {
+        it.toList().map { id -> sessionCard(id) }
+    }
+
+    val upcomingFavorites: Observable<List<SessionCard>> = _upcomingFavorites.onChange {
+        it.toList().map { id -> sessionCard(id) }
+    }
+
+    /**
+     * Cached.
+     */
     private var cards: MutableMap<String, SessionCard> = mutableMapOf()
 
     init {
@@ -67,6 +79,7 @@ object ConferenceService : CoroutineScope {
         launch {
             while (true) {
                 updateLive()
+                updateUpcoming()
                 delay(5 * 1000)
             }
         }
@@ -161,7 +174,7 @@ object ConferenceService : CoroutineScope {
             sessionSpeakers(id),
             favorites.onChange { id in it },
             votes.onChange { it[id] },
-            liveSessions.onChange { id in it }
+            _liveSessions.onChange { id in it }
         )
 
         cards[id] = result
@@ -249,6 +262,9 @@ object ConferenceService : CoroutineScope {
         }
     }
 
+    /**
+     * TODO: mock for now
+     */
     private fun updateLive() {
         val sessions = publicData.current.sessions
         if (sessions.isEmpty()) {
@@ -261,7 +277,25 @@ object ConferenceService : CoroutineScope {
             result += sessions[index].id
         }
 
-        liveSessions.change(result)
+        _liveSessions.change(result)
+    }
+
+    /**
+     * TODO: mock for now
+     */
+    private fun updateUpcoming() {
+        val favorites = favorites.current.toList()
+        if (favorites.isEmpty()) {
+            return
+        }
+
+        val result = mutableSetOf<String>()
+        repeat(5) {
+            val index = Random.nextInt(favorites.size)
+            result += favorites[index]
+        }
+
+        _upcomingFavorites.change(result)
     }
 
     private fun updateVote(sessionId: String, rating: RatingData?) {

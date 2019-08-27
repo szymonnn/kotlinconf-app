@@ -10,8 +10,12 @@ class LiveVideo : UICollectionViewCell {
     @IBOutlet weak var location: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
 
+    var favoriteObservable: Observable<AnyObject>? = nil
+
     var card: SessionCard! {
         didSet {
+            favoriteObservable?.close()
+
             sessionTitle.text = card.session.title
             speaker.text = card.speakers.map { (speaker) -> String in
                 speaker.fullName
@@ -19,6 +23,14 @@ class LiveVideo : UICollectionViewCell {
 
             location.text = card.location.name
             video.load(withVideoId: "YbF8Q8LxAJs")
+
+            favoriteObservable = card.isFavorite.onChange(block: { isFavorite in
+                self.favoriteButton.isSelected = isFavorite!.boolValue
+            })
         }
+    }
+
+    @IBAction func favoriteTouch(_ sender: Any) {
+        Conference.markFavorite(sessionId: card.session.id)
     }
 }
