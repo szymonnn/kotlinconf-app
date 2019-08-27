@@ -27,7 +27,7 @@ class ScheduleHeader : UIView {
 
     private func configureButtonDark(button: TopButton) {
         button.isSelected = true
-        button.backgroundColor = UIColor.darkGrey
+        button.backgroundColor = UIColor.dark
     }
 
     private func configureButtonLight(button: TopButton) {

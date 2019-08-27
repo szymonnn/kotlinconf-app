@@ -32,6 +32,8 @@ class SpeakerController : UIViewController, SpeakerView {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         let sessions = presenter.sessionsForSpeaker(id: speaker.id)
 
         for card in sessions {
@@ -43,14 +45,21 @@ class SpeakerController : UIViewController, SpeakerView {
         }
     }
 
-    private func setupCard(_ card: SessionCardView) {
-        // handle events
+    private func setupCard(_ view: SessionCardView) {
+        view.onTouch = {
+            let board = UIStoryboard(name: "Main", bundle: nil)
+            let controller = board.instantiateViewController(withIdentifier: "Session") as! SessionController
+            controller.card = view.card
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         for item in talksContainer.subviews {
             let cardView = item as! SessionCardView
             cardView.cleanup()
+            talksContainer.removeArrangedSubview(item)
         }
     }
 

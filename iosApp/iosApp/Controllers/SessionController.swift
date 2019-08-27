@@ -13,6 +13,7 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
     @IBOutlet weak var locationLabel: UIButton!
     @IBOutlet weak var voteBar: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var speakers: UIStackView!
 
     private var presenter: SessionPresenter! {
         return SessionPresenter(view: self)
@@ -35,6 +36,8 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
         let session = card.session
         voteBar.isHidden = true
 
@@ -42,7 +45,14 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
         titleLabel.text = session.title.uppercased()
 
         // Description
+        let style = NSMutableParagraphStyle()
+        style.minimumLineHeight = 24.0
+
         descriptionLabel.text = session.descriptionText
+        descriptionLabel.attributedText = NSAttributedString(
+            string: session.descriptionText,
+            attributes: [NSAttributedString.Key.paragraphStyle : style]
+        )
 
         // Speakers
         let firstSpeaker = card.speakers[0]
@@ -77,13 +87,19 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
 
         // button borders
         borders = [speaker1, speaker2, locationLabel].map({ button in
-            button!.titleLabel!.sizeToFit()
-            let width = button!.titleLabel!.bounds.size.width
-            return button!.layer.addBorders(width + 24)
+            let label = button!.titleLabel
+            label?.sizeToFit()
+
+            let xOffset: CGFloat = (button?.imageView?.image != nil) ? 33.0 : 12.0
+
+            return label!.layer.addBorders(label!.bounds.size, xOffset, 8)
         })
+        speakers.sizeToFit()
     }
 
     override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
         borders.forEach({ layer in
             layer.removeFromSuperlayer()
         })

@@ -25,14 +25,12 @@
 		2C7CD27422B7B497000B3BD0 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7CD27322B7B497000B3BD0 /* BaseView.swift */; };
 		2C7CD27A22B8F455000B3BD0 /* KotlinConfAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7CD27922B8F455000B3BD0 /* KotlinConfAPI.framework */; };
 		2C7CD27B22B8F455000B3BD0 /* KotlinConfAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7CD27922B8F455000B3BD0 /* KotlinConfAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2CF01419229586E800C235D1 /* TouchableLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF01418229586E800C235D1 /* TouchableLabel.swift */; };
 		2CF0141B22958ACB00C235D1 /* SpeakerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF0141A22958ACB00C235D1 /* SpeakerController.swift */; };
 		2CFA8EC422DCB398008B32E2 /* LiveVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA8EC322DCB398008B32E2 /* LiveVideo.swift */; };
 		2CFA8EC822DCB5DF008B32E2 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA8EC722DCB5DF008B32E2 /* HomeController.swift */; };
 		2CFA8ECA22DDF1F4008B32E2 /* InfoCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA8EC922DDF1F4008B32E2 /* InfoCards.swift */; };
 		2CFA8ECC22DF0512008B32E2 /* SpeakersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA8ECB22DF0512008B32E2 /* SpeakersController.swift */; };
 		2CFA8ECE22DF0AD8008B32E2 /* PartnersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA8ECD22DF0AD8008B32E2 /* PartnersController.swift */; };
-		2CFA8ED022DF0AFB008B32E2 /* FAQController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA8ECF22DF0AFB008B32E2 /* FAQController.swift */; };
 		8D82EE36F5FB5EC1BC6B26EE /* Pods_KotlinConf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C31466D3383AF769D0B19EA /* Pods_KotlinConf.framework */; };
 		B33E0797228D6EC800F313A1 /* ScheduleTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33E0796228D6EC800F313A1 /* ScheduleTableHeader.swift */; };
 		B33E079C228D86DB00F313A1 /* ScheduleTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33E079B228D86DB00F313A1 /* ScheduleTableHeader.xib */; };
@@ -74,14 +72,12 @@
 		2C7496F6230BE20E001F8562 /* PopupUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupUtils.swift; sourceTree = "<group>"; };
 		2C7CD27322B7B497000B3BD0 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		2C7CD27922B8F455000B3BD0 /* KotlinConfAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KotlinConfAPI.framework; path = "../common/build/fat-framework/KotlinConfAPI.framework"; sourceTree = "<group>"; };
-		2CF01418229586E800C235D1 /* TouchableLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchableLabel.swift; sourceTree = "<group>"; };
 		2CF0141A22958ACB00C235D1 /* SpeakerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerController.swift; sourceTree = "<group>"; };
 		2CFA8EC322DCB398008B32E2 /* LiveVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveVideo.swift; sourceTree = "<group>"; };
 		2CFA8EC722DCB5DF008B32E2 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		2CFA8EC922DDF1F4008B32E2 /* InfoCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCards.swift; sourceTree = "<group>"; };
 		2CFA8ECB22DF0512008B32E2 /* SpeakersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakersController.swift; sourceTree = "<group>"; };
 		2CFA8ECD22DF0AD8008B32E2 /* PartnersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnersController.swift; sourceTree = "<group>"; };
-		2CFA8ECF22DF0AFB008B32E2 /* FAQController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQController.swift; sourceTree = "<group>"; };
 		6C31466D3383AF769D0B19EA /* Pods_KotlinConf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KotlinConf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BB676F62E76662CB81A11F9 /* Pods-KotlinConf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KotlinConf.release.xcconfig"; path = "Target Support Files/Pods-KotlinConf/Pods-KotlinConf.release.xcconfig"; sourceTree = "<group>"; };
 		B33E0796228D6EC800F313A1 /* ScheduleTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableHeader.swift; sourceTree = "<group>"; };
@@ -164,7 +160,6 @@
 				2CFA8EC722DCB5DF008B32E2 /* HomeController.swift */,
 				2CFA8ECB22DF0512008B32E2 /* SpeakersController.swift */,
 				2CFA8ECD22DF0AD8008B32E2 /* PartnersController.swift */,
-				2CFA8ECF22DF0AFB008B32E2 /* FAQController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -174,7 +169,6 @@
 			children = (
 				B3C643F42305896D00C35EEA /* ScheduleTableCell.swift */,
 				B33E0796228D6EC800F313A1 /* ScheduleTableHeader.swift */,
-				2CF01418229586E800C235D1 /* TouchableLabel.swift */,
 				2CFA8EC322DCB398008B32E2 /* LiveVideo.swift */,
 				2CFA8EC922DDF1F4008B32E2 /* InfoCards.swift */,
 				2C674AF122FD5258001CA3F5 /* SessionCardView.swift */,
@@ -356,7 +350,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C38A899228EEBD000BAF882 /* SessionController.swift in Sources */,
-				2CF01419229586E800C235D1 /* TouchableLabel.swift in Sources */,
 				2C46F0FE230AA48800D40386 /* ScheduleHeader.swift in Sources */,
 				2CFA8EC822DCB5DF008B32E2 /* HomeController.swift in Sources */,
 				2CFA8ECC22DF0512008B32E2 /* SpeakersController.swift in Sources */,
@@ -374,7 +367,6 @@
 				B33E0797228D6EC800F313A1 /* ScheduleTableHeader.swift in Sources */,
 				2CF0141B22958ACB00C235D1 /* SpeakerController.swift in Sources */,
 				2C7CD27422B7B497000B3BD0 /* BaseView.swift in Sources */,
-				2CFA8ED022DF0AFB008B32E2 /* FAQController.swift in Sources */,
 				B3C643F52305896D00C35EEA /* ScheduleTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

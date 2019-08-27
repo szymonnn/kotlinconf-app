@@ -7,7 +7,7 @@ enum Section {
     case favorites
 }
 
-class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDataSource, UIGestureRecognizerDelegate, ScheduleView, BaloonContainer {
+class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDataSource, ScheduleView, BaloonContainer {
     @IBOutlet weak var scheduleTable: UITableView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var searchContainer: UIView!
@@ -47,6 +47,8 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+
         scheduleTable.addSubview(refreshControl)
         scheduleTable.register(UINib(nibName: "ScheduleTableHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "ScheduleTableHeader")
         scheduleTable.register(UINib(nibName: "ScheduleTableCoffeeBreakBar", bundle: nil), forHeaderFooterViewReuseIdentifier: "ScheduleTableCoffeeBreakBar")
@@ -71,9 +73,6 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         super.viewWillAppear(animated)
         searchContainer.isHidden = true
         self.tabBarController?.tabBar.tintColor = UIColor.redOrange
-
-        navigationController!.interactivePopGestureRecognizer!.delegate = self
-        navigationController!.interactivePopGestureRecognizer!.isEnabled = false
     }
 
     func configureTableHeader() {
@@ -190,16 +189,7 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
     private func configureCell(cell: ScheduleTableCell, card: SessionCard) {
         let item = cell.card!
         item.card = card
-        item.container = self
-        let id = card.session.id
-
-        item.favoriteTouch = {
-            self.presenter.favorite(sessionId: id)
-        }
-
-        item.voteTouch = { rating in
-            self.presenter.vote(sessionId: id, rating: rating)
-        }
+        item.baloonContainer = self
 
         cell.touchHandler = {
             self.showSession(card: card)
@@ -212,7 +202,6 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
         sessionView.card = card
         self.navigationController?.pushViewController(sessionView, animated: true)
-        navigationController!.interactivePopGestureRecognizer!.isEnabled = true
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

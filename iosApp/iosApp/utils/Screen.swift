@@ -16,16 +16,16 @@ extension UIColor {
         return UIColor(red: 244.0 / 255.0, green: 244.0 / 255.0, blue: 244.0 / 255.0, alpha: 1.0)
     }
 
-    @nonobjc class var darkGrey: UIColor {
+    @nonobjc class var dark: UIColor {
         return UIColor(red: 39.0 / 255.0, green: 40.0 / 255.0, blue: 44.0 / 255.0, alpha: 1.0)
+    }
+
+    @nonobjc class var cardGray: UIColor {
+        return UIColor(red: 50.0 / 255.0, green: 50.0 / 255.0, blue: 54.0 / 255.0, alpha: 1.0)
     }
 
     @nonobjc class var darkGrey50: UIColor {
         return UIColor(red: 39.0 / 255.0, green: 40.0 / 255.0, blue: 44.0 / 255.0, alpha: 0.5)
-    }
-
-    @nonobjc class var lightGrey: UIColor {
-        return UIColor(red: 142.0 / 255.0, green: 142.0 / 255.0, blue: 147.0 / 255.0, alpha: 1.0)
     }
 
     @nonobjc class var lightGrey50: UIColor {
@@ -36,16 +36,16 @@ extension UIColor {
         return UIColor(red: 10.0 / 255.0, green: 122.0 / 255.0, blue: 247.0 / 255.0, alpha: 1.0)
     }
 
-    @nonobjc class var white: UIColor {
-        return UIColor(white: 1.0, alpha: 1.0)
-    }
-
     @nonobjc class var darkGreyOpac: UIColor {
         return UIColor(white: 132.0 / 255.0, alpha: 0.3)
     }
 
-    @nonobjc class var whiteOpac: UIColor {
+    @nonobjc class var white30: UIColor {
         return UIColor(white: 1.0, alpha: 0.3)
+    }
+
+    @nonobjc class var white60: UIColor {
+        return UIColor(white: 1.0, alpha: 0.6)
     }
 
     @nonobjc class var pressedOrange: UIColor {

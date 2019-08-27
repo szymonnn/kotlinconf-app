@@ -11,10 +11,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SessionCardView" customModule="KotlinConf" customModuleProvider="target">
             <connections>
+                <outlet property="container" destination="VNB-wF-mU6" id="Es1-Tg-XxW"/>
+                <outlet property="fadeOut" destination="jcN-Xc-2IT" id="Qsv-XP-1y8"/>
                 <outlet property="favoriteButton" destination="13Q-rN-deG" id="JTX-SM-KOM"/>
                 <outlet property="liveIcon" destination="GRu-Nb-6pL" id="3ah-ax-FR2"/>
                 <outlet property="liveLabel" destination="du0-lW-nMf" id="qMP-Oo-Wi3"/>
                 <outlet property="location" destination="jFW-4r-tgY" id="DAG-9x-1PI"/>
+                <outlet property="locationArrow" destination="l7p-F9-rnS" id="ASE-Nq-5Pd"/>
                 <outlet property="mainView" destination="iN0-l3-epB" id="Ztq-Ba-aou"/>
                 <outlet property="speakers" destination="K0O-cM-RxV" id="CSd-Kp-4ft"/>
                 <outlet property="title" destination="7wk-nU-di2" id="GU3-QH-oi4"/>
@@ -34,13 +37,13 @@
                     <rect key="frame" x="0.0" y="0.0" width="359" height="108"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Safe(r) Kotlin Code - Static Analysis tools for Kotlin" textAlignment="natural" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7wk-nU-di2" userLabel="Title">
-                            <rect key="frame" x="16" y="12" width="343" height="18"/>
+                            <rect key="frame" x="16" y="12" width="340" height="18"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <color key="textColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amanda Hichman Dominiguez" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K0O-cM-RxV" userLabel="Speakers">
-                            <rect key="frame" x="16" y="32" width="206" height="18"/>
+                            <rect key="frame" x="16" y="33" width="206" height="18"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
@@ -166,10 +169,10 @@
                         <constraint firstAttribute="width" constant="359" id="GGy-Ol-Rli"/>
                         <constraint firstItem="hzf-2L-jzZ" firstAttribute="centerY" secondItem="13Q-rN-deG" secondAttribute="centerY" id="Iep-4H-qFH"/>
                         <constraint firstAttribute="bottom" secondItem="l7p-F9-rnS" secondAttribute="bottom" constant="15" id="Q9n-KB-6wt"/>
-                        <constraint firstAttribute="trailing" secondItem="7wk-nU-di2" secondAttribute="trailing" id="SE9-td-Nl0"/>
+                        <constraint firstAttribute="trailing" secondItem="7wk-nU-di2" secondAttribute="trailing" constant="3" id="SE9-td-Nl0"/>
                         <constraint firstItem="jcN-Xc-2IT" firstAttribute="top" secondItem="VNB-wF-mU6" secondAttribute="top" constant="12" id="UTn-Oy-wud"/>
                         <constraint firstItem="7wk-nU-di2" firstAttribute="top" secondItem="VNB-wF-mU6" secondAttribute="top" constant="12" id="W4v-dZ-iYK"/>
-                        <constraint firstItem="K0O-cM-RxV" firstAttribute="top" secondItem="7wk-nU-di2" secondAttribute="bottom" constant="2" id="eDq-5H-c5T"/>
+                        <constraint firstItem="K0O-cM-RxV" firstAttribute="top" secondItem="7wk-nU-di2" secondAttribute="bottom" constant="3" id="eDq-5H-c5T"/>
                         <constraint firstItem="GRu-Nb-6pL" firstAttribute="centerY" secondItem="l7p-F9-rnS" secondAttribute="centerY" id="lDI-6L-fAo"/>
                         <constraint firstItem="286-R4-8c6" firstAttribute="centerY" secondItem="hzf-2L-jzZ" secondAttribute="centerY" id="mhy-vr-iwK"/>
                         <constraint firstItem="l7p-F9-rnS" firstAttribute="leading" secondItem="VNB-wF-mU6" secondAttribute="leading" constant="20" id="n39-QA-c27"/>

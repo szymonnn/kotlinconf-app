@@ -2,8 +2,7 @@ import Foundation
 import UIKit
 import KotlinConfAPI
 
-class SpeakersController : UIViewController, UITableViewDataSource, UITableViewDelegate, SpeakersView {
-
+class SpeakersController : UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, SpeakersView {
     @IBOutlet weak var speakersList: UITableView!
 
     private var presenter: SpeakersPresenter {
@@ -13,6 +12,8 @@ class SpeakersController : UIViewController, UITableViewDataSource, UITableViewD
     private var speakers: [SpeakerData] = []
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+
         speakersList.dataSource = self
         speakersList.delegate = self
 

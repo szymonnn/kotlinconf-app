@@ -4,34 +4,31 @@ import KotlinConfAPI
 
 let Conference = ConferenceService()
 
-class HomeController : UIViewController, UICollectionViewDataSource, HomeView, UIGestureRecognizerDelegate {
+class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRecognizerDelegate {
     @IBOutlet weak var videosView: UICollectionView!
+    @IBOutlet weak var upcomingFavorites: UIStackView!
 
     private var liveSessions: [SessionCard] = []
-    private var speakers: [SpeakerData] = []
-    private var partners: [PartnerData] = []
-
-    private var presenter: HomePresenter {
-        return HomePresenter(view: self)
-    }
 
     override func viewDidLoad() {
+        super.viewDidLoad()
+
         videosView.dataSource = self
         videosView.delegate = self
 
-        Conference.liveSessions.onChange(block: { ids in
-            let sessions = (ids as! Set<String>).map({ id in
-                Conference.sessionCard(id: id)
-            })
+        Conference.liveSessions.onChange(block: { cards in
+            self.onLiveSessions(sessions: cards as! [SessionCard])
+        })
 
-            self.onLiveSessions(sessions: sessions)
-            return nil
+        Conference.upcomingFavorites.onChange(block: { cards in
+            self.onUpcomingFavorites(sessions: cards as! [SessionCard])
         })
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.tintColor = UIColor.redOrange
+        navigationController!.interactivePopGestureRecognizer!.delegate = self
     }
 
     func onLiveSessions(sessions: [SessionCard]) {
@@ -39,13 +36,36 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
         videosView.reloadData()
     }
 
-    func onDataReceive(data: SessionizeData) {
-        speakers = data.speakers
-        partners = data.partners
+    private var upcoming: [SessionCardView] = []
+
+    private func onUpcomingFavorites(sessions: [SessionCard]) {
+        for card in upcoming {
+            upcomingFavorites.removeArrangedSubview(card)
+            card.cleanup()
+        }
+
+        upcoming = sessions.map({card in
+            let view = SessionCardView()
+            view.card = card
+            view.setupDarkMode()
+
+            view.onTouch = {
+                self.showScreen(name: "Session", config: { controller in
+                    (controller as! SessionController).card = card
+                })
+            }
+
+            upcomingFavorites.addArrangedSubview(view)
+            upcomingFavorites.setCustomSpacing(5.0, after: view)
+            return view
+        })
+    }
+
+    @IBAction func showParners(_ sender: Any) {
+        showScreen(name: "Partners")
     }
 
     func showScreen(name: String, config: (UIViewController) -> Void = { controller -> Void in return }) {
-        navigationController!.interactivePopGestureRecognizer!.isEnabled = true
         let board = UIStoryboard(name: "Main", bundle: nil)
         let controller = board.instantiateViewController(withIdentifier: name)
         config(controller)
@@ -56,8 +76,6 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
         switch collectionView {
         case videosView:
             return liveSessions.count
-//        case speakersView:
-//            return speakers.count
 //        case partnersView:
 //            return partners.count
         default:
@@ -71,13 +89,9 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
             let item = collectionView.dequeueReusableCell(withReuseIdentifier: "LiveVideo", for: indexPath) as! LiveVideo
             item.card = liveSessions[indexPath.row]
             return item
-//        case speakersView:
-//            let item = collectionView.dequeueReusableCell(withReuseIdentifier: "SpeakerCard", for: indexPath) as! SpeakerCard
-//            item.speaker = speakers[indexPath.row]
-//            return item
         default:
             let item = collectionView.dequeueReusableCell(withReuseIdentifier: "PartnerCard", for: indexPath) as! PartnerCard
-            item.partner = partners[indexPath.row]
+//            item.partner = partners[indexPath.row]
             return item
         }
     }
@@ -89,12 +103,6 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
             showScreen(name: "Session", config: { controller in
                 (controller as! SessionController).card = card
             })
-//        case speakersView:
-//            let speaker = speakers[indexPath.row]
-//
-//            showScreen(name: "Speaker",config: { controller in
-//                (controller as! SpeakerController).speaker = speaker
-//            })
         default:
             return
         }
@@ -108,8 +116,6 @@ extension HomeController : UIScrollViewDelegate, UICollectionViewDelegate {
 //            case self.videosView:
             default:
                 return self.videosView
-//            case self.speakersView:
-//                return self.speakersView
 //            default:
 //                return self.partnersView
             }
@@ -125,11 +131,5 @@ extension HomeController : UIScrollViewDelegate, UICollectionViewDelegate {
         offset.x = index * cellWidth - leftInset
 
         targetContentOffset.pointee = offset
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        navigationController!.interactivePopGestureRecognizer!.delegate = self
-        navigationController!.interactivePopGestureRecognizer!.isEnabled = false
     }
 }
