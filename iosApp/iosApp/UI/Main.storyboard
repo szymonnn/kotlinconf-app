@@ -282,9 +282,9 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Yq-hl-p87" userLabel="TopBar">
                                                         <rect key="frame" x="0.0" y="0.0" width="366" height="32"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9J-wO-6HG" userLabel="Back">
-                                                                <rect key="frame" x="0.0" y="0.0" width="34" height="30"/>
-                                                                <state key="normal" title="Back"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9J-wO-6HG" userLabel="Back">
+                                                                <rect key="frame" x="0.0" y="0.0" width="19" height="22"/>
+                                                                <state key="normal" image="Back"/>
                                                                 <connections>
                                                                     <action selector="backButtonTouch:" destination="EXc-s1-4Xq" eventType="touchUpInside" id="SNG-hh-ble"/>
                                                                 </connections>
@@ -364,12 +364,12 @@
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eao-Sy-QB6" userLabel="Share">
-                                                                <rect key="frame" x="0.0" y="332" width="40" height="30"/>
-                                                                <state key="normal" title="Share"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eao-Sy-QB6" userLabel="Share">
+                                                                <rect key="frame" x="0.0" y="332" width="22" height="22"/>
+                                                                <state key="normal" image="share"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouv-Kj-1xl" userLabel="Favorite">
-                                                                <rect key="frame" x="346" y="337" width="20" height="20"/>
+                                                                <rect key="frame" x="346" y="333" width="20" height="20"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="20" id="lLm-Ik-BLA"/>
                                                                     <constraint firstAttribute="height" constant="20" id="vlW-jE-xMv"/>
@@ -381,7 +381,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lwi-HR-rQL" userLabel="Vote">
-                                                                <rect key="frame" x="301" y="334" width="26" height="26"/>
+                                                                <rect key="frame" x="301" y="330" width="26" height="26"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="26" id="UhM-jV-goR"/>
                                                                     <constraint firstAttribute="height" constant="26" id="apK-e5-Dnn"/>
@@ -392,7 +392,7 @@
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOD-1S-UUi" userLabel="Description">
-                                                                <rect key="frame" x="0.0" y="395" width="366" height="648"/>
+                                                                <rect key="frame" x="0.0" y="387" width="366" height="648"/>
                                                                 <attributedString key="attributedText">
                                                                     <fragment>
                                                                         <string key="content">Alicia is the first woman of color mobile developer to create a domestic violence app Purple Evolution, Inc(PEVO) dedicated to helping victims escape abuse. She used her acquired skills as a developer to make a difference. Alicia also dedicated her time to empowering women in tech with Wo Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia men Who Code, she has received several major acknowledgments from Apple at WWDC15 and WWDC16 being the first black woman to be in an Apple 2016 new beginnings video and GitHub in there I am a developer video. Alicia is the first woman of color mobile developer to create a domestic violence app Purple Evolution, Inc(PEVO) dedicated to helping victims escape abuse. She used her acquired skills as a developer to make a difference. Alicia also dedicated her time to empowering women in tech with Wo Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia Alicia men Who Code, she has received several major acknowledgments from Apple at WWDC15 and WWDC16 being the first black woman to be in an Apple 2016 new beginnings video and GitHub in there I am a developer video.</string>
@@ -406,17 +406,17 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="USw-FX-Y3f" userLabel="Location">
-                                                                <rect key="frame" x="139" y="267.5" width="91" height="45"/>
+                                                                <rect key="frame" x="139" y="267.5" width="84" height="45"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="45" id="za0-nj-q5u"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
-                                                                <state key="normal" title="Main Hall" image="arrow">
+                                                                <state key="normal" title="  Main Hall" image="mapWhite">
                                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </state>
                                                             </button>
                                                             <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHS-vg-vgd" userLabel="VoteBar">
-                                                                <rect key="frame" x="189" y="320" width="154" height="54"/>
+                                                                <rect key="frame" x="189" y="316" width="154" height="54"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aaj-E3-0dw" userLabel="VoteUp">
                                                                         <rect key="frame" x="16" y="14" width="26" height="26"/>
@@ -551,45 +551,45 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TUx-ER-2EC" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EzF-GC-nyG">
-                                                <rect key="frame" x="27" y="17" width="34" height="30"/>
-                                                <state key="normal" title="Back"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EzF-GC-nyG">
+                                                <rect key="frame" x="27" y="17" width="19" height="22"/>
+                                                <state key="normal" image="Back"/>
                                                 <connections>
                                                     <action selector="backButtonTouch:" destination="72F-iY-y6i" eventType="touchUpInside" id="eO9-k4-z3P"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AMANDA JONES" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4VX-79-kiq" userLabel="Name">
-                                                <rect key="frame" x="24" y="64" width="390" height="60"/>
+                                                <rect key="frame" x="24" y="56" width="390" height="60"/>
                                                 <fontDescription key="fontDescription" name="DrukCy-Bold" family="Druk Cy" pointSize="60"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chief Kotlin Specialist" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fW-ca-Cbu" userLabel="Position">
-                                                <rect key="frame" x="24" y="136" width="366" height="18"/>
+                                                <rect key="frame" x="24" y="128" width="366" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" name="white"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle" translatesAutoresizingMaskIntoConstraints="NO" id="wyu-bY-sMo" userLabel="Photo">
-                                                <rect key="frame" x="24" y="181" width="366" height="366"/>
+                                                <rect key="frame" x="24" y="173" width="366" height="366"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="wyu-bY-sMo" secondAttribute="height" multiplier="1:1" id="56t-gb-Mvd"/>
                                                     <constraint firstAttribute="width" secondItem="wyu-bY-sMo" secondAttribute="height" multiplier="1:1" id="xvc-jC-UGX"/>
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amanda is the first woman of color mobile developer to create " textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k8q-ec-51j" userLabel="Description">
-                                                <rect key="frame" x="24" y="572" width="366" height="38.5"/>
+                                                <rect key="frame" x="24" y="564" width="366" height="38.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" name="white"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Talks:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xNe-4m-qub">
-                                                <rect key="frame" x="26" y="628.5" width="43" height="18"/>
+                                                <rect key="frame" x="26" y="620.5" width="43" height="18"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kwz-xL-sQZ" userLabel="Talks">
-                                                <rect key="frame" x="9" y="664.5" width="396" height="181.5"/>
+                                                <rect key="frame" x="9" y="656.5" width="396" height="189.5"/>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" name="deepSkyBlue"/>
@@ -669,19 +669,20 @@
                                                 <color key="textColor" red="0.97647058823529409" green="0.25490196078431371" blue="0.019607843137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="w2a-4a-asZ" userLabel="LiveCards">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="w2a-4a-asZ" userLabel="LiveCards">
                                                 <rect key="frame" x="0.0" y="132" width="414" height="260"/>
+                                                <color key="backgroundColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="260" id="aaR-Nk-I3X"/>
                                                 </constraints>
                                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="abj-sb-12A">
                                                     <size key="itemSize" width="342" height="260"/>
-                                                    <size key="headerReferenceSize" width="10" height="50"/>
+                                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="CLe-hd-pwc">
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LiveVideo" id="CLe-hd-pwc" customClass="LiveVideo" customModule="KotlinConf" customModuleProvider="target">
                                                         <rect key="frame" x="10" y="0.0" width="342" height="260"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -764,12 +765,15 @@
                                                             <constraint firstItem="sIH-DK-hES" firstAttribute="leading" secondItem="CLe-hd-pwc" secondAttribute="leading" id="W3r-JL-TlT"/>
                                                             <constraint firstAttribute="trailing" secondItem="sIH-DK-hES" secondAttribute="trailing" id="oFK-c4-pVi"/>
                                                         </constraints>
+                                                        <connections>
+                                                            <outlet property="favoriteButton" destination="x7M-S7-u7G" id="ctH-Jd-eAY"/>
+                                                            <outlet property="location" destination="Wba-OT-c4q" id="jTc-aH-vrN"/>
+                                                            <outlet property="sessionTitle" destination="XNX-9l-5e2" id="y2L-4a-ave"/>
+                                                            <outlet property="speaker" destination="OZL-66-9VR" id="TwC-Vn-t87"/>
+                                                            <outlet property="video" destination="JXL-6t-xWW" id="Zjd-OD-cSs"/>
+                                                        </connections>
                                                     </collectionViewCell>
                                                 </cells>
-                                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="mWQ-M6-GRh">
-                                                    <rect key="frame" x="0.0" y="0.0" width="10" height="260"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </collectionReusableView>
                                             </collectionView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DON’T MISS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="urM-D8-Kqy">
                                                 <rect key="frame" x="24" y="428" width="244" height="80"/>
@@ -1214,6 +1218,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Back" width="19" height="14"/>
         <image name="Cancel" width="16" height="16"/>
         <image name="arrow" width="28" height="19"/>
         <image name="bW" width="112" height="112"/>
@@ -1222,8 +1227,10 @@
         <image name="favoriteWhiteEmpty" width="20" height="20"/>
         <image name="home" width="32" height="24"/>
         <image name="map" width="28" height="19"/>
+        <image name="mapWhite" width="13" height="9"/>
         <image name="rectangle" width="38" height="30"/>
         <image name="schedule" width="22" height="22"/>
+        <image name="share" width="22" height="18"/>
         <image name="speakers" width="20" height="25"/>
         <image name="voteBad" width="28" height="28"/>
         <image name="voteBadOrange" width="26" height="26"/>
@@ -1240,7 +1247,7 @@
         </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="gXt-Tm-lKK"/>
-        <segue reference="HSK-fJ-7aZ"/>
+        <segue reference="qJq-pZ-cyJ"/>
+        <segue reference="HWp-hd-oXB"/>
     </inferredMetricsTieBreakers>
 </document>

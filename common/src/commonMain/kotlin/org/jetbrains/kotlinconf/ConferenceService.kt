@@ -7,6 +7,7 @@ import org.jetbrains.kotlinconf.presentation.*
 import org.jetbrains.kotlinconf.storage.*
 import kotlin.coroutines.*
 import kotlin.native.concurrent.*
+import kotlin.random.*
 
 /**
  * [ConferenceService] handles data and builds model.
@@ -16,7 +17,7 @@ import kotlin.native.concurrent.*
  * @param storage: persistent application storage implementation. TODO: move to common
  */
 @ThreadLocal
-internal object ConferenceService : CoroutineScope {
+object ConferenceService : CoroutineScope {
     override val coroutineContext: CoroutineContext = dispatcher() + SupervisorJob()
 
     private val storage: ApplicationStorage = ApplicationStorage()
@@ -50,7 +51,6 @@ internal object ConferenceService : CoroutineScope {
      * Live sessions.
      */
     val liveSessions = Observable<Set<String>>(emptySet())
-    private var _live: Set<String> = emptySet()
 
     private var cards: MutableMap<String, SessionCard> = mutableMapOf()
 
@@ -61,6 +61,13 @@ internal object ConferenceService : CoroutineScope {
             userId?.let { Api.sign(it) }
             if (_publicData.sessions.isEmpty()) {
                 refresh()
+            }
+        }
+
+        launch {
+            while (true) {
+                updateLive()
+                delay(5 * 1000)
             }
         }
 
@@ -240,6 +247,21 @@ internal object ConferenceService : CoroutineScope {
             publicData.change(_publicData)
             favorites.change(_favorites)
         }
+    }
+
+    private fun updateLive() {
+        val sessions = publicData.current.sessions
+        if (sessions.isEmpty()) {
+            return
+        }
+
+        val result = mutableSetOf<String>()
+        repeat(5) {
+            val index = Random.nextInt(sessions.size)
+            result += sessions[index].id
+        }
+
+        liveSessions.change(result)
     }
 
     private fun updateVote(sessionId: String, rating: RatingData?) {
