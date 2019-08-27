@@ -15,6 +15,12 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var speakers: UIStackView!
 
+    @IBOutlet weak var voteButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var voteUp: UIButton!
+    @IBOutlet weak var voteOk: UIButton!
+    @IBOutlet weak var voteDown: UIButton!
+
     private var presenter: SessionPresenter! {
         return SessionPresenter(view: self)
     }
@@ -89,9 +95,7 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
         borders = [speaker1, speaker2, locationLabel].map({ button in
             let label = button!.titleLabel
             label?.sizeToFit()
-
             let xOffset: CGFloat = (button?.imageView?.image != nil) ? 33.0 : 12.0
-
             return label!.layer.addBorders(label!.bounds.size, xOffset, 8)
         })
         speakers.sizeToFit()
@@ -115,6 +119,17 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
     }
 
     @IBAction func favoriteTouch(_ sender: Any) {
+        Conference.markFavorite(sessionId: card.session.id)
+    }
+
+    @IBAction func voteUpTouch(_ sender: Any) {
+        Conference.vote(sessionId: card.session.id, rating: .good)
+    }
+    @IBAction func voteOkTouch(_ sender: Any) {
+        Conference.vote(sessionId: card.session.id, rating: .ok)
+    }
+    @IBAction func voteDownTouch(_ sender: Any) {
+        Conference.vote(sessionId: card.session.id, rating: .bad)
     }
 
     private func liveChange(_ isLive: Bool) {
@@ -122,9 +137,25 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
     }
 
     private func ratingChange(_ rating: RatingData?) {
+        voteUp.isSelected = rating == .good
+        voteOk.isSelected = rating == .ok
+        voteDown.isSelected = rating == .bad
+
+        let image: UIImage = {
+            switch rating {
+            case RatingData.good: return UIImage(named: "voteGoodWhite")!
+            case RatingData.ok: return UIImage(named: "voteOkWhite")!
+            case RatingData.bad: return UIImage(named: "voteBadWhite")!
+            default: return UIImage(named: "voteGoodLight")!
+            }
+        }()
+
+        voteButton.setImage(image, for: .normal)
+        voteBar.isHidden = true
     }
 
     private func favoriteChange(_ isFavorite: Bool) {
+        favoriteButton.isSelected = isFavorite
     }
 
 //    @IBAction func favoriteClick(_ sender: Any) {

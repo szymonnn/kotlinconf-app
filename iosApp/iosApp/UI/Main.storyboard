@@ -371,15 +371,11 @@
                                                                 <state key="normal" image="share"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouv-Kj-1xl" userLabel="Favorite">
-                                                                <rect key="frame" x="346" y="333" width="20" height="20"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="20" id="lLm-Ik-BLA"/>
-                                                                    <constraint firstAttribute="height" constant="20" id="vlW-jE-xMv"/>
-                                                                </constraints>
+                                                                <rect key="frame" x="346" y="332" width="20" height="22"/>
                                                                 <state key="normal" image="favoriteWhiteEmpty"/>
                                                                 <state key="selected" image="favoriteWhite"/>
                                                                 <connections>
-                                                                    <action selector="favoriteTouch:" destination="EXc-s1-4Xq" eventType="touchUpInside" id="QQ1-cR-bgS"/>
+                                                                    <action selector="favoriteTouch:" destination="EXc-s1-4Xq" eventType="touchUpInside" id="m36-mL-xBM"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lwi-HR-rQL" userLabel="Vote">
@@ -428,6 +424,9 @@
                                                                         </constraints>
                                                                         <state key="normal" image="voteGood"/>
                                                                         <state key="selected" image="voteGoodOrange"/>
+                                                                        <connections>
+                                                                            <action selector="voteUpTouch:" destination="EXc-s1-4Xq" eventType="touchUpInside" id="faY-Gq-X71"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUH-pg-xn9" userLabel="VoteOk">
                                                                         <rect key="frame" x="64" y="14" width="26" height="26"/>
@@ -437,6 +436,9 @@
                                                                         </constraints>
                                                                         <state key="normal" image="voteOk"/>
                                                                         <state key="selected" image="voteOkOrange"/>
+                                                                        <connections>
+                                                                            <action selector="voteOkTouch:" destination="EXc-s1-4Xq" eventType="touchUpInside" id="iIf-Wi-M4d"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VgV-Un-cFa" userLabel="VoteDown">
                                                                         <rect key="frame" x="112" y="14" width="26" height="26"/>
@@ -446,6 +448,9 @@
                                                                         </constraints>
                                                                         <state key="normal" image="voteBad"/>
                                                                         <state key="selected" image="voteBadOrange"/>
+                                                                        <connections>
+                                                                            <action selector="voteDownTouch:" destination="EXc-s1-4Xq" eventType="touchUpInside" id="B4v-6G-woO"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -525,6 +530,7 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="descriptionLabel" destination="BOD-1S-UUi" id="xev-z4-WKH"/>
+                        <outlet property="favoriteButton" destination="ouv-Kj-1xl" id="WFH-TP-3ns"/>
                         <outlet property="locationLabel" destination="USw-FX-Y3f" id="GOj-RE-8Lb"/>
                         <outlet property="scrollView" destination="Gqt-hT-ABL" id="8mi-NY-LWr"/>
                         <outlet property="speaker1" destination="eV2-wr-Dgs" id="RFO-CT-biX"/>
@@ -534,6 +540,10 @@
                         <outlet property="titleLabel" destination="tRO-OR-KcH" id="n4T-nL-0yb"/>
                         <outlet property="video" destination="xsh-AO-xRn" id="U2U-yv-ulM"/>
                         <outlet property="voteBar" destination="vHS-vg-vgd" id="h7J-5A-wAI"/>
+                        <outlet property="voteButton" destination="Lwi-HR-rQL" id="Hhr-12-u83"/>
+                        <outlet property="voteDown" destination="VgV-Un-cFa" id="i4V-GQ-0pF"/>
+                        <outlet property="voteOk" destination="jUH-pg-xn9" id="rPC-of-iGO"/>
+                        <outlet property="voteUp" destination="aaj-E3-0dw" id="KGQ-bD-unV"/>
                         <segue destination="72F-iY-y6i" kind="show" identifier="ShowSpeaker" id="qJq-pZ-cyJ"/>
                     </connections>
                 </viewController>
