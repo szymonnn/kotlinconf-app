@@ -2,6 +2,8 @@ import Foundation
 import UIKit
 import KotlinConfAPI
 
+let Conference = ConferenceService()
+
 class HomeController : UIViewController, UICollectionViewDataSource, HomeView, UIGestureRecognizerDelegate {
     @IBOutlet weak var videosView: UICollectionView!
 
@@ -16,6 +18,15 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
     override func viewDidLoad() {
         videosView.dataSource = self
         videosView.delegate = self
+
+        Conference.liveSessions.onChange(block: { ids in
+            let sessions = (ids as! Set<String>).map({ id in
+                Conference.sessionCard(id: id)
+            })
+
+            self.onLiveSessions(sessions: sessions)
+            return nil
+        })
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -74,9 +85,9 @@ class HomeController : UIViewController, UICollectionViewDataSource, HomeView, U
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch collectionView {
         case videosView:
-//            let session = liveSessions[indexPath.row]
+            let card = liveSessions[indexPath.row]
             showScreen(name: "Session", config: { controller in
-//                (controller as! SessionController).session = session
+                (controller as! SessionController).card = card
             })
 //        case speakersView:
 //            let speaker = speakers[indexPath.row]
@@ -94,8 +105,8 @@ extension HomeController : UIScrollViewDelegate, UICollectionViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let view: UICollectionView = {
             switch scrollView {
-            default:
 //            case self.videosView:
+            default:
                 return self.videosView
 //            case self.speakersView:
 //                return self.speakersView
