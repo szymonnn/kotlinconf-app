@@ -48,4 +48,14 @@ import UIKit
 
         roundCorners(corners: corners, radius: radius)
     }
+
+    func dark() {
+        isSelected = true
+        backgroundColor = UIColor.dark
+    }
+
+    func light() {
+        isSelected = false
+        backgroundColor = UIColor.white
+    }
 }

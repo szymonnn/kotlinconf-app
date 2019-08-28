@@ -59,7 +59,7 @@ extension CALayer {
     func addBorders(_ size: CGSize, _ xOffset: CGFloat, _ yOffset: CGFloat) -> CALayer {
         let layer = CALayer()
         layer.borderWidth = 1.0
-        layer.borderColor = UIColor.white.cgColor
+        layer.borderColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.65).cgColor
         layer.cornerRadius = 7.0
 
         let size = CGSize(width: size.width + 2.0 * xOffset, height: size.height + 2.0 * yOffset)

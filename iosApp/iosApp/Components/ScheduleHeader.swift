@@ -10,14 +10,14 @@ class ScheduleHeader : UIView {
     var onFavoritesTouch: () -> Void = {}
 
     @IBAction func allSessionsTouch(_ sender: Any) {
-        configureButtonDark(button: allSessions)
-        configureButtonLight(button: favorites)
+        favorites.light()
+        allSessions.dark()
         onAllTouch()
     }
 
     @IBAction func favoritesTouch(_ sender: Any) {
-        configureButtonDark(button: favorites)
-        configureButtonLight(button: allSessions)
+        favorites.dark()
+        allSessions.light()
         onFavoritesTouch()
     }
 
@@ -25,13 +25,4 @@ class ScheduleHeader : UIView {
         onSearchTouch()
     }
 
-    private func configureButtonDark(button: TopButton) {
-        button.isSelected = true
-        button.backgroundColor = UIColor.dark
-    }
-
-    private func configureButtonLight(button: TopButton) {
-        button.isSelected = false
-        button.backgroundColor = UIColor.white
-    }
 }

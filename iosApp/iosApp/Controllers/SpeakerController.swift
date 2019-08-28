@@ -2,16 +2,12 @@ import Foundation
 import UIKit
 import KotlinConfAPI
 
-class SpeakerController : UIViewController, SpeakerView {
+class SpeakerController : UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var talksContainer: UIStackView!
-
-    private var presenter: SpeakerPresenter! {
-        return SpeakerPresenter(view: self)
-    }
 
     var speaker: SpeakerData!
 
@@ -34,7 +30,7 @@ class SpeakerController : UIViewController, SpeakerView {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        let sessions = presenter.sessionsForSpeaker(id: speaker.id)
+        let sessions = Conference.speakerSessions(speakerId: speaker.id)
 
         for card in sessions {
             let view = SessionCardView()

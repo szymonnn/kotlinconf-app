@@ -16,6 +16,7 @@ import kotlin.native.concurrent.*
 @ThreadLocal
 internal object Api {
     //    val endpoint = "https://konf-staging.kotlin-aws.intellij.net/"
+//    val endpoint = "http://172.30.160.213:8080"
     val endpoint = "http://0.0.0.0:8080"
 
     private val client = HttpClient {

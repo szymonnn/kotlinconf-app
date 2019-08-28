@@ -7,7 +7,7 @@ enum Section {
     case favorites
 }
 
-class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDataSource, ScheduleView, BaloonContainer {
+class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDataSource, BaloonContainer {
     @IBOutlet weak var scheduleTable: UITableView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var searchContainer: UIView!
@@ -16,10 +16,6 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
     var activePopup: UIView? = nil
 
     let tableHeader = UINib(nibName: "ScheduleHeader", bundle: nil).instantiate(withOwner: nil, options: [:])[0] as! ScheduleHeader
-
-    private var presenter: SchedulePresenter {
-        return SchedulePresenter(view: self)
-    }
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -58,11 +54,11 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         scheduleTable.delegate = self
         scheduleTable.dataSource = self
 
-        presenter.schedule.onChange(block: {data in
+        Conference.schedule.onChange(block: {data in
             self.onSessions(session: data as! [SessionGroup])
         })
 
-        presenter.favorites.onChange(block: {data in
+        Conference.favoriteSchedule.onChange(block: {data in
             self.onFavorites(session: data as! [SessionGroup])
         })
 
@@ -136,7 +132,7 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
     @IBAction
     func onRefresh(_ refreshControl: UIRefreshControl) {
-        presenter.pullToRefresh()
+        Conference.refresh()
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {

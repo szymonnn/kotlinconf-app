@@ -135,13 +135,13 @@ private fun Routing.apiVote(database: Database, production: Boolean) {
             val votingPeriodStarted = startVotesAt.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) }
             val votingPeriodEnded = endVotesAt.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) }
 
-            if (!votingPeriodStarted) {
-                return@post call.respond(comeBackLater)
-            }
-
-            if (votingPeriodEnded) {
-                return@post call.respond(tooLate)
-            }
+//            if (!votingPeriodStarted) {
+//                return@post call.respond(comeBackLater)
+//            }
+//
+//            if (votingPeriodEnded) {
+//                return@post call.respond(tooLate)
+//            }
 
             val timestamp = LocalDateTime.now(Clock.systemUTC())
             val status = if (database.changeVote(principal.token, sessionId, rating, timestamp)) {

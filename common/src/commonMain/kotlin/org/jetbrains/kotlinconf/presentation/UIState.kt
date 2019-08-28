@@ -1,5 +1,6 @@
 package org.jetbrains.kotlinconf.presentation
 
+import io.ktor.util.date.*
 import org.jetbrains.kotlinconf.*
 
 /**
@@ -8,8 +9,11 @@ import org.jetbrains.kotlinconf.*
 class SessionGroup(
     val month: String,
     val day: Int,
-    val time: String,
-    val sessions: List<SessionCard>
+    val title: String,
+    val startsAt: GMTDate,
+    val sessions: List<SessionCard>,
+    val daySection: Boolean = false,
+    val coffeeBreak: Boolean = false
 )
 
 /**

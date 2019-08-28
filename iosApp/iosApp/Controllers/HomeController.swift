@@ -7,6 +7,7 @@ let Conference = ConferenceService()
 class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRecognizerDelegate {
     @IBOutlet weak var videosView: UICollectionView!
     @IBOutlet weak var upcomingFavorites: UIStackView!
+    @IBOutlet weak var dontMissLabel: UILabel!
 
     private var liveSessions: [SessionCard] = []
 
@@ -39,6 +40,7 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
     private var upcoming: [SessionCardView] = []
 
     private func onUpcomingFavorites(sessions: [SessionCard]) {
+        dontMissLabel.isHidden = sessions.count == 0
         for card in upcoming {
             upcomingFavorites.removeArrangedSubview(card)
             card.cleanup()

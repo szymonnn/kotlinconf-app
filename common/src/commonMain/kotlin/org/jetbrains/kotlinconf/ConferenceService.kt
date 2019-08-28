@@ -11,10 +11,6 @@ import kotlin.random.*
 
 /**
  * [ConferenceService] handles data and builds model.
- *
- * @param userId: unique user identifier.
- * @param endPoint: API address
- * @param storage: persistent application storage implementation. TODO: move to common
  */
 @ThreadLocal
 object ConferenceService : CoroutineScope {
@@ -60,6 +56,16 @@ object ConferenceService : CoroutineScope {
     val upcomingFavorites: Observable<List<SessionCard>> = _upcomingFavorites.onChange {
         it.toList().map { id -> sessionCard(id) }
     }
+
+    val schedule: Observable<List<SessionGroup>> = publicData.onChange {
+        it.sessions.makeGroups()
+    }
+
+    val favoriteSchedule: Observable<List<SessionGroup>> = favorites.onChange {
+        it.map { id -> session(id) }.makeGroups()
+    }
+
+    val speakers = publicData.onChange { it.speakers }
 
     /**
      * Cached.
@@ -127,20 +133,6 @@ object ConferenceService : CoroutineScope {
     }
 
     /**
-     * Get sorted session groups.
-     */
-    fun sessionGroups(): List<SessionGroup> = _publicData
-        .sessions
-        .makeGroups()
-
-    /**
-     * Get sorted favorite session groups.
-     */
-    fun favoriteGroups(): List<SessionGroup> = _favorites
-        .map { session(it) }
-        .makeGroups()
-
-    /**
      * Find speaker by id.
      */
     fun speaker(id: String): SpeakerData =
@@ -180,7 +172,6 @@ object ConferenceService : CoroutineScope {
         cards[id] = result
         return result
     }
-
 
     /**
      * ------------------------------
@@ -347,6 +338,6 @@ private fun List<SessionData>.makeGroups(): List<SessionGroup> = groupBy { it.st
 
         val cards = sessions.map { ConferenceService.sessionCard(it.id) }
 
-        SessionGroup(monthName, day, time, cards)
+        SessionGroup(monthName, day, time, startsAt, cards)
     }
 

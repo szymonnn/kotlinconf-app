@@ -2,12 +2,8 @@ import Foundation
 import UIKit
 import KotlinConfAPI
 
-class SpeakersController : UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, SpeakersView {
+class SpeakersController : UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
     @IBOutlet weak var speakersList: UITableView!
-
-    private var presenter: SpeakersPresenter {
-        return SpeakersPresenter(view: self)
-    }
 
     private var speakers: [SpeakerData] = []
 
@@ -17,7 +13,7 @@ class SpeakersController : UIViewController, UITableViewDataSource, UITableViewD
         speakersList.dataSource = self
         speakersList.delegate = self
 
-        presenter.speakers.onChange(block: { speakers in
+        Conference.speakers.onChange(block: { speakers in
             return self.onSpeakers(speakers: speakers as! [SpeakerData])
         })
     }
@@ -38,7 +34,6 @@ class SpeakersController : UIViewController, UITableViewDataSource, UITableViewD
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpeakerCell") as! SpeakerCellView
-
         cell.speaker = speakers[indexPath.row]
         return cell
     }
@@ -63,7 +58,7 @@ class SpeakerCellView : UITableViewCell {
 
     var speaker: SpeakerData! {
         didSet {
-            speakerName.text = speaker.fullName
+            speakerName.text = speaker.fullName.uppercased()
             speakerPosition.text = speaker.tagLine
 
             if let profilePicture = speaker.profilePicture {
