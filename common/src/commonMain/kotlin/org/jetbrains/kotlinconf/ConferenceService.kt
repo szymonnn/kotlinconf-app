@@ -16,8 +16,14 @@ import kotlin.random.*
 object ConferenceService : CoroutineScope {
     override val coroutineContext: CoroutineContext = dispatcher() + SupervisorJob()
 
+
     private val storage: ApplicationStorage = ApplicationStorage()
     private var userId: String? by storage(NullableSerializer(String.serializer())) { null }
+
+    /**
+     * Cached.
+     */
+    private var cards: MutableMap<String, SessionCard> = mutableMapOf()
 
     /**
      * ------------------------------
@@ -67,10 +73,6 @@ object ConferenceService : CoroutineScope {
 
     val speakers = publicData.onChange { it.speakers }
 
-    /**
-     * Cached.
-     */
-    private var cards: MutableMap<String, SessionCard> = mutableMapOf()
 
     init {
         acceptPrivacyPolicy()
@@ -159,14 +161,20 @@ object ConferenceService : CoroutineScope {
         val session = session(id)
         val roomId = session.roomId ?: error("No room id in session: ${session.id}")
 
+        val location = room(roomId)
+        val speakers = sessionSpeakers(id)
+        val isFavorite = favorites.onChange { id in it }
+        val ratingData = votes.onChange { it[id] }
+        val isLive = _liveSessions.onChange { id in it }
+
         val result = SessionCard(
             session,
             "${session.startsAt.time()}-${session.endsAt.time()}",
-            room(roomId),
-            sessionSpeakers(id),
-            favorites.onChange { id in it },
-            votes.onChange { it[id] },
-            _liveSessions.onChange { id in it }
+            location,
+            speakers,
+            isFavorite,
+            ratingData,
+            isLive
         )
 
         cards[id] = result
@@ -320,13 +328,6 @@ object ConferenceService : CoroutineScope {
 }
 
 /**
- * 1. user click vote button
- * 2. update observable
- * 3. send request
- * 4. onFail -> show error, revert observable
- * 5. onSuccess -> do nothing
- **/
-/**
  * Group sessions by title.
  */
 private fun List<SessionData>.makeGroups(): List<SessionGroup> = groupBy { it.startsAt }
@@ -337,7 +338,6 @@ private fun List<SessionData>.makeGroups(): List<SessionGroup> = groupBy { it.st
         val time = "${startsAt.time()}-${endsAt.time()}"
 
         val cards = sessions.map { ConferenceService.sessionCard(it.id) }
-
         SessionGroup(monthName, day, time, startsAt, cards)
     }
 

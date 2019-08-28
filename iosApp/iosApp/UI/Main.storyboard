@@ -557,7 +557,6 @@
                         <outlet property="voteDown" destination="VgV-Un-cFa" id="i4V-GQ-0pF"/>
                         <outlet property="voteOk" destination="jUH-pg-xn9" id="rPC-of-iGO"/>
                         <outlet property="voteUp" destination="aaj-E3-0dw" id="KGQ-bD-unV"/>
-                        <segue destination="72F-iY-y6i" kind="show" identifier="ShowSpeaker" id="qJq-pZ-cyJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L2k-ZP-okP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -937,13 +936,12 @@
                         <outlet property="dontMissLabel" destination="urM-D8-Kqy" id="dzK-3u-XjT"/>
                         <outlet property="upcomingFavorites" destination="ONd-Qy-Yum" id="OA0-rf-jMm"/>
                         <outlet property="videosView" destination="w2a-4a-asZ" id="LdE-D9-jqI"/>
-                        <segue destination="HNe-zI-CNe" kind="show" id="HWp-hd-oXB"/>
                         <segue destination="b7q-Jg-rgR" kind="show" id="hPQ-oa-w2C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aWA-An-Ohy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2155.072463768116" y="2150.2232142857142"/>
+            <point key="canvasLocation" x="-2154" y="2465"/>
         </scene>
         <!--Main-->
         <scene sceneID="fNH-jL-DwN">
@@ -969,7 +967,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Tb2-0K-GIT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-614" y="1160"/>
+            <point key="canvasLocation" x="-614" y="1201"/>
         </scene>
         <!--Venue-->
         <scene sceneID="p7K-X0-nOf">
@@ -1077,10 +1075,20 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U0b-wl-8dd">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="1"/>
+                                                <color key="backgroundColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.17254901960784313" alpha="0.49842144691780821" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="1" id="TH5-Xg-cUv"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstItem="U0b-wl-8dd" firstAttribute="top" secondItem="8my-4V-aus" secondAttribute="top" id="0lD-QK-Aul"/>
                                             <constraint firstAttribute="height" constant="100" id="4lJ-JI-maC"/>
+                                            <constraint firstAttribute="trailing" secondItem="U0b-wl-8dd" secondAttribute="trailing" id="BVc-xK-V3w"/>
                                             <constraint firstItem="cIM-6e-a7w" firstAttribute="centerX" secondItem="8my-4V-aus" secondAttribute="centerX" id="fq5-Bx-dzK"/>
+                                            <constraint firstItem="U0b-wl-8dd" firstAttribute="leading" secondItem="8my-4V-aus" secondAttribute="leading" id="gqY-7k-eIK"/>
                                             <constraint firstItem="cIM-6e-a7w" firstAttribute="top" secondItem="8my-4V-aus" secondAttribute="top" constant="10" id="hHS-Ch-SdX"/>
                                         </constraints>
                                     </view>
@@ -1261,7 +1269,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zLv-B1-v8C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2154" y="3446"/>
+            <point key="canvasLocation" x="-3043" y="3730"/>
         </scene>
         <!--Partner-->
         <scene sceneID="xnM-wh-6kc">
@@ -1357,7 +1365,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TnZ-rq-Lun" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2157" y="4145"/>
+            <point key="canvasLocation" x="-3043" y="4423"/>
         </scene>
     </scenes>
     <resources>
@@ -1388,8 +1396,4 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="qJq-pZ-cyJ"/>
-        <segue reference="HWp-hd-oXB"/>
-    </inferredMetricsTieBreakers>
 </document>

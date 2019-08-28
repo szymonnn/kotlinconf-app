@@ -17,6 +17,7 @@ class VenueController : UIViewController {
 
     private var initial: CGFloat = 0.0
     private var floor: Floor = .ground
+    private var descriptionActive: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,18 +70,28 @@ class VenueController : UIViewController {
         gestureRecognizer.setTranslation(CGPoint.zero, in: self.view)
 
         if gestureRecognizer.state == .ended {
-            let top = overlay.frame.origin.y
+            let top = self.overlay.frame.origin.y
+
+            if (!descriptionActive && top - initial > 100) {
+                showDescription()
+            }
+
+            if (descriptionActive && top < self.overlay.frame.height - 100) {
+                hideDescription()
+            }
 
             if (top < view.center.y) {
                 showDescription()
             } else {
                 hideDescription()
             }
-
         }
     }
 
+
     func showDescription() {
+        descriptionActive = true
+
         UIView.transition(
             with: overlay,
             duration: 0.3,
@@ -93,6 +104,8 @@ class VenueController : UIViewController {
     }
 
     func hideDescription() {
+        descriptionActive = false
+
         UIView.transition(
             with: overlay,
             duration: 0.3,

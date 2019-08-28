@@ -163,7 +163,7 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
             let timeHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ScheduleTableHeader") as! ScheduleTableHeader
 
             let card = currentTable[index]
-            timeHeader.configureLook(month: card.month, day: Int(card.day), time: card.time)
+            timeHeader.configureLook(month: card.month, day: Int(card.day), time: card.title)
             return timeHeader
         }
 
