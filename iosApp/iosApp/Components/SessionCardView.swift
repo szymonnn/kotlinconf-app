@@ -24,12 +24,15 @@ class SessionCardView : UIView, Baloon {
     @IBOutlet weak var voteDown: UIButton!
 
     @IBOutlet weak var voteBar: UIView!
-
+    @IBOutlet weak var touchView: UIView!
+    
     var baloonContainer: BaloonContainer? = nil
 
     private var liveObservable: Observable<AnyObject>? = nil
     private var ratingObservable: Observable<AnyObject>? = nil
     private var favoriteObservable: Observable<AnyObject>? = nil
+
+    var onTouch: () -> Void = {}
 
     var card: SessionCard! {
         didSet {
@@ -61,8 +64,6 @@ class SessionCardView : UIView, Baloon {
         }
     }
 
-    var onTouch: () -> Void = {}
-
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configure()
@@ -71,11 +72,6 @@ class SessionCardView : UIView, Baloon {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        onTouch()
     }
 
     private func configure() {
@@ -89,6 +85,16 @@ class SessionCardView : UIView, Baloon {
         voteBar.layer.shadowColor = UIColor.black.cgColor
         voteBar.layer.shadowOffset = CGSize(width: 0, height: 0.5)
         voteBar.layer.shadowOpacity = 0.15
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let point = touches.first!.location(in: self)
+
+        if (point.y > touchView.frame.height) {
+            return
+        }
+
+        onTouch()
     }
 
     private func setLive(live: Bool) {
@@ -149,10 +155,10 @@ class SessionCardView : UIView, Baloon {
 
         let image: UIImage = {
             switch rating {
-            case RatingData.good: return UIImage(named: "voteGoodOrangeSmall")!
-            case RatingData.ok: return UIImage(named: "voteOkOrangeSmall")!
-            case RatingData.bad: return UIImage(named: "voteBadOrangeSmall")!
-            default: return UIImage(named: "voteGoodSmall")!
+            case RatingData.good: return UIImage(named: "voteGoodOrange")!
+            case RatingData.ok: return UIImage(named: "voteOkOrange")!
+            case RatingData.bad: return UIImage(named: "voteBadOrange")!
+            default: return UIImage(named: "voteGood")!
             }
         }()
 

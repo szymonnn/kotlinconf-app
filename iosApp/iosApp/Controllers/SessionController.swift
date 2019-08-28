@@ -3,9 +3,10 @@ import UIKit
 import youtube_ios_player_helper
 import KotlinConfAPI
 
-class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
+class SessionController : UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var speaker1: UIButton!
     @IBOutlet weak var speaker2: UIButton!
+    @IBOutlet weak var speaker2Container: UIView!
     @IBOutlet weak var video: YTPlayerView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -20,10 +21,6 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
     @IBOutlet weak var voteUp: UIButton!
     @IBOutlet weak var voteOk: UIButton!
     @IBOutlet weak var voteDown: UIButton!
-
-    private var presenter: SessionPresenter! {
-        return SessionPresenter(view: self)
-    }
 
     private var ratingObserver: Observable<AnyObject>? = nil
     private var favoriteObserver: Observable<AnyObject>? = nil
@@ -51,24 +48,19 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
         titleLabel.text = session.title.uppercased()
 
         // Description
-        let style = NSMutableParagraphStyle()
-        style.minimumLineHeight = 24.0
 
         descriptionLabel.text = session.descriptionText
-        descriptionLabel.attributedText = NSAttributedString(
-            string: session.descriptionText,
-            attributes: [NSAttributedString.Key.paragraphStyle : style]
-        )
+        descriptionLabel.attributedText = TextWithLineHeight(text: session.descriptionText, height: 24)
 
         // Speakers
         let firstSpeaker = card.speakers[0]
         speaker1.setTitle(firstSpeaker.fullName, for: .normal)
         if (card.speakers.count > 1) {
-            speaker2.isHidden = false
+            speaker2Container.isHidden = false
             let secondSpeaker = card.speakers[1]
             speaker2.setTitle(secondSpeaker.fullName, for: .normal)
         } else {
-            speaker2.isHidden = true
+            speaker2Container.isHidden = true
         }
 
         // Time
@@ -79,7 +71,7 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
         })
 
         // Location
-        locationLabel.setTitle(card.location.name, for: .normal)
+        locationLabel.setTitle(" " + card.location.name, for: .normal)
 
         // Favorite
         favoriteObserver = card.isFavorite.onChange(block: { isFavorite in
@@ -117,6 +109,29 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
     @IBAction func voteTouch(_ sender: Any) {
         voteBar.isHidden = false
     }
+    @IBAction func speaker1Touch(_ sender: Any) {
+        showSpeaker(id: 0)
+    }
+
+    @IBAction func speaker2Touch(_ sender: Any) {
+        showSpeaker(id: 1)
+    }
+
+    private func showSpeaker(id: Int) {
+        let board = UIStoryboard(name: "Main", bundle: nil)
+        let controller = board.instantiateViewController(withIdentifier: "Speaker") as! SpeakerController
+        controller.speaker = card.speakers[id]
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
+
+    @IBAction func locationTouch(_ sender: Any) {
+    }
+    @IBAction func shareTouch(_ sender: Any) {
+        let items = [card.session.title]
+        let share = UIActivityViewController(activityItems: items, applicationActivities: nil)
+
+        present(share, animated: true)
+    }
 
     @IBAction func favoriteTouch(_ sender: Any) {
         Conference.markFavorite(sessionId: card.session.id)
@@ -125,14 +140,19 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
     @IBAction func voteUpTouch(_ sender: Any) {
         Conference.vote(sessionId: card.session.id, rating: .good)
     }
+
     @IBAction func voteOkTouch(_ sender: Any) {
         Conference.vote(sessionId: card.session.id, rating: .ok)
     }
+
     @IBAction func voteDownTouch(_ sender: Any) {
         Conference.vote(sessionId: card.session.id, rating: .bad)
     }
 
     private func liveChange(_ isLive: Bool) {
+        if (isLive) {
+            video.load(withVideoId: "YbF8Q8LxAJs")
+        }
         video.isHidden = !isLive
     }
 
@@ -157,22 +177,6 @@ class SessionController : UIViewController, SessionView, UIScrollViewDelegate {
     private func favoriteChange(_ isFavorite: Bool) {
         favoriteButton.isSelected = isFavorite
     }
-
-//    @IBAction func favoriteClick(_ sender: Any) {
-//        startButton.isSelected = !startButton.isSelected
-//        presenter.favoriteTouch()
-//    }
-//
-//    private func sendRating(rating: RatingData) {
-//        setRatingClickable(clickable: false)
-//        presenter.voteTouch(rating: rating)
-//    }
-//
-//    private func setRatingClickable(clickable: Bool) {
-//        voteDown.isEnabled = clickable
-//        voteUp.isEnabled = clickable
-//        voteSoso.isEnabled = clickable
-//    }
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         voteBar.isHidden = true

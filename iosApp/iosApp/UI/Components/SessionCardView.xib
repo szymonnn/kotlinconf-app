@@ -21,6 +21,7 @@
                 <outlet property="mainView" destination="iN0-l3-epB" id="Ztq-Ba-aou"/>
                 <outlet property="speakers" destination="K0O-cM-RxV" id="CSd-Kp-4ft"/>
                 <outlet property="title" destination="7wk-nU-di2" id="GU3-QH-oi4"/>
+                <outlet property="touchView" destination="25c-Th-RF0" id="vIU-A4-As8"/>
                 <outlet property="voteBar" destination="286-R4-8c6" id="qD9-Nb-Gyw"/>
                 <outlet property="voteButton" destination="hzf-2L-jzZ" id="qci-l2-yrk"/>
                 <outlet property="voteDown" destination="vcm-6t-WaW" id="jmF-JD-6ge"/>
@@ -70,12 +71,12 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzf-2L-jzZ" userLabel="Vote">
-                            <rect key="frame" x="297" y="80.5" width="16" height="16"/>
+                            <rect key="frame" x="279" y="74.5" width="28" height="28"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="16" id="qFH-gn-zTl"/>
-                                <constraint firstAttribute="height" constant="16" id="sba-eN-2AF"/>
+                                <constraint firstAttribute="width" constant="28" id="qFH-gn-zTl"/>
+                                <constraint firstAttribute="height" constant="28" id="sba-eN-2AF"/>
                             </constraints>
-                            <state key="normal" image="voteGoodSmall"/>
+                            <state key="normal" image="voteGood"/>
                             <connections>
                                 <action selector="voteTouch:" destination="-1" eventType="touchUpInside" id="aaY-zq-w5b"/>
                             </connections>
@@ -87,7 +88,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="286-R4-8c6" userLabel="VoteBar">
-                            <rect key="frame" x="162" y="61.5" width="154" height="54"/>
+                            <rect key="frame" x="153" y="61.5" width="154" height="54"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kI-4O-2qy" userLabel="VoteUp">
                                     <rect key="frame" x="16" y="14" width="26" height="26"/>
@@ -143,8 +144,12 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13Q-rN-deG" userLabel="Favorite">
-                            <rect key="frame" x="333" y="77.5" width="14" height="22"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13Q-rN-deG" userLabel="Favorite">
+                            <rect key="frame" x="327" y="78.5" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="G3H-cA-btY"/>
+                                <constraint firstAttribute="height" constant="20" id="fP5-5I-up1"/>
+                            </constraints>
                             <state key="normal" image="favoriteLight"/>
                             <state key="selected" image="favoriteDark"/>
                             <connections>
@@ -154,11 +159,16 @@
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fadeOut" translatesAutoresizingMaskIntoConstraints="NO" id="jcN-Xc-2IT">
                             <rect key="frame" x="321" y="12" width="38" height="30"/>
                         </imageView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="25c-Th-RF0" userLabel="TouchView">
+                            <rect key="frame" x="0.0" y="0.0" width="359" height="67"/>
+                            <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="du0-lW-nMf" firstAttribute="leading" secondItem="GRu-Nb-6pL" secondAttribute="trailing" constant="8" id="3ju-VS-iha"/>
                         <constraint firstItem="jFW-4r-tgY" firstAttribute="leading" secondItem="l7p-F9-rnS" secondAttribute="trailing" constant="7" id="51I-sn-QwB"/>
+                        <constraint firstItem="25c-Th-RF0" firstAttribute="top" secondItem="VNB-wF-mU6" secondAttribute="top" id="6mp-ap-WQW"/>
                         <constraint firstItem="13Q-rN-deG" firstAttribute="leading" secondItem="hzf-2L-jzZ" secondAttribute="trailing" constant="20" id="89J-q8-q3Q"/>
                         <constraint firstItem="GRu-Nb-6pL" firstAttribute="leading" secondItem="jFW-4r-tgY" secondAttribute="trailing" constant="40" id="Agc-fb-hy1"/>
                         <constraint firstAttribute="height" constant="108" id="EQA-hn-PnP"/>
@@ -168,18 +178,21 @@
                         <constraint firstItem="jFW-4r-tgY" firstAttribute="centerY" secondItem="l7p-F9-rnS" secondAttribute="centerY" id="Fad-TD-j7T"/>
                         <constraint firstAttribute="width" constant="359" id="GGy-Ol-Rli"/>
                         <constraint firstItem="hzf-2L-jzZ" firstAttribute="centerY" secondItem="13Q-rN-deG" secondAttribute="centerY" id="Iep-4H-qFH"/>
+                        <constraint firstItem="13Q-rN-deG" firstAttribute="top" secondItem="25c-Th-RF0" secondAttribute="bottom" constant="11.5" id="PHJ-sv-z2c"/>
                         <constraint firstAttribute="bottom" secondItem="l7p-F9-rnS" secondAttribute="bottom" constant="15" id="Q9n-KB-6wt"/>
                         <constraint firstAttribute="trailing" secondItem="7wk-nU-di2" secondAttribute="trailing" constant="3" id="SE9-td-Nl0"/>
                         <constraint firstItem="jcN-Xc-2IT" firstAttribute="top" secondItem="VNB-wF-mU6" secondAttribute="top" constant="12" id="UTn-Oy-wud"/>
                         <constraint firstItem="7wk-nU-di2" firstAttribute="top" secondItem="VNB-wF-mU6" secondAttribute="top" constant="12" id="W4v-dZ-iYK"/>
                         <constraint firstItem="K0O-cM-RxV" firstAttribute="top" secondItem="7wk-nU-di2" secondAttribute="bottom" constant="3" id="eDq-5H-c5T"/>
+                        <constraint firstItem="25c-Th-RF0" firstAttribute="leading" secondItem="VNB-wF-mU6" secondAttribute="leading" id="ilS-3L-hIU"/>
                         <constraint firstItem="GRu-Nb-6pL" firstAttribute="centerY" secondItem="l7p-F9-rnS" secondAttribute="centerY" id="lDI-6L-fAo"/>
+                        <constraint firstAttribute="trailing" secondItem="25c-Th-RF0" secondAttribute="trailing" id="lfn-29-OLT"/>
                         <constraint firstItem="286-R4-8c6" firstAttribute="centerY" secondItem="hzf-2L-jzZ" secondAttribute="centerY" id="mhy-vr-iwK"/>
                         <constraint firstItem="l7p-F9-rnS" firstAttribute="leading" secondItem="VNB-wF-mU6" secondAttribute="leading" constant="20" id="n39-QA-c27"/>
                         <constraint firstAttribute="trailing" secondItem="13Q-rN-deG" secondAttribute="trailing" constant="12" id="pBP-pC-G3s"/>
                         <constraint firstAttribute="trailing" secondItem="jcN-Xc-2IT" secondAttribute="trailing" id="qLn-BK-kma"/>
                         <constraint firstItem="K0O-cM-RxV" firstAttribute="leading" secondItem="VNB-wF-mU6" secondAttribute="leading" constant="16" id="xtR-F4-AFc"/>
-                        <constraint firstItem="13Q-rN-deG" firstAttribute="leading" secondItem="286-R4-8c6" secondAttribute="trailing" constant="17" id="y8v-qY-7ZX"/>
+                        <constraint firstItem="13Q-rN-deG" firstAttribute="leading" secondItem="286-R4-8c6" secondAttribute="trailing" constant="20" id="y8v-qY-7ZX"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -208,14 +221,13 @@
     <resources>
         <image name="arrow" width="28" height="19"/>
         <image name="fadeOut" width="38" height="30"/>
-        <image name="favoriteDark" width="14" height="16"/>
-        <image name="favoriteLight" width="14" height="16"/>
+        <image name="favoriteDark" width="20" height="20"/>
+        <image name="favoriteLight" width="20" height="20"/>
         <image name="liveIcon" width="12" height="12"/>
         <image name="voteBad" width="28" height="28"/>
         <image name="voteBadOrange" width="26" height="26"/>
         <image name="voteGood" width="28" height="28"/>
         <image name="voteGoodOrange" width="26" height="26"/>
-        <image name="voteGoodSmall" width="18" height="18"/>
         <image name="voteOk" width="28" height="28"/>
         <image name="voteOkOrange" width="26" height="26"/>
     </resources>

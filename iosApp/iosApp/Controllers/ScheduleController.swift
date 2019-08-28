@@ -7,7 +7,7 @@ enum Section {
     case favorites
 }
 
-class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDataSource, ScheduleView, BaloonContainer {
+class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDataSource, BaloonContainer {
     @IBOutlet weak var scheduleTable: UITableView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var searchContainer: UIView!
@@ -16,10 +16,6 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
     var activePopup: UIView? = nil
 
     let tableHeader = UINib(nibName: "ScheduleHeader", bundle: nil).instantiate(withOwner: nil, options: [:])[0] as! ScheduleHeader
-
-    private var presenter: SchedulePresenter {
-        return SchedulePresenter(view: self)
-    }
 
     lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -51,18 +47,18 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
         scheduleTable.addSubview(refreshControl)
         scheduleTable.register(UINib(nibName: "ScheduleTableHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "ScheduleTableHeader")
-        scheduleTable.register(UINib(nibName: "ScheduleTableCoffeeBreakBar", bundle: nil), forHeaderFooterViewReuseIdentifier: "ScheduleTableCoffeeBreakBar")
+        scheduleTable.register(UINib(nibName: "ScheduleTableSmallHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "ScheduleTableSmallHeader")
 
         configureTableHeader()
 
         scheduleTable.delegate = self
         scheduleTable.dataSource = self
 
-        presenter.schedule.onChange(block: {data in
+        Conference.schedule.onChange(block: {data in
             self.onSessions(session: data as! [SessionGroup])
         })
 
-        presenter.favorites.onChange(block: {data in
+        Conference.favoriteSchedule.onChange(block: {data in
             self.onFavorites(session: data as! [SessionGroup])
         })
 
@@ -90,15 +86,17 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
             self.searchActive = true
             self.scheduleTable.reloadData()
 
-            UIView.transition(
-                with: self.headerView,
-                duration: 0.2,
-                options: [],
-                animations: {
-                    self.searchContainer.isHidden = false
-                    self.headerView.isHidden = true
-                }, completion: nil
-            )
+            self.searchContainer.isHidden = false
+            self.headerView.isHidden = true
+//            UIView.transition(
+//                with: self.headerView,
+//                duration: 0.2,
+//                options: [],
+//                animations: {
+//                    self.searchContainer.isHidden = false
+//                    self.headerView.isHidden = true
+//                }, completion: nil
+//            )
         }
 
         headerView.addSubview(tableHeader)
@@ -108,15 +106,17 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         searchActive = false
         scheduleTable.reloadData()
 
-        UIView.transition(
-            with: self.headerView,
-            duration: 0.2,
-            options: [],
-            animations: {
-                self.searchContainer.isHidden = true
-                self.headerView.isHidden = false
-            }, completion: nil
-        )
+        self.searchContainer.isHidden = true
+        self.headerView.isHidden = false
+//        UIView.transition(
+//            with: self.headerView,
+//            duration: 0.2,
+//            options: [],
+//            animations: {
+//                self.searchContainer.isHidden = true
+//                self.headerView.isHidden = false
+//            }, completion: nil
+//        )
     }
 
     func onSessions(session: [SessionGroup]) {
@@ -136,7 +136,7 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
     @IBAction
     func onRefresh(_ refreshControl: UIRefreshControl) {
-        presenter.pullToRefresh()
+        Conference.refresh()
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -145,38 +145,35 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         }
 
         let table = (section == .all) ? all : favorites
-        return table.count * 2
+        return table.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (section % 2 == 0) {
-            return 0
-        }
-
-        let sectionIndex = section / 2;
-        return currentTable[sectionIndex].sessions.count
+        return currentTable[section].sessions.count
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if (section == 0) { 
-            return nil
+        let card = currentTable[section]
+
+        if (card.daySection) {
+            let breakHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ScheduleTableSmallHeader") as! ScheduleTableSmallHeader
+            breakHeader.displayDay(title: card.title)
+            return breakHeader
         }
 
-        if (section % 2 == 1) {
-            let index = section / 2
-            let timeHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ScheduleTableHeader") as! ScheduleTableHeader
-
-            let card = currentTable[index]
-            timeHeader.configureLook(month: card.month, day: Int(card.day), time: card.time)
-            return timeHeader
+        if (card.lunchSection) {
+            let breakHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ScheduleTableSmallHeader") as! ScheduleTableSmallHeader
+            breakHeader.displayLunch(title: card.title)
+            return breakHeader
         }
 
-        let breakHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ScheduleTableCoffeeBreakBar")
-        return breakHeader
+        let timeHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ScheduleTableHeader") as! ScheduleTableHeader
+        timeHeader.configureLook(month: card.month, day: Int(card.day), time: card.title)
+        return timeHeader
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let section = indexPath.section / 2
+        let section = indexPath.section
         let row = indexPath.row
 
         let result = tableView.dequeueReusableCell(withIdentifier: "ScheduleTableCell", for: indexPath) as! ScheduleTableCell
@@ -191,7 +188,7 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         item.card = card
         item.baloonContainer = self
 
-        cell.touchHandler = {
+        cell.card.onTouch = {
             self.showSession(card: card)
         }
     }
@@ -205,11 +202,8 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if (section == 0) {
-            return 1
-        }
-
-        if (section % 2 == 0) {
+        let group = currentTable[section]
+        if (group.daySection || group.lunchSection) {
             return 42
         }
 

@@ -11,10 +11,6 @@ import kotlin.random.*
 
 /**
  * [ConferenceService] handles data and builds model.
- *
- * @param userId: unique user identifier.
- * @param endPoint: API address
- * @param storage: persistent application storage implementation. TODO: move to common
  */
 @ThreadLocal
 object ConferenceService : CoroutineScope {
@@ -22,6 +18,11 @@ object ConferenceService : CoroutineScope {
 
     private val storage: ApplicationStorage = ApplicationStorage()
     private var userId: String? by storage(NullableSerializer(String.serializer())) { null }
+
+    /**
+     * Cached.
+     */
+    private var cards: MutableMap<String, SessionCard> = mutableMapOf()
 
     /**
      * ------------------------------
@@ -61,10 +62,20 @@ object ConferenceService : CoroutineScope {
         it.toList().map { id -> sessionCard(id) }
     }
 
-    /**
-     * Cached.
-     */
-    private var cards: MutableMap<String, SessionCard> = mutableMapOf()
+    val schedule: Observable<List<SessionGroup>> = publicData.onChange {
+        it.sessions
+            .groupByDay()
+            .addDayStart()
+            .addLunches()
+    }
+
+    val favoriteSchedule: Observable<List<SessionGroup>> = favorites.onChange {
+        it.map { id -> session(id) }
+            .groupByDay()
+            .addDayStart()
+    }
+
+    val speakers = publicData.onChange { it.speakers }
 
     init {
         acceptPrivacyPolicy()
@@ -127,20 +138,6 @@ object ConferenceService : CoroutineScope {
     }
 
     /**
-     * Get sorted session groups.
-     */
-    fun sessionGroups(): List<SessionGroup> = _publicData
-        .sessions
-        .makeGroups()
-
-    /**
-     * Get sorted favorite session groups.
-     */
-    fun favoriteGroups(): List<SessionGroup> = _favorites
-        .map { session(it) }
-        .makeGroups()
-
-    /**
      * Find speaker by id.
      */
     fun speaker(id: String): SpeakerData =
@@ -167,20 +164,25 @@ object ConferenceService : CoroutineScope {
         val session = session(id)
         val roomId = session.roomId ?: error("No room id in session: ${session.id}")
 
+        val location = room(roomId)
+        val speakers = sessionSpeakers(id)
+        val isFavorite = favorites.onChange { id in it }
+        val ratingData = votes.onChange { it[id] }
+        val isLive = _liveSessions.onChange { id in it }
+
         val result = SessionCard(
             session,
             "${session.startsAt.time()}-${session.endsAt.time()}",
-            room(roomId),
-            sessionSpeakers(id),
-            favorites.onChange { id in it },
-            votes.onChange { it[id] },
-            _liveSessions.onChange { id in it }
+            location,
+            speakers,
+            isFavorite,
+            ratingData,
+            isLive
         )
 
         cards[id] = result
         return result
     }
-
 
     /**
      * ------------------------------
@@ -327,26 +329,3 @@ object ConferenceService : CoroutineScope {
         favorites.change(_favorites)
     }
 }
-
-/**
- * 1. user click vote button
- * 2. update observable
- * 3. send request
- * 4. onFail -> show error, revert observable
- * 5. onSuccess -> do nothing
- **/
-/**
- * Group sessions by title.
- */
-private fun List<SessionData>.makeGroups(): List<SessionGroup> = groupBy { it.startsAt }
-    .map { (startsAt, sessions) ->
-        val monthName = startsAt.month.value
-        val day = startsAt.dayOfMonth
-        val endsAt = sessions.first().endsAt
-        val time = "${startsAt.time()}-${endsAt.time()}"
-
-        val cards = sessions.map { ConferenceService.sessionCard(it.id) }
-
-        SessionGroup(monthName, day, time, cards)
-    }
-

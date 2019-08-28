@@ -123,7 +123,7 @@ private fun Routing.apiVote(database: Database, production: Boolean) {
             val principal = call.validatePrincipal(database) ?: throw Unauthorized()
             val vote = call.receive<VoteData>()
             val sessionId = vote.sessionId
-            val rating = vote.rating!!.value
+            val rating = vote.rating!!.ordinal
 
             val session = getSessionizeData().sessions.firstOrNull { it.id == sessionId } ?: throw NotFound()
             val nowTime = simulatedTime(production)
@@ -135,13 +135,13 @@ private fun Routing.apiVote(database: Database, production: Boolean) {
             val votingPeriodStarted = startVotesAt.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) }
             val votingPeriodEnded = endVotesAt.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) }
 
-            if (!votingPeriodStarted) {
-                return@post call.respond(comeBackLater)
-            }
-
-            if (votingPeriodEnded) {
-                return@post call.respond(tooLate)
-            }
+//            if (!votingPeriodStarted) {
+//                return@post call.respond(comeBackLater)
+//            }
+//
+//            if (votingPeriodEnded) {
+//                return@post call.respond(tooLate)
+//            }
 
             val timestamp = LocalDateTime.now(Clock.systemUTC())
             val status = if (database.changeVote(principal.token, sessionId, rating, timestamp)) {
