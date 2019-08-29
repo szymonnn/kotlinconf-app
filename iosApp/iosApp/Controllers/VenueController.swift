@@ -7,7 +7,11 @@ enum Floor {
     case first
 }
 
-class VenueController : UIViewController {
+class VenueController : UIViewController, MGLMapViewDelegate {
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var logoView: UIImageView!
+    @IBOutlet weak var sessionsView: UIScrollView!
+    
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var dragBar: UIView!
     @IBOutlet weak var overlay: UIView!
@@ -22,13 +26,19 @@ class VenueController : UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        mapView.delegate = self
+
         let gesture = UIPanGestureRecognizer(
             target: self,
             action: #selector(VenueController.wasDragged(_:))
         )
         dragBar.addGestureRecognizer(gesture)
         dragBar.isUserInteractionEnabled = true
+
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(sender:)))
+        mapView.addGestureRecognizer(singleTap)
     }
+
     override func viewDidAppear(_ animated: Bool) {
         initial = overlay.frame.origin.y
         hideDescription()
@@ -84,7 +94,6 @@ class VenueController : UIViewController {
         }
     }
 
-
     func showDescription() {
         descriptionActive = true
 
@@ -111,6 +120,21 @@ class VenueController : UIViewController {
         },
             completion: nil
         )
+    }
+
+    @objc @IBAction func handleMapTap(sender: UITapGestureRecognizer) {
+        let spot = sender.location(in: mapView)
+
+        let features = mapView.visibleFeatures(at: spot)
+
+        if let feature = features.first, let state = feature.attribute(forKey: "name") as? String {
+            showNote(state)
+        }
+    }
+
+    func showNote(_ name: String) {
+        titleLabel.text = name
+        showDescription()
     }
 
 }

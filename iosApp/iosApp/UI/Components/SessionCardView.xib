@@ -71,12 +71,12 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hzf-2L-jzZ" userLabel="Vote">
-                            <rect key="frame" x="297" y="80.5" width="16" height="16"/>
+                            <rect key="frame" x="279" y="74.5" width="28" height="28"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="16" id="qFH-gn-zTl"/>
-                                <constraint firstAttribute="height" constant="16" id="sba-eN-2AF"/>
+                                <constraint firstAttribute="width" constant="28" id="qFH-gn-zTl"/>
+                                <constraint firstAttribute="height" constant="28" id="sba-eN-2AF"/>
                             </constraints>
-                            <state key="normal" image="voteGoodSmall"/>
+                            <state key="normal" image="voteGood"/>
                             <connections>
                                 <action selector="voteTouch:" destination="-1" eventType="touchUpInside" id="aaY-zq-w5b"/>
                             </connections>
@@ -88,7 +88,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="286-R4-8c6" userLabel="VoteBar">
-                            <rect key="frame" x="162" y="61.5" width="154" height="54"/>
+                            <rect key="frame" x="153" y="61.5" width="154" height="54"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5kI-4O-2qy" userLabel="VoteUp">
                                     <rect key="frame" x="16" y="14" width="26" height="26"/>
@@ -144,8 +144,12 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13Q-rN-deG" userLabel="Favorite">
-                            <rect key="frame" x="333" y="77.5" width="14" height="22"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13Q-rN-deG" userLabel="Favorite">
+                            <rect key="frame" x="327" y="78.5" width="20" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="G3H-cA-btY"/>
+                                <constraint firstAttribute="height" constant="20" id="fP5-5I-up1"/>
+                            </constraints>
                             <state key="normal" image="favoriteLight"/>
                             <state key="selected" image="favoriteDark"/>
                             <connections>
@@ -156,7 +160,7 @@
                             <rect key="frame" x="321" y="12" width="38" height="30"/>
                         </imageView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="25c-Th-RF0" userLabel="TouchView">
-                            <rect key="frame" x="0.0" y="0.0" width="359" height="66"/>
+                            <rect key="frame" x="0.0" y="0.0" width="359" height="67"/>
                             <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
@@ -188,7 +192,7 @@
                         <constraint firstAttribute="trailing" secondItem="13Q-rN-deG" secondAttribute="trailing" constant="12" id="pBP-pC-G3s"/>
                         <constraint firstAttribute="trailing" secondItem="jcN-Xc-2IT" secondAttribute="trailing" id="qLn-BK-kma"/>
                         <constraint firstItem="K0O-cM-RxV" firstAttribute="leading" secondItem="VNB-wF-mU6" secondAttribute="leading" constant="16" id="xtR-F4-AFc"/>
-                        <constraint firstItem="13Q-rN-deG" firstAttribute="leading" secondItem="286-R4-8c6" secondAttribute="trailing" constant="17" id="y8v-qY-7ZX"/>
+                        <constraint firstItem="13Q-rN-deG" firstAttribute="leading" secondItem="286-R4-8c6" secondAttribute="trailing" constant="20" id="y8v-qY-7ZX"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -217,14 +221,13 @@
     <resources>
         <image name="arrow" width="28" height="19"/>
         <image name="fadeOut" width="38" height="30"/>
-        <image name="favoriteDark" width="14" height="16"/>
-        <image name="favoriteLight" width="14" height="16"/>
+        <image name="favoriteDark" width="20" height="20"/>
+        <image name="favoriteLight" width="20" height="20"/>
         <image name="liveIcon" width="12" height="12"/>
         <image name="voteBad" width="28" height="28"/>
         <image name="voteBadOrange" width="26" height="26"/>
         <image name="voteGood" width="28" height="28"/>
         <image name="voteGoodOrange" width="26" height="26"/>
-        <image name="voteGoodSmall" width="18" height="18"/>
         <image name="voteOk" width="28" height="28"/>
         <image name="voteOkOrange" width="26" height="26"/>
     </resources>

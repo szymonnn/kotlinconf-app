@@ -32,6 +32,8 @@ class SessionCardView : UIView, Baloon {
     private var ratingObservable: Observable<AnyObject>? = nil
     private var favoriteObservable: Observable<AnyObject>? = nil
 
+    var onTouch: () -> Void = {}
+
     var card: SessionCard! {
         didSet {
             if (liveObservable != nil) {
@@ -61,8 +63,6 @@ class SessionCardView : UIView, Baloon {
             voteBar.isHidden = true
         }
     }
-
-    var onTouch: () -> Void = {}
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -155,10 +155,10 @@ class SessionCardView : UIView, Baloon {
 
         let image: UIImage = {
             switch rating {
-            case RatingData.good: return UIImage(named: "voteGoodOrangeSmall")!
-            case RatingData.ok: return UIImage(named: "voteOkOrangeSmall")!
-            case RatingData.bad: return UIImage(named: "voteBadOrangeSmall")!
-            default: return UIImage(named: "voteGoodSmall")!
+            case RatingData.good: return UIImage(named: "voteGoodOrange")!
+            case RatingData.ok: return UIImage(named: "voteOkOrange")!
+            case RatingData.bad: return UIImage(named: "voteBadOrange")!
+            default: return UIImage(named: "voteGood")!
             }
         }()
 
