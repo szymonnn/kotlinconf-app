@@ -187,7 +187,7 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         item.card = card
         item.baloonContainer = self
 
-        cell.touchHandler = {
+        cell.card.onTouch = {
             self.showSession(card: card)
         }
     }

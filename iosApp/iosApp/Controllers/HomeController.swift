@@ -87,13 +87,9 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch collectionView {
-        case videosView:
+        default:
             let item = collectionView.dequeueReusableCell(withReuseIdentifier: "LiveVideo", for: indexPath) as! LiveVideo
             item.card = liveSessions[indexPath.row]
-            return item
-        default:
-            let item = collectionView.dequeueReusableCell(withReuseIdentifier: "PartnerCard", for: indexPath) as! PartnerCard
-//            item.partner = partners[indexPath.row]
             return item
         }
     }

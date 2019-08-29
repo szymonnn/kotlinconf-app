@@ -48,14 +48,9 @@ class SessionController : UIViewController, UIScrollViewDelegate {
         titleLabel.text = session.title.uppercased()
 
         // Description
-        let style = NSMutableParagraphStyle()
-        style.minimumLineHeight = 24.0
 
         descriptionLabel.text = session.descriptionText
-        descriptionLabel.attributedText = NSAttributedString(
-            string: session.descriptionText,
-            attributes: [NSAttributedString.Key.paragraphStyle : style]
-        )
+        descriptionLabel.attributedText = TextWithLineHeight(text: session.descriptionText, height: 24)
 
         // Speakers
         let firstSpeaker = card.speakers[0]

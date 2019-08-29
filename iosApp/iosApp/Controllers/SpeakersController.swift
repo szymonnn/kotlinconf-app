@@ -28,13 +28,21 @@ class SpeakersController : UIViewController, UITableViewDataSource, UITableViewD
         speakersList.reloadData()
     }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return speakers.count
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1 //speakers.count
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 20
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpeakerCell") as! SpeakerCellView
-        cell.speaker = speakers[indexPath.row]
+        cell.speaker = speakers[indexPath.section]
         return cell
     }
 
@@ -44,10 +52,14 @@ class SpeakersController : UIViewController, UITableViewDataSource, UITableViewD
         let board = UIStoryboard(name: "Main", bundle: nil)
         let controller = board.instantiateViewController(withIdentifier: "Speaker") as! SpeakerController
 
-        let speaker = speakers[indexPath.row]
+        let speaker = speakers[indexPath.section]
         controller.speaker = speaker
 
         self.navigationController?.pushViewController(controller, animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.white
     }
 }
 

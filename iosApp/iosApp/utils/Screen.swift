@@ -106,10 +106,11 @@ extension UIFont {
 
 }
 
-func LetterSpacedText(text: String, spacing: Float) -> NSAttributedString {
-    let result = NSMutableAttributedString(string: text)
-    result.addAttribute(
-        NSAttributedString.Key.kern, value: spacing, range: NSRange(location: 0, length: text.count)
-    )
-    return result
+func TextWithLineHeight(text: String, height: CGFloat) -> NSAttributedString {
+    let style = NSMutableParagraphStyle()
+    style.minimumLineHeight = height
+
+    return NSAttributedString(string: text, attributes: [
+        NSMutableAttributedString.Key.paragraphStyle: style
+    ])
 }

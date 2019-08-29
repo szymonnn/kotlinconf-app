@@ -28,7 +28,6 @@
 		2CF0141B22958ACB00C235D1 /* SpeakerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF0141A22958ACB00C235D1 /* SpeakerController.swift */; };
 		2CFA8EC422DCB398008B32E2 /* LiveVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA8EC322DCB398008B32E2 /* LiveVideo.swift */; };
 		2CFA8EC822DCB5DF008B32E2 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA8EC722DCB5DF008B32E2 /* HomeController.swift */; };
-		2CFA8ECA22DDF1F4008B32E2 /* InfoCards.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA8EC922DDF1F4008B32E2 /* InfoCards.swift */; };
 		2CFA8ECC22DF0512008B32E2 /* SpeakersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA8ECB22DF0512008B32E2 /* SpeakersController.swift */; };
 		2CFA8ECE22DF0AD8008B32E2 /* PartnersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA8ECD22DF0AD8008B32E2 /* PartnersController.swift */; };
 		8D82EE36F5FB5EC1BC6B26EE /* Pods_KotlinConf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C31466D3383AF769D0B19EA /* Pods_KotlinConf.framework */; };
@@ -75,7 +74,6 @@
 		2CF0141A22958ACB00C235D1 /* SpeakerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerController.swift; sourceTree = "<group>"; };
 		2CFA8EC322DCB398008B32E2 /* LiveVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveVideo.swift; sourceTree = "<group>"; };
 		2CFA8EC722DCB5DF008B32E2 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
-		2CFA8EC922DDF1F4008B32E2 /* InfoCards.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCards.swift; sourceTree = "<group>"; };
 		2CFA8ECB22DF0512008B32E2 /* SpeakersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakersController.swift; sourceTree = "<group>"; };
 		2CFA8ECD22DF0AD8008B32E2 /* PartnersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnersController.swift; sourceTree = "<group>"; };
 		6C31466D3383AF769D0B19EA /* Pods_KotlinConf.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KotlinConf.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,7 +168,6 @@
 				B3C643F42305896D00C35EEA /* ScheduleTableCell.swift */,
 				B33E0796228D6EC800F313A1 /* ScheduleTableHeader.swift */,
 				2CFA8EC322DCB398008B32E2 /* LiveVideo.swift */,
-				2CFA8EC922DDF1F4008B32E2 /* InfoCards.swift */,
 				2C674AF122FD5258001CA3F5 /* SessionCardView.swift */,
 				2C46F0FD230AA48800D40386 /* ScheduleHeader.swift */,
 				2C46F0FF230ABB4900D40386 /* TopButton.swift */,
@@ -358,7 +355,6 @@
 				2C195303228C32EE00BA0BB9 /* ScheduleController.swift in Sources */,
 				2C416BA0229591C300BBA441 /* VenueController.swift in Sources */,
 				2CFA8ECE22DF0AD8008B32E2 /* PartnersController.swift in Sources */,
-				2CFA8ECA22DDF1F4008B32E2 /* InfoCards.swift in Sources */,
 				F861D7E1207FA40F0085E80D /* AppDelegate.swift in Sources */,
 				2CFA8EC422DCB398008B32E2 /* LiveVideo.swift in Sources */,
 				2C1952F7228C14FE00BA0BB9 /* MainTabController.swift in Sources */,

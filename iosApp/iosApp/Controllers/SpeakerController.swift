@@ -23,7 +23,7 @@ class SpeakerController : UIViewController {
             }
         }
 
-        descriptionLabel.attributedText = LetterSpacedText(text: speaker.bio, spacing: 0.52)
+        descriptionLabel.attributedText = TextWithLineHeight(text: speaker.bio, height: 24)
         positionLabel.text = speaker.tagLine
     }
 

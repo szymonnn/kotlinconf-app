@@ -72,18 +72,14 @@ class VenueController : UIViewController {
         if gestureRecognizer.state == .ended {
             let top = self.overlay.frame.origin.y
 
-            if (!descriptionActive && top - initial > 100) {
+            if (!descriptionActive && top - initial > 50) {
                 showDescription()
+                return
             }
 
-            if (descriptionActive && top < self.overlay.frame.height - 100) {
+            if (descriptionActive && top < self.overlay.frame.height - 50) {
                 hideDescription()
-            }
-
-            if (top < view.center.y) {
-                showDescription()
-            } else {
-                hideDescription()
+                return
             }
         }
     }

@@ -24,7 +24,8 @@ class SessionCardView : UIView, Baloon {
     @IBOutlet weak var voteDown: UIButton!
 
     @IBOutlet weak var voteBar: UIView!
-
+    @IBOutlet weak var touchView: UIView!
+    
     var baloonContainer: BaloonContainer? = nil
 
     private var liveObservable: Observable<AnyObject>? = nil
@@ -73,11 +74,6 @@ class SessionCardView : UIView, Baloon {
         configure()
     }
 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        onTouch()
-    }
-
     private func configure() {
         Bundle.main.loadNibNamed("SessionCardView", owner: self, options: nil)
         addSubview(mainView)
@@ -89,6 +85,16 @@ class SessionCardView : UIView, Baloon {
         voteBar.layer.shadowColor = UIColor.black.cgColor
         voteBar.layer.shadowOffset = CGSize(width: 0, height: 0.5)
         voteBar.layer.shadowOpacity = 0.15
+    }
+
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let point = touches.first!.location(in: self)
+
+        if (point.y > touchView.frame.height) {
+            return
+        }
+
+        onTouch()
     }
 
     private func setLive(live: Bool) {
