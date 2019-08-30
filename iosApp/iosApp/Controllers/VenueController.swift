@@ -19,7 +19,7 @@ class VenueController : UIViewController, MGLMapViewDelegate {
     @IBOutlet weak var groundFloor: TopButton!
     @IBOutlet weak var firstFloor: TopButton!
 
-    private var initial: CGFloat = 0.0
+    private var initial: CGFloat = 33.0
     private var floor: Floor = .ground
     private var descriptionActive: Bool = false
 
@@ -40,7 +40,6 @@ class VenueController : UIViewController, MGLMapViewDelegate {
     }
 
     override func viewDidAppear(_ animated: Bool) {
-        initial = overlay.frame.origin.y
         hideDescription()
     }
 
@@ -59,6 +58,10 @@ class VenueController : UIViewController, MGLMapViewDelegate {
     @IBAction func firstFloorSelect(_ sender: Any) {
         floor = .first
         showFloor()
+    }
+
+    @IBAction func closeTouch(_ sender: Any) {
+        hideDescription()
     }
 
     private func showFloor() {

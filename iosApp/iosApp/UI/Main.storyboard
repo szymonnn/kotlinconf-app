@@ -1103,11 +1103,20 @@
                                                     <constraint firstAttribute="height" constant="1" id="TH5-Xg-cUv"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E9w-2n-44y" userLabel="Close">
+                                                <rect key="frame" x="371" y="34" width="24" height="24"/>
+                                                <state key="normal" image="close"/>
+                                                <connections>
+                                                    <action selector="closeTouch:" destination="6lZ-CV-Cas" eventType="touchUpInside" id="Ix7-4y-Une"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="U0b-wl-8dd" firstAttribute="top" secondItem="8my-4V-aus" secondAttribute="top" id="0lD-QK-Aul"/>
                                             <constraint firstAttribute="height" constant="100" id="4lJ-JI-maC"/>
                                             <constraint firstAttribute="trailing" secondItem="U0b-wl-8dd" secondAttribute="trailing" id="BVc-xK-V3w"/>
+                                            <constraint firstAttribute="trailing" secondItem="E9w-2n-44y" secondAttribute="trailing" constant="19" id="Qhy-Wu-PfD"/>
+                                            <constraint firstItem="E9w-2n-44y" firstAttribute="top" secondItem="U0b-wl-8dd" secondAttribute="bottom" constant="33" id="Uur-wo-Ptz"/>
                                             <constraint firstItem="cIM-6e-a7w" firstAttribute="centerX" secondItem="8my-4V-aus" secondAttribute="centerX" id="fq5-Bx-dzK"/>
                                             <constraint firstItem="U0b-wl-8dd" firstAttribute="leading" secondItem="8my-4V-aus" secondAttribute="leading" id="gqY-7k-eIK"/>
                                             <constraint firstItem="cIM-6e-a7w" firstAttribute="top" secondItem="8my-4V-aus" secondAttribute="top" constant="10" id="hHS-Ch-SdX"/>
@@ -1395,6 +1404,7 @@
     <resources>
         <image name="Back" width="19" height="14"/>
         <image name="Cancel" width="16" height="16"/>
+        <image name="close" width="24" height="24"/>
         <image name="favoriteWhite" width="20" height="20"/>
         <image name="favoriteWhiteEmpty" width="20" height="20"/>
         <image name="home" width="32" height="24"/>
