@@ -47,7 +47,7 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
         scheduleTable.addSubview(refreshControl)
         scheduleTable.register(UINib(nibName: "ScheduleTableHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "ScheduleTableHeader")
-        scheduleTable.register(UINib(nibName: "ScheduleTableCoffeeBreakBar", bundle: nil), forHeaderFooterViewReuseIdentifier: "ScheduleTableCoffeeBreakBar")
+        scheduleTable.register(UINib(nibName: "ScheduleTableSmallHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "ScheduleTableSmallHeader")
 
         configureTableHeader()
 
@@ -141,38 +141,35 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         }
 
         let table = (section == .all) ? all : favorites
-        return table.count * 2
+        return table.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (section % 2 == 0) {
-            return 0
-        }
-
-        let sectionIndex = section / 2;
-        return currentTable[sectionIndex].sessions.count
+        return currentTable[section].sessions.count
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if (section == 0) { 
-            return nil
+        let card = currentTable[section]
+
+        if (card.daySection) {
+            let breakHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ScheduleTableSmallHeader") as! ScheduleTableSmallHeader
+            breakHeader.displayDay(title: card.title)
+            return breakHeader
         }
 
-        if (section % 2 == 1) {
-            let index = section / 2
-            let timeHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ScheduleTableHeader") as! ScheduleTableHeader
-
-            let card = currentTable[index]
-            timeHeader.configureLook(month: card.month, day: Int(card.day), time: card.title)
-            return timeHeader
+        if (card.lunchSection) {
+            let breakHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ScheduleTableSmallHeader") as! ScheduleTableSmallHeader
+            breakHeader.displayLunch(title: card.title)
+            return breakHeader
         }
 
-        let breakHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ScheduleTableCoffeeBreakBar")
-        return breakHeader
+        let timeHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "ScheduleTableHeader") as! ScheduleTableHeader
+        timeHeader.configureLook(month: card.month, day: Int(card.day), time: card.title)
+        return timeHeader
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let section = indexPath.section / 2
+        let section = indexPath.section
         let row = indexPath.row
 
         let result = tableView.dequeueReusableCell(withIdentifier: "ScheduleTableCell", for: indexPath) as! ScheduleTableCell
@@ -201,11 +198,8 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if (section == 0) {
-            return 1
-        }
-
-        if (section % 2 == 0) {
+        let group = currentTable[section]
+        if (group.daySection || group.lunchSection) {
             return 42
         }
 

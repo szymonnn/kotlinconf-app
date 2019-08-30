@@ -13,7 +13,7 @@ class SessionGroup(
     val startsAt: GMTDate,
     val sessions: List<SessionCard>,
     val daySection: Boolean = false,
-    val coffeeBreak: Boolean = false
+    val lunchSection: Boolean = false
 )
 
 /**

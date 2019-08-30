@@ -16,7 +16,6 @@ import kotlin.random.*
 object ConferenceService : CoroutineScope {
     override val coroutineContext: CoroutineContext = dispatcher() + SupervisorJob()
 
-
     private val storage: ApplicationStorage = ApplicationStorage()
     private var userId: String? by storage(NullableSerializer(String.serializer())) { null }
 
@@ -64,15 +63,19 @@ object ConferenceService : CoroutineScope {
     }
 
     val schedule: Observable<List<SessionGroup>> = publicData.onChange {
-        it.sessions.makeGroups()
+        it.sessions
+            .groupByDay()
+            .addDayStart()
+            .addLunches()
     }
 
     val favoriteSchedule: Observable<List<SessionGroup>> = favorites.onChange {
-        it.map { id -> session(id) }.makeGroups()
+        it.map { id -> session(id) }
+            .groupByDay()
+            .addDayStart()
     }
 
     val speakers = publicData.onChange { it.speakers }
-
 
     init {
         acceptPrivacyPolicy()
@@ -326,18 +329,3 @@ object ConferenceService : CoroutineScope {
         favorites.change(_favorites)
     }
 }
-
-/**
- * Group sessions by title.
- */
-private fun List<SessionData>.makeGroups(): List<SessionGroup> = groupBy { it.startsAt }
-    .map { (startsAt, sessions) ->
-        val monthName = startsAt.month.value
-        val day = startsAt.dayOfMonth
-        val endsAt = sessions.first().endsAt
-        val time = "${startsAt.time()}-${endsAt.time()}"
-
-        val cards = sessions.map { ConferenceService.sessionCard(it.id) }
-        SessionGroup(monthName, day, time, startsAt, cards)
-    }
-
