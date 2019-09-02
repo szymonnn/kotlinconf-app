@@ -86,15 +86,17 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
             self.searchActive = true
             self.scheduleTable.reloadData()
 
-            UIView.transition(
-                with: self.headerView,
-                duration: 0.2,
-                options: [],
-                animations: {
-                    self.searchContainer.isHidden = false
-                    self.headerView.isHidden = true
-                }, completion: nil
-            )
+            self.searchContainer.isHidden = false
+            self.headerView.isHidden = true
+//            UIView.transition(
+//                with: self.headerView,
+//                duration: 0.2,
+//                options: [],
+//                animations: {
+//                    self.searchContainer.isHidden = false
+//                    self.headerView.isHidden = true
+//                }, completion: nil
+//            )
         }
 
         headerView.addSubview(tableHeader)
@@ -104,15 +106,17 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         searchActive = false
         scheduleTable.reloadData()
 
-        UIView.transition(
-            with: self.headerView,
-            duration: 0.2,
-            options: [],
-            animations: {
-                self.searchContainer.isHidden = true
-                self.headerView.isHidden = false
-            }, completion: nil
-        )
+        self.searchContainer.isHidden = true
+        self.headerView.isHidden = false
+//        UIView.transition(
+//            with: self.headerView,
+//            duration: 0.2,
+//            options: [],
+//            animations: {
+//                self.searchContainer.isHidden = true
+//                self.headerView.isHidden = false
+//            }, completion: nil
+//        )
     }
 
     func onSessions(session: [SessionGroup]) {

@@ -629,13 +629,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Talks:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xNe-4m-qub">
-                                                <rect key="frame" x="26" y="577" width="43" height="18"/>
+                                                <rect key="frame" x="26" y="591" width="43" height="18"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kwz-xL-sQZ" userLabel="Talks">
-                                                <rect key="frame" x="9" y="613" width="396" height="233"/>
+                                                <rect key="frame" x="9" y="627" width="396" height="219"/>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" name="deepSkyBlue"/>
@@ -651,7 +651,7 @@
                                             <constraint firstItem="9fW-ca-Cbu" firstAttribute="leading" secondItem="TUx-ER-2EC" secondAttribute="leading" constant="24" id="PQ1-I5-cXf"/>
                                             <constraint firstAttribute="trailing" secondItem="kwz-xL-sQZ" secondAttribute="trailing" constant="9" id="Pxy-Fp-XNg"/>
                                             <constraint firstItem="k8q-ec-51j" firstAttribute="leading" secondItem="TUx-ER-2EC" secondAttribute="leading" constant="24" id="R4J-mP-6qM"/>
-                                            <constraint firstItem="xNe-4m-qub" firstAttribute="top" secondItem="k8q-ec-51j" secondAttribute="bottom" constant="18" id="aDv-bi-sD9"/>
+                                            <constraint firstItem="xNe-4m-qub" firstAttribute="top" secondItem="k8q-ec-51j" secondAttribute="bottom" constant="32" id="aDv-bi-sD9"/>
                                             <constraint firstAttribute="trailing" secondItem="4VX-79-kiq" secondAttribute="trailing" id="axD-t3-r7q"/>
                                             <constraint firstItem="k8q-ec-51j" firstAttribute="top" secondItem="wyu-bY-sMo" secondAttribute="bottom" constant="25" id="dDJ-Wz-9qI"/>
                                             <constraint firstItem="4VX-79-kiq" firstAttribute="top" secondItem="TUx-ER-2EC" secondAttribute="top" constant="15" id="hzR-xO-4Zz"/>
