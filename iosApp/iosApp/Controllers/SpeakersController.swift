@@ -13,7 +13,7 @@ class SpeakersController : UIViewController, UITableViewDataSource, UITableViewD
         speakersList.dataSource = self
         speakersList.delegate = self
 
-        Conference.speakers.onChange(block: { speakers in
+        Conference.speakers.watch(block: { speakers in
             return self.onSpeakers(speakers: speakers as! [SpeakerData])
         })
     }

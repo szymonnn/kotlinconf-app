@@ -10,7 +10,6 @@ plugins {
     id("kotlin-android")
     id("kotlin-android-extensions")
     id("kotlinx-serialization")
-    id("kotlin-kapt")
 }
 
 android {
@@ -52,7 +51,6 @@ dependencies {
     implementation("com.android.support:recyclerview-v7:28.0.0")
     implementation("com.android.support:design:28.0.0")
     implementation("com.android.support.constraint:constraint-layout:1.1.3")
-    kapt("android.arch.lifecycle:compiler:2.0.0")
 
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
     implementation("org.jetbrains.anko:anko-appcompat-v7-commons:$anko_version")

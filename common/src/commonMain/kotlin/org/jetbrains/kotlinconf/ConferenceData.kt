@@ -14,7 +14,7 @@ class ConferenceData(
 )
 
 @Serializable
-data class SessionizeData(
+class SessionizeData(
     val sessions: List<SessionData> = emptyList(),
     val rooms: List<RoomData> = emptyList(),
     val speakers: List<SpeakerData> = emptyList(),
@@ -111,24 +111,16 @@ data class PartnerData(
     val description: String
 )
 
-enum class RatingData(val value: Int) {
-    BAD(-1),
-    OK(0),
-    GOOD(1);
-
+/**
+ * TODO: remove when serialization supports typeOf<EnumClass>()
+ */
+@Serializable
+class RatingData(val value: Int) {
     companion object {
-        fun valueOf(value: Int): RatingData = values().find { it.value == value }!!
+        val BAD = RatingData(-1)
+        val OK = RatingData(0)
+        val GOOD = RatingData(1)
 
-        fun serializer(): KSerializer<RatingData> = object : KSerializer<RatingData> {
-
-            override val descriptor: SerialDescriptor
-                get() = IntDescriptor.withName("RatingDataDescriptor")
-
-            override fun deserialize(decoder: Decoder): RatingData = valueOf(decoder.decodeInt())
-
-            override fun serialize(encoder: Encoder, obj: RatingData) {
-                encoder.encodeInt(obj.value)
-            }
-        }
+        fun valueOf(value: Int): RatingData = listOf(BAD, OK, GOOD).find { it.value == value } ?: error("Invalid rating value")
     }
 }

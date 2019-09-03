@@ -2,8 +2,6 @@ import Foundation
 import UIKit
 import KotlinConfAPI
 
-let Conference = ConferenceService()
-
 class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRecognizerDelegate {
     @IBOutlet weak var videosView: UICollectionView!
     @IBOutlet weak var upcomingFavorites: UIStackView!
@@ -17,11 +15,11 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
         videosView.dataSource = self
         videosView.delegate = self
 
-        Conference.liveSessions.onChange(block: { cards in
+        Conference.liveSessions.watch(block: { cards in
             self.onLiveSessions(sessions: cards as! [SessionCard])
         })
 
-        Conference.upcomingFavorites.onChange(block: { cards in
+        Conference.upcomingFavorites.watch(block: { cards in
             self.onUpcomingFavorites(sessions: cards as! [SessionCard])
         })
     }

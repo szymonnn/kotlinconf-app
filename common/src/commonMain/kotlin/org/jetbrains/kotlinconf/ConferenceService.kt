@@ -1,6 +1,8 @@
 package org.jetbrains.kotlinconf
 
 import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.*
+import kotlinx.coroutines.flow.*
 import kotlinx.serialization.*
 import kotlinx.serialization.internal.*
 import org.jetbrains.kotlinconf.presentation.*
@@ -13,8 +15,18 @@ import kotlin.random.*
  * [ConferenceService] handles data and builds model.
  */
 @ThreadLocal
+@UseExperimental(ExperimentalCoroutinesApi::class)
 object ConferenceService : CoroutineScope {
-    override val coroutineContext: CoroutineContext = dispatcher() + SupervisorJob()
+    private val exceptionHandler = object : CoroutineExceptionHandler {
+        override val key: CoroutineContext.Key<*> = CoroutineExceptionHandler
+
+        override fun handleException(context: CoroutineContext, exception: Throwable) {
+            println("Exception[$exception] in $context")
+        }
+
+    }
+
+    override val coroutineContext: CoroutineContext = dispatcher() + SupervisorJob() + exceptionHandler
 
     private val storage: ApplicationStorage = ApplicationStorage()
     private var userId: String? by storage(NullableSerializer(String.serializer())) { null }
@@ -33,56 +45,55 @@ object ConferenceService : CoroutineScope {
     /**
      * Public conference information.
      */
-    private var _publicData: SessionizeData by storage(SessionizeData.serializer()) { SessionizeData() }
-    val publicData: Observable<SessionizeData> = Observable(_publicData)
+    private val _publicData by storage.live { SessionizeData() }
+    val publicData = _publicData.asFlow().wrap()
 
     /**
      * Favorites list.
      */
-    private var _favorites: Set<String> by storage(String.serializer().set) { emptySet() }
-    val favorites: Observable<Set<String>> = Observable(_favorites)
+    private val _favorites by storage.live { mutableSetOf<String>() }
+    val favorites = _favorites.asFlow().wrap()
 
     /**
      * Votes list.
      */
-    private var _votes: Map<String, RatingData> by storage((String.serializer() to RatingData.serializer()).map) { emptyMap() }
-    val votes = Observable(_votes)
+    private val _votes by storage.live { mutableMapOf<String, RatingData>() }
+    val votes = _votes.asFlow().wrap()
 
     /**
      * Live sessions.
      */
-    private val _liveSessions = Observable<Set<String>>(emptySet())
-    private val _upcomingFavorites = Observable<Set<String>>(emptySet())
+    private val _liveSessions = ConflatedBroadcastChannel<Set<String>>(mutableSetOf())
+    private val _upcomingFavorites = ConflatedBroadcastChannel<Set<String>>(mutableSetOf())
 
-    val liveSessions: Observable<List<SessionCard>> = _liveSessions.onChange {
+    val liveSessions = _liveSessions.asFlow().map {
         it.toList().map { id -> sessionCard(id) }
-    }
+    }.wrap()
 
-    val upcomingFavorites: Observable<List<SessionCard>> = _upcomingFavorites.onChange {
+    val upcomingFavorites = _upcomingFavorites.asFlow().map {
         it.toList().map { id -> sessionCard(id) }
-    }
+    }.wrap()
 
-    val schedule: Observable<List<SessionGroup>> = publicData.onChange {
-        it.sessions
-            .groupByDay()
+    val schedule = publicData.map {
+        it.sessions.groupByDay()
             .addDayStart()
             .addLunches()
-    }
+    }.wrap()
 
-    val favoriteSchedule: Observable<List<SessionGroup>> = favorites.onChange {
+    val favoriteSchedule = favorites.map {
         it.map { id -> session(id) }
             .groupByDay()
             .addDayStart()
-    }
+    }.wrap()
 
-    val speakers = publicData.onChange { it.speakers }
+    val speakers = publicData.map { it.speakers }.wrap()
 
     init {
         acceptPrivacyPolicy()
 
         launch {
             userId?.let { Api.sign(it) }
-            if (_publicData.sessions.isEmpty()) {
+            if (_publicData.value.sessions.isEmpty()) {
                 refresh()
             }
         }
@@ -92,16 +103,6 @@ object ConferenceService : CoroutineScope {
                 updateLive()
                 updateUpcoming()
                 delay(5 * 1000)
-            }
-        }
-
-        /**
-         * TODO: clear removed votes
-         */
-        votes.onChange {
-            it.entries.forEach { (id, rating) ->
-                val card = sessionCard(id)
-                card.ratingData.change(rating)
             }
         }
     }
@@ -114,12 +115,12 @@ object ConferenceService : CoroutineScope {
     /**
      * Check if session is favorite.
      */
-    fun sessionIsFavorite(sessionId: String): Boolean = sessionId in _favorites
+    fun sessionIsFavorite(sessionId: String): Boolean = sessionId in _favorites.value
 
     /**
      * Get session rating.
      */
-    fun sessionRating(sessionId: String): RatingData? = _votes[sessionId]
+    fun sessionRating(sessionId: String): RatingData? = _votes.value[sessionId]
 
     /**
      * Get speakers from session.
@@ -141,19 +142,19 @@ object ConferenceService : CoroutineScope {
      * Find speaker by id.
      */
     fun speaker(id: String): SpeakerData =
-        _publicData.speakers.find { it.id == id } ?: error("Internal error. Speaker with id $id not found.")
+        _publicData.value.speakers.find { it.id == id } ?: error("Internal error. Speaker with id $id not found.")
 
     /**
      * Find session by id.
      */
     fun session(id: String): SessionData =
-        _publicData.sessions.find { it.id == id } ?: error("Internal error. Session with id $id not found.")
+        _publicData.value.sessions.find { it.id == id } ?: error("Internal error. Session with id $id not found.")
 
     /**
      * Find room by id.
      */
     fun room(id: Int): RoomData =
-        _publicData.rooms.find { it.id == id } ?: error("Internal error. Room with id $id not found.")
+        _publicData.value.rooms.find { it.id == id } ?: error("Internal error. Room with id $id not found.")
 
     /**
      * Get session card.
@@ -166,9 +167,9 @@ object ConferenceService : CoroutineScope {
 
         val location = room(roomId)
         val speakers = sessionSpeakers(id)
-        val isFavorite = favorites.onChange { id in it }
-        val ratingData = votes.onChange { it[id] }
-        val isLive = _liveSessions.onChange { id in it }
+        val isFavorite = favorites.map { id in it }.wrap()
+        val ratingData = votes.map { it[id] }.wrap()
+        val isLive = _liveSessions.asFlow().map { id in it }.wrap()
 
         val result = SessionCard(
             session,
@@ -193,21 +194,28 @@ object ConferenceService : CoroutineScope {
     /**
      * Vote for session.
      */
-    fun vote(sessionId: String, rating: RatingData?) {
+    fun vote(sessionId: String, rating: RatingData) {
         launch {
             val userId = userId ?: error("Privacy policy isn't accepted.")
-            val ratingData = sessionCard(sessionId).ratingData
 
-            ratingData.tryUpdate(rating) {
-                if (rating != null) {
+            val votes = _votes.value
+            val oldRating = votes[sessionId]
+            val newRating = if (rating == oldRating) null else rating
+
+            try {
+                updateVote(sessionId, newRating)
+
+                if (newRating != null) {
                     val vote = VoteData(sessionId, rating)
                     Api.postVote(userId, vote)
                 } else {
                     Api.deleteVote(userId, sessionId)
                 }
+            } catch (cause: Throwable) {
+                updateVote(sessionId, oldRating)
+                throw cause
             }
 
-            updateVote(sessionId, rating)
         }
     }
 
@@ -218,18 +226,18 @@ object ConferenceService : CoroutineScope {
         launch {
             val userId = userId ?: error("Privacy policy isn't accepted.")
 
-            val favorite = sessionCard(sessionId).isFavorite
-            val isFavorite = !favorite.current
+            val isFavorite = sessionId in _favorites.value
 
-            favorite.tryUpdate(isFavorite) {
+            try {
+                updateFavorite(sessionId, !isFavorite)
                 if (isFavorite) {
                     Api.postFavorite(userId, sessionId)
                 } else {
                     Api.deleteFavorite(userId, sessionId)
                 }
+            } catch (cause: Throwable) {
+                updateFavorite(sessionId, isFavorite)
             }
-
-            updateFavorite(sessionId, isFavorite)
         }
     }
 
@@ -254,13 +262,13 @@ object ConferenceService : CoroutineScope {
     fun refresh() {
         launch {
             Api.getAll(userId).apply {
-                _publicData = allData
-                _favorites = favorites.toSet()
-                _votes = votes.mapNotNull { vote -> vote.rating?.let { vote.sessionId to it } }.toMap()
+                _publicData.offer(allData)
+                _favorites.offer(favorites.toMutableSet())
+                val votesMap = mutableMapOf<String, RatingData>().apply {
+                    putAll(votes.mapNotNull { vote -> vote.rating?.let { vote.sessionId to it } })
+                }
+                _votes.offer(votesMap)
             }
-
-            publicData.change(_publicData)
-            favorites.change(_favorites)
         }
     }
 
@@ -268,7 +276,7 @@ object ConferenceService : CoroutineScope {
      * TODO: mock for now
      */
     private fun updateLive() {
-        val sessions = publicData.current.sessions
+        val sessions = _publicData.value.sessions
         if (sessions.isEmpty()) {
             return
         }
@@ -279,14 +287,14 @@ object ConferenceService : CoroutineScope {
             result += sessions[index].id
         }
 
-        _liveSessions.change(result)
+        _liveSessions.offer(result)
     }
 
     /**
      * TODO: mock for now
      */
     private fun updateUpcoming() {
-        val favorites = favorites.current.toList()
+        val favorites = _favorites.value.toList()
         if (favorites.isEmpty()) {
             return
         }
@@ -297,35 +305,32 @@ object ConferenceService : CoroutineScope {
             result += favorites[index]
         }
 
-        _upcomingFavorites.change(result)
+        _upcomingFavorites.offer(result)
     }
 
     private fun updateVote(sessionId: String, rating: RatingData?) {
-        val result = mutableMapOf<String, RatingData>()
-        result.putAll(_votes)
+        val votes = _votes.value
+
         if (rating == null) {
-            result.remove(sessionId)
+            votes.remove(sessionId)
         } else {
-            result[sessionId] = rating
+            votes[sessionId] = rating
         }
 
-        _votes = result
+        _votes.offer(votes)
     }
 
     private fun updateFavorite(sessionId: String, isFavorite: Boolean) {
-        if (isFavorite) check(sessionId !in _favorites)
-        if (!isFavorite) check(sessionId in _favorites)
-
-        val result = mutableSetOf<String>()
-        result.addAll(_favorites)
+        val favorites = _favorites.value
+        if (isFavorite) check(sessionId !in favorites)
+        if (!isFavorite) check(sessionId in favorites)
 
         if (!isFavorite) {
-            result.remove(sessionId)
+            favorites.remove(sessionId)
         } else {
-            result.add(sessionId)
+            favorites.add(sessionId)
         }
 
-        _favorites = result
-        favorites.change(_favorites)
+        _favorites.offer(favorites)
     }
 }

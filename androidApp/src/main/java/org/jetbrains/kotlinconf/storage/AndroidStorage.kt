@@ -3,7 +3,7 @@ package org.jetbrains.kotlinconf.storage
 import android.content.*
 import android.preference.*
 
-class AndroidStorage(context: Context) : ApplicationStorage {
+internal class AndroidStorage(context: Context) : ApplicationStorage {
     private val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     override fun putBoolean(key: String, value: Boolean) {

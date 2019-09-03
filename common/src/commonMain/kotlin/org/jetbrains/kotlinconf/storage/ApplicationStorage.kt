@@ -1,14 +1,18 @@
 package org.jetbrains.kotlinconf.storage
 
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.*
+import kotlinx.coroutines.flow.*
 import kotlinx.serialization.*
 import kotlinx.serialization.json.*
 import org.jetbrains.kotlinconf.*
 import kotlin.properties.*
 import kotlin.reflect.*
 
-internal expect fun ApplicationStorage(): ApplicationStorage
+@Suppress("NO_ACTUAL_FOR_EXPECT")
+expect fun ApplicationStorage(): ApplicationStorage
 
-internal interface ApplicationStorage {
+interface ApplicationStorage {
     fun putBoolean(key: String, value: Boolean)
     fun getBoolean(key: String, defaultValue: Boolean): Boolean
     fun putString(key: String, value: String)
@@ -16,7 +20,7 @@ internal interface ApplicationStorage {
 }
 
 @UseExperimental(UnstableDefault::class)
-internal inline operator fun <reified T> ApplicationStorage.invoke(
+inline operator fun <reified T> ApplicationStorage.invoke(
     serializer: KSerializer<T>,
     crossinline block: () -> T
 ): ReadWriteProperty<ConferenceService, T> = object : ReadWriteProperty<ConferenceService, T> {
@@ -41,5 +45,36 @@ internal inline operator fun <reified T> ApplicationStorage.invoke(
 
         currentValue = result
         return result
+    }
+}
+
+@UseExperimental(ImplicitReflectionSerializer::class, ExperimentalStdlibApi::class, ExperimentalCoroutinesApi::class)
+inline fun <reified T> ApplicationStorage.live(
+    crossinline initial: () -> T
+): ReadOnlyProperty<ConferenceService, ConflatedBroadcastChannel<T>> {
+    val serializer = serializer<T>()
+
+    return object : ReadOnlyProperty<ConferenceService, ConflatedBroadcastChannel<T>> {
+        private var channel: ConflatedBroadcastChannel<T>? = null
+        private var key: String? = null
+
+        override fun getValue(thisRef: ConferenceService, property: KProperty<*>): ConflatedBroadcastChannel<T> {
+            if (channel == null) {
+                key = property.name
+                val value = try {
+                    getString(key!!)?.let { Json.parse(serializer, it) }
+                    null
+                } catch (_: Throwable) {
+                    null
+                } ?: initial()
+
+                channel = ConflatedBroadcastChannel(value)
+                channel!!.asFlow().wrap().watch {
+                    putString(key!!, Json.stringify(serializer, it))
+                }
+            }
+
+            return channel!!
+        }
     }
 }
