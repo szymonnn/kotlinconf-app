@@ -1,6 +1,7 @@
 package org.jetbrains.kotlinconf.presentation
 
 import io.ktor.util.date.*
+import kotlinx.coroutines.flow.*
 import org.jetbrains.kotlinconf.*
 
 /**
@@ -24,7 +25,7 @@ data class SessionCard(
     val time: String,
     val location: RoomData,
     val speakers: List<SpeakerData>,
-    val isFavorite: Observable<Boolean>,
-    val ratingData: Observable<RatingData?>,
-    val isLive: Observable<Boolean>
+    val isFavorite: CFlow<Boolean>,
+    val ratingData: CFlow<RatingData?>,
+    val isLive: CFlow<Boolean>
 )

@@ -5,15 +5,12 @@ import android.support.v7.app.*
 import android.view.*
 import android.widget.*
 import com.bumptech.glide.*
-import org.jetbrains.anko.*
 import org.jetbrains.kotlinconf.*
 import org.jetbrains.kotlinconf.data.*
-import org.jetbrains.kotlinconf.presentation.*
 import org.jetbrains.kotlinconf.presentation.SessionView
 
-class SessionDetailsFragment : BaseFragment(), SessionView {
-    private lateinit var session: Session
-    private val sessionView: SessionView by lazy { SessionView(this) }
+class SessionDetailsFragment : BaseFragment() {
+    private lateinit var session: SessionData
 
     private val repository by lazy { (activity!!.application as KotlinConfApplication).service }
     private val presenter by lazy { SessionPresenter(this, session, repository) }
@@ -41,7 +38,6 @@ class SessionDetailsFragment : BaseFragment(), SessionView {
 
     override fun onDestroy() {
         super.onDestroy()
-        presenter.onDestroy()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -93,7 +89,7 @@ class SessionDetailsFragment : BaseFragment(), SessionView {
         }
     }
 
-    fun updateSession(session: Session) {
+    fun updateSession(session: SessionData) {
         with(sessionView) {
             collapsingToolbar.title = session.title
             speakersTextView.text = session.speakers.joinToString(separator = ", ") { it.fullName }
@@ -132,7 +128,7 @@ class SessionDetailsFragment : BaseFragment(), SessionView {
         const val TAG = "SessionDetailsFragment"
         private const val KEY_SESSION_ID = "SessionId"
 
-        fun forSession(session: Session): SessionDetailsFragment = SessionDetailsFragment().apply {
+        fun forSession(session: SessionData): SessionDetailsFragment = SessionDetailsFragment().apply {
             arguments = Bundle().apply { putString(KEY_SESSION_ID, session.id) }
         }
     }

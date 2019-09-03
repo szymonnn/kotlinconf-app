@@ -8,10 +8,6 @@ import org.jetbrains.kotlinconf.storage.*
 import java.util.*
 
 class KotlinConfApplication : Application(), AnkoLogger {
-    internal val service: ConferenceService by lazy {
-        val settingsFactory = AndroidStorage(applicationContext)
-        ConferenceService(getUserId(), "https://api.kotlinconf.com", settingsFactory)
-    }
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)

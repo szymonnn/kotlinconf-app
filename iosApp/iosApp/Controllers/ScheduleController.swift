@@ -54,11 +54,11 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         scheduleTable.delegate = self
         scheduleTable.dataSource = self
 
-        Conference.schedule.onChange(block: {data in
+        Conference.schedule.watch(block: {data in
             self.onSessions(session: data as! [SessionGroup])
         })
 
-        Conference.favoriteSchedule.onChange(block: {data in
+        Conference.favoriteSchedule.watch(block: {data in
             self.onFavorites(session: data as! [SessionGroup])
         })
 
@@ -88,15 +88,6 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
             self.searchContainer.isHidden = false
             self.headerView.isHidden = true
-//            UIView.transition(
-//                with: self.headerView,
-//                duration: 0.2,
-//                options: [],
-//                animations: {
-//                    self.searchContainer.isHidden = false
-//                    self.headerView.isHidden = true
-//                }, completion: nil
-//            )
         }
 
         headerView.addSubview(tableHeader)
@@ -108,15 +99,6 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
         self.searchContainer.isHidden = true
         self.headerView.isHidden = false
-//        UIView.transition(
-//            with: self.headerView,
-//            duration: 0.2,
-//            options: [],
-//            animations: {
-//                self.searchContainer.isHidden = true
-//                self.headerView.isHidden = false
-//            }, completion: nil
-//        )
     }
 
     func onSessions(session: [SessionGroup]) {
@@ -268,5 +250,4 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         refreshControl.endRefreshing()
         super.showError(error: error)
     }
-
 }

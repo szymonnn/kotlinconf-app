@@ -28,9 +28,9 @@ class SessionCardView : UIView, Baloon {
     
     var baloonContainer: BaloonContainer? = nil
 
-    private var liveObservable: Observable<AnyObject>? = nil
-    private var ratingObservable: Observable<AnyObject>? = nil
-    private var favoriteObservable: Observable<AnyObject>? = nil
+    private var liveObservable: Kotlinx_ioCloseable? = nil
+    private var ratingObservable: Kotlinx_ioCloseable? = nil
+    private var favoriteObservable: Kotlinx_ioCloseable? = nil
 
     var onTouch: () -> Void = {}
 
@@ -48,15 +48,16 @@ class SessionCardView : UIView, Baloon {
                 speaker.fullName
             }).joined(separator: ", ")
 
-            liveObservable = card.isLive.onChange(block: { live in
+
+            liveObservable = card.isLive.watch(block: { live in
                 self.setLive(live: live!.boolValue)
             })
 
-            favoriteObservable = card.isFavorite.onChange(block: { favorite in
+            favoriteObservable = card.isFavorite.watch(block: { favorite in
                 self.setFavorite(favorite: favorite!.boolValue)
             })
 
-            ratingObservable = card.ratingData.onChange(block: { rating in
+            ratingObservable = card.ratingData.watch(block: { rating in
                 self.configureVote(rating: rating)
             })
 
@@ -133,15 +134,15 @@ class SessionCardView : UIView, Baloon {
     }
 
     @IBAction func vodeGood(_ sender: Any) {
-        Conference.vote(sessionId: card.session.id, rating: .good)
+        Conference.vote(sessionId: card.session.id, rating: RatingData.Companion.init().GOOD)
     }
 
     @IBAction func voteOk(_ sender: Any) {
-        Conference.vote(sessionId: card.session.id, rating: .ok)
+        Conference.vote(sessionId: card.session.id, rating: RatingData.Companion.init().OK)
     }
 
     @IBAction func voteBad(_ sender: Any) {
-        Conference.vote(sessionId: card.session.id, rating: .bad)
+        Conference.vote(sessionId: card.session.id, rating: RatingData.Companion.init().BAD)
     }
 
     @IBAction func favoriteTouch(_ sender: Any) {
@@ -149,15 +150,15 @@ class SessionCardView : UIView, Baloon {
     }
 
     private func configureVote(rating: RatingData?) {
-        voteUp.isSelected = rating == .good
-        voteOk.isSelected = rating == .ok
-        voteDown.isSelected = rating == .bad
+        voteUp.isSelected = rating == RatingData.Companion.init().GOOD
+        voteOk.isSelected = rating == RatingData.Companion.init().OK
+        voteDown.isSelected = rating == RatingData.Companion.init().BAD
 
         let image: UIImage = {
             switch rating {
-            case RatingData.good: return UIImage(named: "voteGoodOrange")!
-            case RatingData.ok: return UIImage(named: "voteOkOrange")!
-            case RatingData.bad: return UIImage(named: "voteBadOrange")!
+            case RatingData.Companion.init().GOOD: return UIImage(named: "voteGoodOrange")!
+            case RatingData.Companion.init().GOOD: return UIImage(named: "voteOkOrange")!
+            case RatingData.Companion.init().BAD: return UIImage(named: "voteBadOrange")!
             default: return UIImage(named: "voteGood")!
             }
         }()

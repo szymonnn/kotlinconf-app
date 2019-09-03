@@ -22,9 +22,9 @@ class SessionController : UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var voteOk: UIButton!
     @IBOutlet weak var voteDown: UIButton!
 
-    private var ratingObserver: Observable<AnyObject>? = nil
-    private var favoriteObserver: Observable<AnyObject>? = nil
-    private var liveObserver: Observable<AnyObject>? = nil
+    private var ratingObserver: Kotlinx_ioCloseable? = nil
+    private var favoriteObserver: Kotlinx_ioCloseable? = nil
+    private var liveObserver: Kotlinx_ioCloseable? = nil
 
     var card: SessionCard!
     private var borders: [CALayer]!
@@ -66,7 +66,7 @@ class SessionController : UIViewController, UIScrollViewDelegate {
         // Time
         timeLabel.text = card.time
 
-        liveObserver = card.isLive.onChange(block: { isLive in
+        liveObserver = card.isLive.watch(block: { isLive in
             self.liveChange(isLive!.boolValue)
         })
 
@@ -74,12 +74,12 @@ class SessionController : UIViewController, UIScrollViewDelegate {
         locationLabel.setTitle(" " + card.location.name, for: .normal)
 
         // Favorite
-        favoriteObserver = card.isFavorite.onChange(block: { isFavorite in
+        favoriteObserver = card.isFavorite.watch(block: { isFavorite in
             self.favoriteChange(isFavorite!.boolValue)
         })
 
         // Rating
-        ratingObserver = card.ratingData.onChange(block: { rating in
+        ratingObserver = card.ratingData.watch(block: { rating in
             self.ratingChange(rating)
         })
 
@@ -138,15 +138,15 @@ class SessionController : UIViewController, UIScrollViewDelegate {
     }
 
     @IBAction func voteUpTouch(_ sender: Any) {
-        Conference.vote(sessionId: card.session.id, rating: .good)
+        Conference.vote(sessionId: card.session.id, rating: RatingData.Companion.init().GOOD)
     }
 
     @IBAction func voteOkTouch(_ sender: Any) {
-        Conference.vote(sessionId: card.session.id, rating: .ok)
+        Conference.vote(sessionId: card.session.id, rating: RatingData.Companion.init().OK)
     }
 
     @IBAction func voteDownTouch(_ sender: Any) {
-        Conference.vote(sessionId: card.session.id, rating: .bad)
+        Conference.vote(sessionId: card.session.id, rating: RatingData.Companion.init().BAD)
     }
 
     private func liveChange(_ isLive: Bool) {
@@ -157,15 +157,15 @@ class SessionController : UIViewController, UIScrollViewDelegate {
     }
 
     private func ratingChange(_ rating: RatingData?) {
-        voteUp.isSelected = rating == .good
-        voteOk.isSelected = rating == .ok
-        voteDown.isSelected = rating == .bad
+        voteUp.isSelected = rating == RatingData.Companion.init().GOOD
+        voteOk.isSelected = rating == RatingData.Companion.init().OK
+        voteDown.isSelected = rating == RatingData.Companion.init().BAD
 
         let image: UIImage = {
             switch rating {
-            case RatingData.good: return UIImage(named: "voteGoodWhite")!
-            case RatingData.ok: return UIImage(named: "voteOkWhite")!
-            case RatingData.bad: return UIImage(named: "voteBadWhite")!
+            case RatingData.Companion.init().GOOD: return UIImage(named: "voteGoodWhite")!
+            case RatingData.Companion.init().OK: return UIImage(named: "voteOkWhite")!
+            case RatingData.Companion.init().BAD: return UIImage(named: "voteBadWhite")!
             default: return UIImage(named: "voteGoodLight")!
             }
         }()

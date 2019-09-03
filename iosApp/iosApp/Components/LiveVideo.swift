@@ -10,7 +10,7 @@ class LiveVideo : UICollectionViewCell {
     @IBOutlet weak var location: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
 
-    var favoriteObservable: Observable<AnyObject>? = nil
+    var favoriteObservable: Kotlinx_ioCloseable? = nil
 
     var card: SessionCard! {
         didSet {
@@ -24,7 +24,7 @@ class LiveVideo : UICollectionViewCell {
             location.text = card.location.name
             video.load(withVideoId: "YbF8Q8LxAJs")
 
-            favoriteObservable = card.isFavorite.onChange(block: { isFavorite in
+            favoriteObservable = card.isFavorite.watch(block: { isFavorite in
                 self.favoriteButton.isSelected = isFavorite!.boolValue
             })
         }

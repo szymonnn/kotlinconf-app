@@ -33,6 +33,7 @@ kotlin {
         }
 
         binaries.framework {
+            export("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version")
             baseName = frameworkName
         }
     }
