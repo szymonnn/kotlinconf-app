@@ -64,7 +64,7 @@ class SessionController : UIViewController, UIScrollViewDelegate {
         }
 
         // Time
-        timeLabel.text = card.time
+        timeLabel.text = card.date + " " + card.time
 
         liveObserver = card.isLive.watch(block: { isLive in
             self.liveChange(isLive!.boolValue)

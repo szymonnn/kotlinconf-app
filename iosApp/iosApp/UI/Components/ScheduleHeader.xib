@@ -54,10 +54,10 @@
                                         <constraint firstAttribute="height" constant="36" id="rcM-By-je5"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                    <state key="normal" title=" Favorites" image="favoriteDark">
+                                    <state key="normal" title=" Favorites" image="favoriteDarkSlim">
                                         <color key="titleColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
-                                    <state key="selected" image="favoriteWhite">
+                                    <state key="selected" image="favoriteWhiteSlim">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
@@ -126,8 +126,8 @@
         </view>
     </objects>
     <resources>
-        <image name="favoriteDark" width="14" height="16"/>
-        <image name="favoriteWhite" width="14" height="16"/>
+        <image name="favoriteDarkSlim" width="14" height="16"/>
+        <image name="favoriteWhiteSlim" width="14" height="16"/>
         <image name="search" width="24" height="24"/>
     </resources>
 </document>

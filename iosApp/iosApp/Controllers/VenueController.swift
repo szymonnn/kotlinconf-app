@@ -37,6 +37,8 @@ class VenueController : UIViewController, MGLMapViewDelegate {
 
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(sender:)))
         mapView.addGestureRecognizer(singleTap)
+
+        mapView.compassViewMargins.y += 50.0
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -136,7 +138,7 @@ class VenueController : UIViewController, MGLMapViewDelegate {
     }
 
     func showNote(_ name: String) {
-        titleLabel.text = name
+        titleLabel.text = name.uppercased()
         showDescription()
     }
 

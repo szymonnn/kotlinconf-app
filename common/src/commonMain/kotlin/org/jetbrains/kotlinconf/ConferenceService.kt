@@ -174,6 +174,7 @@ object ConferenceService : CoroutineScope {
         val result = SessionCard(
             session,
             "${session.startsAt.time()}-${session.endsAt.time()}",
+            session.startsAt.dayAndMonth(),
             location,
             speakers,
             isFavorite,

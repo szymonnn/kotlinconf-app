@@ -97,6 +97,7 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         searchActive = false
         scheduleTable.reloadData()
 
+        self.view.endEditing(false)
         self.searchContainer.isHidden = true
         self.headerView.isHidden = false
     }
