@@ -7,11 +7,12 @@ enum Section {
     case favorites
 }
 
-class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDataSource, BaloonContainer {
+class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, BaloonContainer {
     @IBOutlet weak var scheduleTable: UITableView!
     @IBOutlet weak var headerView: UIView!
     @IBOutlet weak var searchContainer: UIView!
     @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var searchBar: UISearchBar!
 
     var activePopup: UIView? = nil
 
@@ -31,7 +32,8 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
     private var all: [SessionGroup] = []
     private var favorites: [SessionGroup] = []
-    private var search: [SessionCard] = []
+    private var sessions: [SessionCard] = []
+    private var searchResult: [SessionCard] = []
 
     private var searchActive = false
     private var section: Section = .all
@@ -49,17 +51,26 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         scheduleTable.register(UINib(nibName: "ScheduleTableHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "ScheduleTableHeader")
         scheduleTable.register(UINib(nibName: "ScheduleTableSmallHeader", bundle: nil), forHeaderFooterViewReuseIdentifier: "ScheduleTableSmallHeader")
 
+        Conference.errors.watch(block: {error in
+            self.refreshControl.endRefreshing()
+        })
+
         configureTableHeader()
 
         scheduleTable.delegate = self
         scheduleTable.dataSource = self
+        searchBar.delegate = self
 
         Conference.schedule.watch(block: {data in
-            self.onSessions(session: data as! [SessionGroup])
+            self.onSchedule(sessions: data as! [SessionGroup])
         })
 
         Conference.favoriteSchedule.watch(block: {data in
-            self.onFavorites(session: data as! [SessionGroup])
+            self.onFavorites(sessions: data as! [SessionGroup])
+        })
+
+        Conference.sessions.watch(block: {data in
+            self.onSessions(sessions: data as! [SessionCard])
         })
 
         self.view.isUserInteractionEnabled = true
@@ -97,23 +108,29 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         searchActive = false
         scheduleTable.reloadData()
 
+        self.view.endEditing(false)
         self.searchContainer.isHidden = true
         self.headerView.isHidden = false
     }
 
-    func onSessions(session: [SessionGroup]) {
-        all = session
+    func onSchedule(sessions: [SessionGroup]) {
+        all = sessions
         refreshControl.endRefreshing()
         if (section == .all) {
             scheduleTable.reloadData()
         }
     }
 
-    func onFavorites(session: [SessionGroup]) {
-        favorites = session
+    func onFavorites(sessions: [SessionGroup]) {
+        favorites = sessions
         if (section == .favorites) {
             scheduleTable.reloadData()
         }
+    }
+
+    func onSessions(sessions: [SessionCard]) {
+        self.sessions = sessions
+        searchResult = sessions
     }
 
     @IBAction
@@ -131,10 +148,18 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (searchActive) {
+            return searchResult.count
+        }
+
         return currentTable[section].sessions.count
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if (searchActive) {
+            return nil
+        }
+
         let card = currentTable[section]
 
         if (card.daySection) {
@@ -159,10 +184,30 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         let row = indexPath.row
 
         let result = tableView.dequeueReusableCell(withIdentifier: "ScheduleTableCell", for: indexPath) as! ScheduleTableCell
-        let card = currentTable[section].sessions[row]
+        let card = searchActive ? searchResult[row] : currentTable[section].sessions[row]
         configureCell(cell: result, card: card)
 
         return result
+    }
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        updateSearchResults()
+    }
+
+    private func updateSearchResults() {
+        let query = searchBar.text?.lowercased()
+
+        if (query == nil || query!.isEmpty) {
+            return
+        }
+
+        searchResult = sessions.filter({card in
+            let title = card.session.title.lowercased()
+            let speakers = card.speakers.map { $0.fullName.lowercased() }.joined()
+            return title.contains(query!) || speakers.contains(query!)
+        })
+
+        scheduleTable.reloadData()
     }
 
     private func configureCell(cell: ScheduleTableCell, card: SessionCard) {
@@ -172,6 +217,15 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
         cell.card.onTouch = {
             self.showSession(card: card)
+
+            if (self.searchActive) {
+                self.searchActive = false
+                self.scheduleTable.reloadData()
+
+                self.view.endEditing(false)
+                self.searchContainer.isHidden = true
+                self.headerView.isHidden = false
+            }
         }
     }
 
@@ -184,6 +238,10 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (searchActive) {
+            return 1
+        }
+
         let group = currentTable[section]
         if (group.daySection || group.lunchSection) {
             return 42
@@ -202,6 +260,11 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         }
 
         active = popup
+    }
+
+    func hide() {
+        active?.hide()
+        active = nil
     }
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
@@ -243,11 +306,5 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
                 }, completion: nil
             )
         }
-    }
-
-    public override func showError(error: KotlinThrowable) {
-        scheduleTable.contentOffset = CGPoint.zero
-        refreshControl.endRefreshing()
-        super.showError(error: error)
     }
 }

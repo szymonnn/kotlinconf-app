@@ -6,5 +6,6 @@ protocol Baloon {
 
 protocol BaloonContainer {
     func show(popup: Baloon)
+    func hide()
 }
 

@@ -21,10 +21,12 @@ object ConferenceService : CoroutineScope {
         override val key: CoroutineContext.Key<*> = CoroutineExceptionHandler
 
         override fun handleException(context: CoroutineContext, exception: Throwable) {
-            println("Exception[$exception] in $context")
+            _errors.offer(exception)
         }
-
     }
+
+    private val _errors = ConflatedBroadcastChannel<Throwable>()
+    val errors = _errors.asFlow().wrap()
 
     override val coroutineContext: CoroutineContext = dispatcher() + SupervisorJob() + exceptionHandler
 
@@ -87,6 +89,10 @@ object ConferenceService : CoroutineScope {
     }.wrap()
 
     val speakers = publicData.map { it.speakers }.wrap()
+
+    val sessions = publicData.map {
+        it.sessions.sortedBy { it.title }.map { sessionCard(it.id) }
+    }.wrap()
 
     init {
         acceptPrivacyPolicy()
@@ -173,6 +179,7 @@ object ConferenceService : CoroutineScope {
 
         val result = SessionCard(
             session,
+            session.startsAt.dayAndMonth(),
             "${session.startsAt.time()}-${session.endsAt.time()}",
             location,
             speakers,
@@ -183,6 +190,13 @@ object ConferenceService : CoroutineScope {
 
         cards[id] = result
         return result
+    }
+
+    fun findPicture(url: String, block: (ByteArray) -> Unit) {
+        launch {
+            val result = Api.loadPicture(url)
+            block(result)
+        }
     }
 
     /**
@@ -278,6 +292,7 @@ object ConferenceService : CoroutineScope {
     private fun updateLive() {
         val sessions = _publicData.value.sessions
         if (sessions.isEmpty()) {
+            _liveSessions.offer(emptySet())
             return
         }
 
@@ -285,6 +300,7 @@ object ConferenceService : CoroutineScope {
         repeat(5) {
             val index = Random.nextInt(sessions.size)
             result += sessions[index].id
+            return
         }
 
         _liveSessions.offer(result)
@@ -296,6 +312,7 @@ object ConferenceService : CoroutineScope {
     private fun updateUpcoming() {
         val favorites = _favorites.value.toList()
         if (favorites.isEmpty()) {
+            _upcomingFavorites.offer(emptySet())
             return
         }
 

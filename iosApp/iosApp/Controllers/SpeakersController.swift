@@ -74,13 +74,10 @@ class SpeakerCellView : UITableViewCell {
             speakerPosition.text = speaker.tagLine
 
             if let profilePicture = speaker.profilePicture {
-
-                do {
-                    let pictureUrl = URL(string: profilePicture)
-                    speakerPhoto.image = UIImage(data: try Data(contentsOf: pictureUrl!))
-                } catch {
-                    print("Failed to load image: " + profilePicture)
-                }
+                speakerPhoto.image = nil
+                Conference.findPicture(url: profilePicture, block: { (bytes) in
+                    self.speakerPhoto.image = UIImage(data: bytes.toNSData())
+                })
             }
         }
     }

@@ -123,7 +123,7 @@ private fun Routing.apiVote(database: Database, production: Boolean) {
             val principal = call.validatePrincipal(database) ?: throw Unauthorized()
             val vote = call.receive<VoteData>()
             val sessionId = vote.sessionId
-            val rating = vote.rating!!.ordinal
+            val rating = vote.rating!!.value
 
             val session = getSessionizeData().sessions.firstOrNull { it.id == sessionId } ?: throw NotFound()
             val nowTime = simulatedTime(production)

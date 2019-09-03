@@ -107,13 +107,13 @@ internal class Database(application: Application) {
     suspend fun getVotes(uuid: String): List<VoteData> = withContext(dispatcher) {
         connection.transaction {
             Votes.select(Votes.sessionId, Votes.rating).where { Votes.uuid eq uuid }
-                .execute().map { VoteData(sessionId = it[0], rating = it[1]) }.toList()
+                .execute().map { VoteData(sessionId = it[0], rating = RatingData(it[1])) }.toList()
         }
     }
 
     suspend fun getAllVotes(): List<VoteData> = withContext(dispatcher) {
         connection.transaction {
-            Votes.select(Votes.sessionId, Votes.rating).execute().map { VoteData(it[0], it[1]) }.toList()
+            Votes.select(Votes.sessionId, Votes.rating).execute().map { VoteData(it[0], RatingData(it[1])) }.toList()
         }
     }
 

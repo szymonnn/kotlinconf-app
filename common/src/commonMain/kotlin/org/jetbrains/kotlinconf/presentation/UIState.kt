@@ -20,8 +20,9 @@ class SessionGroup(
 /**
  * All data to display session cards.
  */
-data class SessionCard(
+class SessionCard(
     val session: SessionData,
+    val date: String,
     val time: String,
     val location: RoomData,
     val speakers: List<SpeakerData>,

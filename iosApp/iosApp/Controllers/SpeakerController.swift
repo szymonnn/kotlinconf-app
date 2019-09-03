@@ -15,11 +15,8 @@ class SpeakerController : UIViewController {
         nameLabel.text = speaker.fullName.uppercased()
 
         if let profilePicture = speaker.profilePicture {
-            do {
-                let pictureUrl = URL(string: profilePicture)
-                photoView.image = UIImage(data: try Data(contentsOf: pictureUrl!))
-            } catch {
-                print("Failed to load image: " + profilePicture)
+            Conference.findPicture(url: profilePicture) { (bytes) in
+                self.photoView.image = UIImage(data: bytes.toNSData())
             }
         }
 
