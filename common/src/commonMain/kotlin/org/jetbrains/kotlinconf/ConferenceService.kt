@@ -173,8 +173,8 @@ object ConferenceService : CoroutineScope {
 
         val result = SessionCard(
             session,
-            "${session.startsAt.time()}-${session.endsAt.time()}",
             session.startsAt.dayAndMonth(),
+            "${session.startsAt.time()}-${session.endsAt.time()}",
             location,
             speakers,
             isFavorite,
@@ -279,6 +279,7 @@ object ConferenceService : CoroutineScope {
     private fun updateLive() {
         val sessions = _publicData.value.sessions
         if (sessions.isEmpty()) {
+            _liveSessions.offer(emptySet())
             return
         }
 
@@ -297,7 +298,7 @@ object ConferenceService : CoroutineScope {
     private fun updateUpcoming() {
         val favorites = _favorites.value.toList()
         if (favorites.isEmpty()) {
-            return
+            _upcomingFavorites.offer(emptySet())
         }
 
         val result = mutableSetOf<String>()

@@ -89,6 +89,7 @@ class SessionCardView : UIView, Baloon {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         let point = touches.first!.location(in: self)
 
         if (point.y > touchView.frame.height) {
@@ -157,14 +158,14 @@ class SessionCardView : UIView, Baloon {
         let image: UIImage = {
             switch rating {
             case RatingData.Companion.init().GOOD: return UIImage(named: "voteGoodOrange")!
-            case RatingData.Companion.init().GOOD: return UIImage(named: "voteOkOrange")!
+            case RatingData.Companion.init().OK: return UIImage(named: "voteOkOrange")!
             case RatingData.Companion.init().BAD: return UIImage(named: "voteBadOrange")!
             default: return UIImage(named: "voteGood")!
             }
         }()
 
         voteButton.setImage(image, for: .normal)
-        hide()
+        baloonContainer?.hide()
     }
 
     func cleanup() {
@@ -185,7 +186,7 @@ class SessionCardView : UIView, Baloon {
 
         voteButton.isHidden = true
 
-        favoriteButton.setImage(UIImage(named: "favoriteLight"), for: .normal)
+        favoriteButton.setImage(UIImage(named: "favoriteWhiteEmpty"), for: .normal)
         favoriteButton.setImage(UIImage(named: "favoriteWhite"), for: .selected)
     }
 }

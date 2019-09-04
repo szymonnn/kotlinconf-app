@@ -62,7 +62,7 @@ extension CALayer {
         layer.borderColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.65).cgColor
         layer.cornerRadius = 7.0
 
-        let size = CGSize(width: size.width + 2.0 * xOffset, height: size.height + 2.0 * yOffset)
+        let size = CGSize(width: size.width, height: size.height + 2.0 * yOffset)
 
         layer.frame = CGRect(origin: CGPoint(x: 0.0 - xOffset, y: 0.0 - yOffset), size: size)
 

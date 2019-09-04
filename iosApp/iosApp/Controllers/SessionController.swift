@@ -64,7 +64,7 @@ class SessionController : UIViewController, UIScrollViewDelegate {
         }
 
         // Time
-        timeLabel.text = card.date + " " + card.time
+        timeLabel.text = card.time + " " + card.date
 
         liveObserver = card.isLive.watch(block: { isLive in
             self.liveChange(isLive!.boolValue)
@@ -87,8 +87,11 @@ class SessionController : UIViewController, UIScrollViewDelegate {
         borders = [speaker1, speaker2, locationLabel].map({ button in
             let label = button!.titleLabel
             label?.sizeToFit()
-            let xOffset: CGFloat = (button?.imageView?.image != nil) ? 33.0 : 12.0
-            return label!.layer.addBorders(label!.bounds.size, xOffset, 8)
+            let xOffset: CGFloat = (button?.imageView?.image != nil) ? 21.0 : 12.0
+
+            var size = label!.bounds.size
+            size.width += (button?.imageView?.image != nil) ? xOffset + 12.0 : xOffset * 2.0
+            return label!.layer.addBorders(size, xOffset, 8)
         })
         speakers.sizeToFit()
     }

@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.plugin.*
 import org.jetbrains.kotlin.gradle.tasks.*
 
 val kotlin_version: String by project
+val coroutines_version: String by project
 val ktor_version: String by project
 val squash_version: String by project
 
@@ -35,6 +36,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
     implementation("org.jetbrains.squash:squash:$squash_version")
     implementation("org.jetbrains.squash:squash-h2:$squash_version")
     implementation("com.github.salomonbrys.kotson:kotson:2.5.0")

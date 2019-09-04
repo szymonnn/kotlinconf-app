@@ -205,6 +205,11 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         active = popup
     }
 
+    func hide() {
+        active?.hide()
+        active = nil
+    }
+
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         startOffset = scrollView.contentOffset.y
         if active != nil {
