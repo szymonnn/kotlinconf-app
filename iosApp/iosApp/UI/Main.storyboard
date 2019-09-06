@@ -141,6 +141,7 @@
                     <connections>
                         <outlet property="headerView" destination="AGU-v3-f6t" id="BeS-m0-XCM"/>
                         <outlet property="scheduleTable" destination="aP3-J2-s5g" id="V0N-6S-zCY"/>
+                        <outlet property="searchBar" destination="Bde-MV-PIV" id="EZD-Rp-mCH"/>
                         <outlet property="searchContainer" destination="b9Q-oh-RbQ" id="mOC-ZV-zYK"/>
                         <outlet property="stackView" destination="y6o-gI-Lkc" id="5Ti-jf-Tx3"/>
                         <segue destination="EXc-s1-4Xq" kind="show" identifier="Session" id="RNN-GJ-Vbr"/>
