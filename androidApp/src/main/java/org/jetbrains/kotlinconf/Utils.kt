@@ -2,23 +2,16 @@ package org.jetbrains.kotlinconf
 
 import android.content.*
 import android.content.res.*
+import android.graphics.Color
 import android.net.*
 import android.os.Build.VERSION_CODES.*
 import android.provider.*
-import android.support.annotation.*
 import android.text.*
 import android.util.*
-import android.view.*
-import net.opacapp.multilinecollapsingtoolbar.*
-import org.jetbrains.anko.*
-import org.jetbrains.anko.custom.*
-
-inline fun ViewManager.multilineCollapsingToolbarLayout(
-    theme: Int = 0,
-    init: CollapsingToolbarLayout.() -> Unit
-): CollapsingToolbarLayout {
-    return ankoView({ CollapsingToolbarLayout(it) }, theme = theme, init = init)
-}
+import android.view.View
+import androidx.annotation.*
+import androidx.core.content.ContextCompat
+import kotlin.math.roundToInt
 
 fun Context.getResourceId(@AttrRes attribute: Int): Int {
     val typedValue = TypedValue()
@@ -27,14 +20,7 @@ fun Context.getResourceId(@AttrRes attribute: Int): Int {
 }
 
 @ColorInt
-fun Resources.Theme.getColor(@AttrRes attribute: Int): Int {
-    val typedValue = TypedValue()
-    if (resolveAttribute(attribute, typedValue, true)) {
-        return typedValue.data
-    }
-
-    return 0
-}
+fun View.color(@ColorRes attribute: Int): Int = ContextCompat.getColor(context, attribute)
 
 fun Context.getHtmlText(resId: Int): Spanned {
     return if (android.os.Build.VERSION.SDK_INT >= N) {
@@ -44,9 +30,6 @@ fun Context.getHtmlText(resId: Int): Spanned {
         Html.fromHtml(getText(resId).toString())
     }
 }
-
-val AnkoContext<*>.theme: Resources.Theme
-    get() = this.ctx.theme
 
 val Context.connectivityManager
     get() = getSystemService(Context.CONNECTIVITY_SERVICE) as? ConnectivityManager
@@ -61,3 +44,7 @@ val Context.isAirplaneModeOn: Boolean
     } catch (error: Throwable) {
         false
     }
+
+val Int.dp: Int get() = (this * Resources.getSystem().displayMetrics.density).roundToInt()
+
+val Int.px: Int get() = (this / Resources.getSystem().displayMetrics.density).roundToInt()

@@ -17,7 +17,8 @@ import kotlin.native.concurrent.*
 internal object Api {
     //    val endpoint = "https://konf-staging.kotlin-aws.intellij.net/"
 //    val endpoint = "http://172.30.160.213:8080"
-    val endpoint = "http://0.0.0.0:8080"
+    val endpoint = "http://10.0.2.2:8080"
+//    val endpoint = "http://0.0.0.0:8080"
 
     private val client = HttpClient {
         install(JsonFeature) {
@@ -38,6 +39,7 @@ internal object Api {
                 if (!it.status.isSuccess()) {
                     when (it.call.request.url.encodedPath) {
                         "/favorites" -> throw CannotFavorite()
+                        else -> error("Bad status: ${it.status}")
                     }
                 }
             }

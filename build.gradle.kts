@@ -20,6 +20,7 @@ buildscript {
 
 allprojects {
     repositories {
+        mavenCentral()
         maven("https://dl.bintray.com/kotlin/kotlinx")
         maven("https://dl.bintray.com/kotlin/ktor")
         maven("https://dl.bintray.com/sargunster/maven")
@@ -29,4 +30,8 @@ allprojects {
         google()
         jcenter()
     }
+}
+
+tasks.register<Delete>("clean") {
+    delete(rootProject.buildDir)
 }

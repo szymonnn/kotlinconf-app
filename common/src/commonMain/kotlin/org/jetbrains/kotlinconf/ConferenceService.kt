@@ -97,8 +97,10 @@ object ConferenceService : CoroutineScope {
     init {
         acceptPrivacyPolicy()
 
+
         launch {
             userId?.let { Api.sign(it) }
+
             if (_publicData.value.sessions.isEmpty()) {
                 refresh()
             }

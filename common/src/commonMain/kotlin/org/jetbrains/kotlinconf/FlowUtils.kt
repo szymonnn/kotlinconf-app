@@ -12,7 +12,7 @@ class CFlow<T>(origin: Flow<T>) : Flow<T> by origin {
 
         onEach {
             block(it)
-        }.launchIn(CoroutineScope(Dispatchers.Unconfined + job))
+        }.launchIn(CoroutineScope(dispatcher() + job))
 
         return object : Closeable {
             override fun close() {

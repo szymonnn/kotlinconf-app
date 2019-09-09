@@ -1,5 +1,3 @@
-@file:Suppress("NestedLambdaShadowedImplicitParameter")
-
 package org.jetbrains.kotlinconf.backend
 
 import io.ktor.application.*
@@ -9,7 +7,6 @@ import io.ktor.http.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import io.ktor.util.*
 import io.ktor.util.date.*
 import io.ktor.util.pipeline.*
 import org.jetbrains.kotlinconf.*

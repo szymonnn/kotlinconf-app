@@ -8,7 +8,7 @@ import io.ktor.http.content.*
 import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import io.ktor.serialization.*
+import io.ktor.serialization.serialization
 import io.ktor.util.*
 import io.ktor.websocket.*
 
@@ -89,4 +89,4 @@ private fun Route.authenticate() {
     }
 }
 
-internal class KotlinConfPrincipal(val token: String) : Principal
+class KotlinConfPrincipal(val token: String) : Principal

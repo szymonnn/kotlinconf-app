@@ -43,23 +43,27 @@ internal class Database(application: Application) {
 
     suspend fun validateUser(uuid: String): Boolean = withContext(dispatcher) {
         connection.transaction {
-            Users.select { Users.id.count() }.where { Users.uuid eq uuid }.execute().single().get<Int>(0) != 0
+            Users.select { Users.id.count() }
+                .where { Users.uuid eq uuid }
+                .execute().single().get<Int>(0) != 0
         }
     }
 
-    suspend fun createUser(uuid: String, remote: String, timestamp: LocalDateTime): Boolean = withContext(dispatcher) {
-        connection.transaction {
-            val count = Users.select { Users.id.count() }.where { Users.uuid eq uuid }.execute().single().get<Int>(0)
-            if (count == 0) {
-                insertInto(Users).values {
-                    it[Users.uuid] = uuid
-                    it[Users.timestamp] = timestamp.toString()
-                    it[Users.remote] = remote
-                }.execute()
+    suspend fun createUser(uuid: String, remote: String, timestamp: LocalDateTime): Boolean =
+        withContext(dispatcher) {
+            connection.transaction {
+                val count = Users.select { Users.id.count() }.where { Users.uuid eq uuid }.execute()
+                    .single().get<Int>(0)
+                if (count == 0) {
+                    insertInto(Users).values {
+                        it[Users.uuid] = uuid
+                        it[Users.timestamp] = timestamp.toString()
+                        it[Users.remote] = remote
+                    }.execute()
+                }
+                count == 0
             }
-            count == 0
         }
-    }
 
     suspend fun usersCount(): Int = withContext(dispatcher) {
         connection.transaction {
@@ -113,11 +117,17 @@ internal class Database(application: Application) {
 
     suspend fun getAllVotes(): List<VoteData> = withContext(dispatcher) {
         connection.transaction {
-            Votes.select(Votes.sessionId, Votes.rating).execute().map { VoteData(it[0], RatingData(it[1])) }.toList()
+            Votes.select(Votes.sessionId, Votes.rating).execute()
+                .map { VoteData(it[0], RatingData(it[1])) }.toList()
         }
     }
 
-    suspend fun changeVote(uuid: String, sessionId: String, rating: Int, timestamp: LocalDateTime): Boolean =
+    suspend fun changeVote(
+        uuid: String,
+        sessionId: String,
+        rating: Int,
+        timestamp: LocalDateTime
+    ): Boolean =
         withContext(dispatcher) {
             connection.transaction {
                 val count = Votes.select { Votes.id.count() }
@@ -132,9 +142,10 @@ internal class Database(application: Application) {
                     }.execute()
                     true
                 } else {
-                    update(Votes).where { (Votes.uuid eq uuid) and (Votes.sessionId eq sessionId) }.set {
-                        it[Votes.rating] = rating
-                    }.execute()
+                    update(Votes).where { (Votes.uuid eq uuid) and (Votes.sessionId eq sessionId) }
+                        .set {
+                            it[Votes.rating] = rating
+                        }.execute()
                     false
                 }
             }

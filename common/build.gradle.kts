@@ -74,18 +74,13 @@ kotlin {
 
         val jvmMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
+                api("org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version")
+                api("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
 
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version")
-                implementation("io.ktor:ktor-client-core-jvm:$ktor_version")
-                implementation("io.ktor:ktor-client-serialization-jvm:$ktor_version")
-            }
-        }
-        val jvmTest by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlin:kotlin-test")
-                implementation("org.jetbrains.kotlin:kotlin-test-junit")
+                api("io.ktor:ktor-client-serialization-jvm:$ktor_version")
+                api("org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version")
+                api("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
+                api("io.ktor:ktor-client-core-jvm:$ktor_version")
             }
         }
 

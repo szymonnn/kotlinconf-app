@@ -29,6 +29,4 @@ private object UI : CoroutineDispatcher(), Delay {
     }
 }
 
-internal actual fun generateUserId(): String {
-    return (UIDevice.currentDevice.identifierForVendor ?: NSUUID.UUID()).UUIDString
-}
+internal actual fun generateUserId(): String = (UIDevice.currentDevice.identifierForVendor ?: NSUUID.UUID()).UUIDString
