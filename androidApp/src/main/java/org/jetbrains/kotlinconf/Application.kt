@@ -1,14 +1,16 @@
 package org.jetbrains.kotlinconf
 
-import android.app.Application
+import android.app.*
+import android.content.*
+import androidx.multidex.*
 
-class KotlinConfApplication : Application() {
+class KotlinConf : Application() {
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(base)
+    }
 
-    override fun onCreate() {
-        super.onCreate()
-
-        ConferenceService.errors.watch {
-            println("Error: $it")
-        }
+    companion object {
+        lateinit var service: ConferenceService
     }
 }

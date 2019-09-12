@@ -28,9 +28,9 @@ class SessionCardView : UIView, Baloon {
     
     var baloonContainer: BaloonContainer? = nil
 
-    private var liveObservable: Kotlinx_ioCloseable? = nil
-    private var ratingObservable: Kotlinx_ioCloseable? = nil
-    private var favoriteObservable: Kotlinx_ioCloseable? = nil
+    private var liveObservable: Ktor_ioCloseable? = nil
+    private var ratingObservable: Ktor_ioCloseable? = nil
+    private var favoriteObservable: Ktor_ioCloseable? = nil
 
     var onTouch: () -> Void = {}
 
@@ -44,22 +44,22 @@ class SessionCardView : UIView, Baloon {
 
             title.text = card.session.title
 
-            speakers.text = card.speakers.map({ (speaker) -> String in
+            speakers.text = card.speakers.map { speaker in
                 speaker.fullName
-            }).joined(separator: ", ")
+            }.joined(separator: ", ")
 
 
-            liveObservable = card.isLive.watch(block: { live in
+            liveObservable = card.isLive.watch { live in
                 self.setLive(live: live!.boolValue)
-            })
+            }
 
-            favoriteObservable = card.isFavorite.watch(block: { favorite in
+            favoriteObservable = card.isFavorite.watch { favorite in
                 self.setFavorite(favorite: favorite!.boolValue)
-            })
+            }
 
-            ratingObservable = card.ratingData.watch(block: { rating in
+            ratingObservable = card.ratingData.watch { rating in
                 self.configureVote(rating: rating)
-            })
+            }
 
             voteBar.isHidden = true
         }
