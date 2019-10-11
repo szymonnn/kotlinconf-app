@@ -31,9 +31,10 @@ actual class NotificationManager actual constructor(context: ApplicationContext)
     actual suspend fun schedule(
         sessionData: SessionData
     ): String? {
-        val title = ""
-        val text = ""
-        val date = sessionData.startsAt
+        val title = sessionData.title
+        val text = "Starts in 15 minutes"
+        val date = GMTDate() + 5000
+//        val date = sessionData.startsAt = 1
 
         val content = UNMutableNotificationContent().apply {
             setTitle(title)
@@ -49,6 +50,7 @@ actual class NotificationManager actual constructor(context: ApplicationContext)
         val withCompletionHandler: (NSError?) -> Unit = { error: NSError? -> }.freeze()
 
         center.addNotificationRequest(request, withCompletionHandler)
+        println("Scheduled $id")
         return id
     }
 

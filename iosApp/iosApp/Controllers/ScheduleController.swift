@@ -164,6 +164,10 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return createViewForHeader(tableView, section: section)
+    }
+
+    func createViewForHeader(_ tableView: UITableView, section: Int) -> UIView? {
         if (searchActive) {
             return nil
         }
@@ -181,10 +185,10 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
         if (card.lunchSection) {
             let breakHeader = tableView.dequeueReusableHeaderFooterView(
-                withIdentifier: "ScheduleTableSmallHeader"
-            ) as! ScheduleTableSmallHeader
+                withIdentifier: "ScheduleTableHeader"
+            ) as! ScheduleTableHeader
 
-            breakHeader.displayLunch(title: card.title)
+            breakHeader.configureLook(month: card.month.name, day: Int(card.day), title: card.title)
             return breakHeader
         }
 
@@ -192,7 +196,8 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
             withIdentifier: "ScheduleTableHeader"
         ) as! ScheduleTableHeader
 
-        timeHeader.configureLook(month: card.month.displayName(), day: Int(card.day), time: card.title)
+        timeHeader.configureLook(month: card.month.displayName(), day: Int(card.day), title: card.title)
+    
         return timeHeader
     }
 
@@ -264,12 +269,19 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
             return 1
         }
 
-        let group = currentTable[section]
-        if (group.daySection || group.lunchSection) {
-            return 42
+        let view = createViewForHeader(tableView, section: section)
+        (view as? ScheduleTableHeader)?.titleLabel?.sizeToFit()
+
+//        view?.layoutSubviews()
+
+        let textHeight = (view as? ScheduleTableHeader)?.titleLabel?.frame.height
+        if (textHeight != nil) {
+//            print((view as? ScheduleTableHeader)?.titleLabel.text)
+//            print(textHeight)
+            return textHeight! + 40 //!! / 80 * 120
         }
 
-        return 120
+        return 42
     }
 
     private let bounceGap = CGFloat(10.0)

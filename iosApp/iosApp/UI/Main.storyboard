@@ -351,14 +351,8 @@
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wlP-RR-4AG" userLabel="Container2">
                                                                         <rect key="frame" x="0.0" y="45" width="354" height="45"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&amp;" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ust-6z-GcS" userLabel="And">
-                                                                                <rect key="frame" x="-15" y="0.0" width="12" height="45"/>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                <nil key="highlightedColor"/>
-                                                                            </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Acb-z2-5At" userLabel="Speaker2">
-                                                                                <rect key="frame" x="12" y="0.0" width="342" height="45"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="354" height="45"/>
                                                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                                                 <state key="normal" title="Amanda Hichman Dominiguez">
                                                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -370,14 +364,11 @@
                                                                         </subviews>
                                                                         <constraints>
                                                                             <constraint firstAttribute="trailing" secondItem="Acb-z2-5At" secondAttribute="trailing" id="2qx-KL-R4Q"/>
-                                                                            <constraint firstItem="Ust-6z-GcS" firstAttribute="top" secondItem="wlP-RR-4AG" secondAttribute="top" id="3ia-wh-6Cr"/>
-                                                                            <constraint firstAttribute="bottom" secondItem="Ust-6z-GcS" secondAttribute="bottom" id="5ZT-G2-Rgi"/>
-                                                                            <constraint firstItem="Ust-6z-GcS" firstAttribute="leading" secondItem="wlP-RR-4AG" secondAttribute="leading" constant="-15" id="FgJ-Is-vEa"/>
+                                                                            <constraint firstItem="Acb-z2-5At" firstAttribute="leading" secondItem="wlP-RR-4AG" secondAttribute="leading" id="82b-7K-jWJ"/>
                                                                             <constraint firstItem="Acb-z2-5At" firstAttribute="top" secondItem="wlP-RR-4AG" secondAttribute="top" id="JKq-6t-sdw"/>
                                                                             <constraint firstItem="Acb-z2-5At" firstAttribute="top" secondItem="wlP-RR-4AG" secondAttribute="top" id="Ji9-4h-RTU"/>
                                                                             <constraint firstAttribute="height" constant="45" id="ZXx-qa-wSm"/>
                                                                             <constraint firstAttribute="bottom" secondItem="Acb-z2-5At" secondAttribute="bottom" id="bhM-U9-hW1"/>
-                                                                            <constraint firstItem="Acb-z2-5At" firstAttribute="leading" secondItem="Ust-6z-GcS" secondAttribute="trailing" constant="15" id="hxC-ab-Lag"/>
                                                                         </constraints>
                                                                     </view>
                                                                 </subviews>
@@ -389,14 +380,14 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Eao-Sy-QB6" userLabel="Share">
-                                                                <rect key="frame" x="0.0" y="384.66666666666663" width="44" height="36"/>
+                                                                <rect key="frame" x="0.0" y="384.66666666666663" width="22" height="22"/>
                                                                 <state key="normal" image="share"/>
                                                                 <connections>
                                                                     <action selector="shareTouch:" destination="EXc-s1-4Xq" eventType="touchUpInside" id="WNM-8x-pAc"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouv-Kj-1xl" userLabel="Favorite">
-                                                                <rect key="frame" x="326" y="382.66666666666663" width="40" height="40"/>
+                                                                <rect key="frame" x="346" y="384.66666666666663" width="20" height="22"/>
                                                                 <state key="normal" image="favoriteWhiteEmpty"/>
                                                                 <state key="selected" image="favoriteWhite"/>
                                                                 <connections>
@@ -404,7 +395,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lwi-HR-rQL" userLabel="Vote">
-                                                                <rect key="frame" x="281" y="389.66666666666663" width="26" height="26"/>
+                                                                <rect key="frame" x="301" y="382.66666666666663" width="26" height="26"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="26" id="UhM-jV-goR"/>
                                                                     <constraint firstAttribute="height" constant="26" id="apK-e5-Dnn"/>
@@ -415,7 +406,7 @@
                                                                 </connections>
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOD-1S-UUi" userLabel="Description">
-                                                                <rect key="frame" x="0.0" y="453.66666666666663" width="366" height="240"/>
+                                                                <rect key="frame" x="0.0" y="439.66666666666663" width="366" height="240"/>
                                                                 <attributedString key="attributedText">
                                                                     <fragment>
                                                                         <string key="content">Alicia is the first woman of color mobile developer to create a domestic violence app Purple Evolution, Inc(PEVO) dedicated to helping victims escape abuse. She used her acquired skills as a developer to make a difference. Alicia also dedicated her time to empowering women in tech with Women Who Code, she has received several major acknowledgments from Apple at WWDC15 and WWDC16 being the first black woman to be in an Apple 2016 new beginnings video and GitHub in there I am a developer video.</string>
@@ -443,7 +434,7 @@
                                                                 </connections>
                                                             </button>
                                                             <view hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vHS-vg-vgd" userLabel="VoteBar">
-                                                                <rect key="frame" x="189" y="375.66666666666663" width="154" height="54"/>
+                                                                <rect key="frame" x="189" y="368.66666666666663" width="154" height="54"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aaj-E3-0dw" userLabel="VoteUp">
                                                                         <rect key="frame" x="16" y="14" width="26" height="26"/>
@@ -566,6 +557,7 @@
                         <outlet property="locationLabel" destination="USw-FX-Y3f" id="GOj-RE-8Lb"/>
                         <outlet property="scrollView" destination="Gqt-hT-ABL" id="8mi-NY-LWr"/>
                         <outlet property="speaker1" destination="eV2-wr-Dgs" id="RFO-CT-biX"/>
+                        <outlet property="speaker1Container" destination="Brx-Hg-RSt" id="HIm-1V-oGZ"/>
                         <outlet property="speaker2" destination="Acb-z2-5At" id="7Km-aG-l6u"/>
                         <outlet property="speaker2Container" destination="wlP-RR-4AG" id="XoX-IG-K6T"/>
                         <outlet property="speakers" destination="njG-Mw-lhO" id="ejL-lJ-cpt"/>

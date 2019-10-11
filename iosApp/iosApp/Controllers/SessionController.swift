@@ -6,6 +6,7 @@ import KotlinConfAPI
 class SessionController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var speaker1: UIButton!
     @IBOutlet weak var speaker2: UIButton!
+    @IBOutlet weak var speaker1Container: UIView!
     @IBOutlet weak var speaker2Container: UIView!
     @IBOutlet weak var video: YTPlayerView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -53,14 +54,20 @@ class SessionController: UIViewController, UIScrollViewDelegate {
         descriptionLabel.attributedText = TextWithLineHeight(text: session.descriptionText!, height: 24)
 
         // Speakers
-        let firstSpeaker = card.speakers[0]
-        speaker1.setTitle(firstSpeaker.fullName, for: .normal)
-        if (card.speakers.count > 1) {
-            speaker2Container.isHidden = false
-            let secondSpeaker = card.speakers[1]
-            speaker2.setTitle(secondSpeaker.fullName, for: .normal)
-        } else {
-            speaker2Container.isHidden = true
+        speaker1Container.isHidden = true
+        speaker2Container.isHidden = true
+
+        if (card.speakers.count > 0) {
+            let firstSpeaker = card.speakers[0]
+            speaker1Container.isHidden = false
+            speaker1.setTitle(firstSpeaker.fullName, for: .normal)
+            if (card.speakers.count > 1) {
+                speaker2Container.isHidden = false
+                let secondSpeaker = card.speakers[1]
+                speaker2.setTitle(secondSpeaker.fullName, for: .normal)
+            } else {
+                speaker2Container.isHidden = true
+            }
         }
 
         // Time

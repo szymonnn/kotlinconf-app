@@ -7,10 +7,4 @@ class ScheduleTableSmallHeader : UITableViewHeaderFooterView {
         self.title.text = title
         self.title.textColor = UIColor.dayGray
     }
-
-    func displayLunch(title: String) {
-        self.title.text = title
-        self.title.textColor = UIColor.redOrange
-    }
-
 }

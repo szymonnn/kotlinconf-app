@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -23,7 +21,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dRH-5Q-tff" userLabel="Background">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="105"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:00–14:30" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TGu-fg-l5p" userLabel="Time">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="13:00–14:30" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TGu-fg-l5p" userLabel="Time">
                             <rect key="frame" x="25" y="5" width="286" height="80"/>
                             <fontDescription key="fontDescription" name="DrukCy-Bold" family="Druk Cy" pointSize="80"/>
                             <color key="textColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="calibratedRGB"/>
@@ -44,6 +42,7 @@
                     </subviews>
                     <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstItem="TGu-fg-l5p" firstAttribute="top" secondItem="dRH-5Q-tff" secondAttribute="top" constant="5" id="Fcy-pU-gWq"/>
                         <constraint firstAttribute="trailing" secondItem="01x-Ou-YoD" secondAttribute="trailing" constant="16" id="Kp4-9B-0bm"/>
                         <constraint firstItem="MM7-Lv-3IB" firstAttribute="trailing" secondItem="01x-Ou-YoD" secondAttribute="trailing" id="Xwh-nu-KIn"/>
                         <constraint firstItem="TGu-fg-l5p" firstAttribute="leading" secondItem="dRH-5Q-tff" secondAttribute="leading" constant="25" id="i9F-SR-c97"/>
@@ -67,7 +66,7 @@
             <connections>
                 <outlet property="dayLabel" destination="01x-Ou-YoD" id="p2c-iV-yVv"/>
                 <outlet property="monthLabel" destination="MM7-Lv-3IB" id="jCi-Og-mjK"/>
-                <outlet property="timeLabel" destination="TGu-fg-l5p" id="OJ4-bx-AIJ"/>
+                <outlet property="titleLabel" destination="TGu-fg-l5p" id="KLu-FL-wts"/>
             </connections>
             <point key="canvasLocation" x="-348" y="-237.93103448275863"/>
         </view>

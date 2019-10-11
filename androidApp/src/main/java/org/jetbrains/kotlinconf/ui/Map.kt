@@ -3,6 +3,7 @@ package org.jetbrains.kotlinconf.ui
 import android.graphics.*
 import android.os.*
 import android.view.*
+import androidx.core.view.*
 import androidx.fragment.app.*
 import androidx.recyclerview.widget.*
 import com.google.android.material.bottomsheet.*
@@ -166,7 +167,9 @@ class MapController : Fragment() {
     private fun View.showFloor(index: Int) {
         map_mapview.getMapAsync { map ->
             map.setStyle(floors[index]) { style ->
-                if (PermissionsManager.areLocationPermissionsGranted(context)) {
+                val tracking = PermissionsManager.areLocationPermissionsGranted(context)
+                map_track.isVisible = tracking
+                if (tracking) {
                     val options = LocationComponentActivationOptions
                         .builder(context, style)
                         .build()
@@ -179,11 +182,5 @@ class MapController : Fragment() {
                 }
             }
         }
-    }
-}
-
-class LocationDetailsFragment : BottomSheetDialogFragment() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 }
