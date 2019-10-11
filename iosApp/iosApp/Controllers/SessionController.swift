@@ -66,8 +66,8 @@ class SessionController: UIViewController, UIScrollViewDelegate {
         // Time
         timeLabel.text = card.time + " " + card.date
 
-        liveObserver = card.isLive.watch { isLive in
-            self.liveChange(isLive!.boolValue)
+        liveObserver = card.isLive.watch { video in
+            self.liveChange(video)
         }
 
         // Location
@@ -155,14 +155,13 @@ class SessionController: UIViewController, UIScrollViewDelegate {
         Conference.vote(sessionId: card.session.id, rating: RatingData.Companion.init().BAD)
     }
 
-    private func liveChange(_ isLive: Bool) {
-//        let videoId = card.roomVideo
-//        if (isLive && videoId != nil) {
-//            video.load(withVideoId: videoId!)
-//            video.isHidden = !isLive
-//        } else {
-//            video.isHidden = true
-//        }
+    private func liveChange(_ videoId: NSString?) {
+        if (videoId != nil && videoId! != "") {
+            self.video.load(withVideoId: String(videoId!))
+            self.video.isHidden = false
+        } else {
+            self.video.isHidden = true
+        }
     }
 
     private func ratingChange(_ rating: RatingData?) {

@@ -11,6 +11,7 @@ class LiveVideo : UICollectionViewCell {
     @IBOutlet weak var favoriteButton: UIButton!
 
     var favoriteObservable: Ktor_ioCloseable? = nil
+    var liveObservable: Ktor_ioCloseable? = nil
 
     var card: SessionCard! {
         didSet {
@@ -23,10 +24,11 @@ class LiveVideo : UICollectionViewCell {
 
             location.text = card.location.name
 
-
-//            if let videoId = card.roomVideo {
-//                video.load(withVideoId: videoId)
-//            }
+            card.isLive.watch { videoId in
+                if (videoId != nil) {
+                    self.video.load(withVideoId: String(videoId!))
+                }
+            }
 
             favoriteObservable = card.isFavorite.watch { isFavorite in
                 self.favoriteButton.isSelected = isFavorite!.boolValue

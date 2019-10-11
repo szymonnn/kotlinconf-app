@@ -4,10 +4,13 @@ import KotlinConfAPI
 
 class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRecognizerDelegate {
     @IBOutlet weak var videosView: UICollectionView!
+    @IBOutlet weak var feedView: UICollectionView!
     @IBOutlet weak var upcomingFavorites: UIStackView!
     @IBOutlet weak var dontMissLabel: UILabel!
 
     private var liveSessions: [SessionCard] = []
+    private var feedData: [FeedPost] = []
+    private var upcoming: [SessionCardView] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,12 +18,19 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
         videosView.dataSource = self
         videosView.delegate = self
 
+        feedView.dataSource = self
+        feedView.delegate = self
+
         Conference.liveSessions.watch { cards in
             self.onLiveSessions(sessions: cards as! [SessionCard])
         }
 
         Conference.upcomingFavorites.watch { cards in
             self.onUpcomingFavorites(sessions: cards as! [SessionCard])
+        }
+
+        Conference.feed.watch { feed in
+            self.onFeedData(feed: feed)
         }
     }
 
@@ -30,12 +40,10 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
         navigationController!.interactivePopGestureRecognizer!.delegate = self
     }
 
-    func onLiveSessions(sessions: [SessionCard]) {
+    private func onLiveSessions(sessions: [SessionCard]) {
         liveSessions = sessions
         videosView.reloadData()
     }
-
-    private var upcoming: [SessionCardView] = []
 
     private func onUpcomingFavorites(sessions: [SessionCard]) {
         dontMissLabel.isHidden = sessions.count == 0
@@ -61,6 +69,15 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
         }
     }
 
+    private func onFeedData(feed: FeedData?) {
+        if (feed == nil) {
+            return
+        }
+
+        feedData = feed!.statuses
+        feedView.reloadData()
+    }
+
     @IBAction func showPartners(_ sender: Any) {
         showScreen(name: "Partners")
     }
@@ -70,7 +87,7 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
             (controller as! PartnerController).partnerId = sender.tag
         }
     }
-    
+
     func showScreen(name: String, config: (UIViewController) -> Void = { controller -> Void in return }) {
         let board = UIStoryboard(name: "Main", bundle: nil)
         let controller = board.instantiateViewController(withIdentifier: name)
@@ -82,6 +99,8 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
         switch collectionView {
         case videosView:
             return liveSessions.count
+        case feedView:
+            return feedData.count
         default:
             return 0
         }
@@ -92,6 +111,10 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         switch collectionView {
+        case feedView:
+            let item = collectionView.dequeueReusableCell(withReuseIdentifier: "TweetPost", for: indexPath) as! TweetPost
+            item.post = feedData[indexPath.row]
+            return item
         default:
             let item = collectionView.dequeueReusableCell(
                 withReuseIdentifier: "LiveVideo", for: indexPath

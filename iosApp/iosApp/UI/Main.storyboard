@@ -854,26 +854,104 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5yL-nf-T6k" userLabel="Twitter">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5yL-nf-T6k" userLabel="Twitter">
                                                 <rect key="frame" x="0.0" y="1417.6666666666667" width="2000" height="440"/>
                                                 <color key="backgroundColor" red="0.15294117647058825" green="0.15686274509803921" blue="0.17254901960784313" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="440" id="j8w-mt-adu"/>
                                                 </constraints>
-                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vXg-dL-Mgp">
-                                                    <size key="itemSize" width="50" height="50"/>
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vXg-dL-Mgp">
+                                                    <size key="itemSize" width="340" height="440"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <inset key="sectionInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
                                                 </collectionViewFlowLayout>
                                                 <cells>
-                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="QCD-2A-Ae5">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TweetPost" id="QCD-2A-Ae5" userLabel="TweetPost" customClass="TweetPost" customModule="KotlinConf" customModuleProvider="target">
+                                                        <rect key="frame" x="10" y="0.0" width="340" height="440"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="340" height="440"/>
                                                             <autoresizingMask key="autoresizingMask"/>
+                                                            <subviews>
+                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dV4-hT-p2y" userLabel="Post">
+                                                                    <rect key="frame" x="8" y="8" width="324" height="424"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cD5-RL-ObP" userLabel="Avatar">
+                                                                            <rect key="frame" x="14" y="23" width="52" height="52"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="52" id="SK2-if-vWt"/>
+                                                                                <constraint firstAttribute="height" constant="52" id="uLj-Z3-b4S"/>
+                                                                            </constraints>
+                                                                        </imageView>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Android Developers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B0n-jb-pg3" userLabel="Author">
+                                                                            <rect key="frame" x="80" y="19" width="135" height="18"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@AndroidDev" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3B-gV-LVH" userLabel="Account">
+                                                                            <rect key="frame" x="83" y="37" width="94" height="18"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                            <color key="textColor" red="1" green="0.24705882352941178" blue="0.0" alpha="0.99951171875" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cYM-SR-YvR" userLabel="Time">
+                                                                            <rect key="frame" x="185" y="37" width="22.333333333333343" height="18"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                            <color key="textColor" red="1" green="0.2470588235" blue="0.0" alpha="0.9995117188" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thoroughly enjoying this panel and this conference #kotlinconf18" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6ei-e3-TPN" userLabel="Text">
+                                                                            <rect key="frame" x="16" y="88" width="292" height="36"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1qs-45-QEu" userLabel="Media">
+                                                                            <rect key="frame" x="0.0" y="153" width="324" height="271"/>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                    <color key="backgroundColor" red="0.19607843137254902" green="0.19607843137254902" blue="0.21176470588235294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="bottom" secondItem="1qs-45-QEu" secondAttribute="bottom" id="2MT-ag-gnp"/>
+                                                                        <constraint firstItem="cD5-RL-ObP" firstAttribute="top" secondItem="dV4-hT-p2y" secondAttribute="top" constant="23" id="6E3-ks-Vri"/>
+                                                                        <constraint firstItem="cYM-SR-YvR" firstAttribute="top" secondItem="B0n-jb-pg3" secondAttribute="bottom" id="Eq7-G9-RBw"/>
+                                                                        <constraint firstItem="1qs-45-QEu" firstAttribute="top" secondItem="6ei-e3-TPN" secondAttribute="bottom" constant="29" id="GXK-Sv-DAw"/>
+                                                                        <constraint firstItem="cYM-SR-YvR" firstAttribute="leading" secondItem="p3B-gV-LVH" secondAttribute="trailing" constant="8" id="Iuw-aD-9yl"/>
+                                                                        <constraint firstItem="B0n-jb-pg3" firstAttribute="top" secondItem="dV4-hT-p2y" secondAttribute="top" constant="19" id="JC4-zW-wgF"/>
+                                                                        <constraint firstItem="1qs-45-QEu" firstAttribute="leading" secondItem="dV4-hT-p2y" secondAttribute="leading" id="PPr-Tk-25y"/>
+                                                                        <constraint firstItem="p3B-gV-LVH" firstAttribute="top" secondItem="B0n-jb-pg3" secondAttribute="bottom" id="VJ1-kv-epw"/>
+                                                                        <constraint firstItem="6ei-e3-TPN" firstAttribute="leading" secondItem="dV4-hT-p2y" secondAttribute="leading" constant="16" id="aGL-8K-Dil"/>
+                                                                        <constraint firstItem="cD5-RL-ObP" firstAttribute="leading" secondItem="dV4-hT-p2y" secondAttribute="leading" constant="14" id="bW1-8f-x90"/>
+                                                                        <constraint firstItem="6ei-e3-TPN" firstAttribute="top" secondItem="cD5-RL-ObP" secondAttribute="bottom" constant="13" id="bcG-te-EiH"/>
+                                                                        <constraint firstItem="B0n-jb-pg3" firstAttribute="leading" secondItem="cD5-RL-ObP" secondAttribute="trailing" constant="14" id="ftZ-qx-a6c"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="1qs-45-QEu" secondAttribute="trailing" id="pm9-U4-d82"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="6ei-e3-TPN" secondAttribute="trailing" constant="16" id="qH2-n5-Vt3"/>
+                                                                        <constraint firstItem="p3B-gV-LVH" firstAttribute="leading" secondItem="cD5-RL-ObP" secondAttribute="trailing" constant="17" id="sNa-XB-MZV"/>
+                                                                    </constraints>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                            <integer key="value" value="7"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </view>
+                                                            </subviews>
                                                         </view>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailingMargin" secondItem="dV4-hT-p2y" secondAttribute="trailing" id="7kl-MO-KfG"/>
+                                                            <constraint firstAttribute="bottomMargin" secondItem="dV4-hT-p2y" secondAttribute="bottom" id="UR3-Ea-JCH"/>
+                                                            <constraint firstItem="dV4-hT-p2y" firstAttribute="top" secondItem="QCD-2A-Ae5" secondAttribute="topMargin" id="buu-4j-Nde"/>
+                                                            <constraint firstItem="dV4-hT-p2y" firstAttribute="leading" secondItem="QCD-2A-Ae5" secondAttribute="leadingMargin" id="rJV-3c-uZh"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <outlet property="account" destination="p3B-gV-LVH" id="dc2-Fi-Ud8"/>
+                                                            <outlet property="author" destination="B0n-jb-pg3" id="LjX-sV-xKL"/>
+                                                            <outlet property="avatar" destination="cD5-RL-ObP" id="y4i-wY-P0e"/>
+                                                            <outlet property="media" destination="1qs-45-QEu" id="5S3-sB-APX"/>
+                                                            <outlet property="text" destination="6ei-e3-TPN" id="uwL-l9-Qr5"/>
+                                                            <outlet property="time" destination="cYM-SR-YvR" id="i6Q-yr-mTL"/>
+                                                        </connections>
                                                     </collectionViewCell>
                                                 </cells>
                                             </collectionView>
@@ -1061,6 +1139,7 @@
                     <size key="freeformSize" width="2000" height="2500"/>
                     <connections>
                         <outlet property="dontMissLabel" destination="urM-D8-Kqy" id="dzK-3u-XjT"/>
+                        <outlet property="feedView" destination="5yL-nf-T6k" id="JII-s0-Elg"/>
                         <outlet property="upcomingFavorites" destination="ONd-Qy-Yum" id="OA0-rf-jMm"/>
                         <outlet property="videosView" destination="w2a-4a-asZ" id="LdE-D9-jqI"/>
                         <segue destination="b7q-Jg-rgR" kind="show" id="hPQ-oa-w2C"/>

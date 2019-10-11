@@ -49,8 +49,8 @@ class SessionCardView : UIView, Baloon {
             }.joined(separator: ", ")
 
 
-            liveObservable = card.isLive.watch { live in
-                self.setLive(live: live!.boolValue)
+            liveObservable = card.isLive.watch { videoId in
+                self.setLive(live: videoId != nil && videoId != "")
             }
 
             favoriteObservable = card.isFavorite.watch { favorite in
