@@ -43,6 +43,7 @@ class SessionCardView : UIView, Baloon {
             }
 
             title.text = card.session.title
+            location.text = card.location.displayName()
 
             speakers.text = card.speakers.map { speaker in
                 speaker.fullName

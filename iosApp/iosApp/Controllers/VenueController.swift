@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import Mapbox
+import KotlinConfAPI
 
 enum Floor {
     case ground
@@ -10,8 +11,8 @@ enum Floor {
 class VenueController : UIViewController, MGLMapViewDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var logoView: UIImageView!
-    @IBOutlet weak var sessionsView: UIScrollView!
-    
+    @IBOutlet weak var sessionsStack: UIStackView!
+
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var dragBar: UIView!
     @IBOutlet weak var overlay: UIView!
@@ -19,9 +20,18 @@ class VenueController : UIViewController, MGLMapViewDelegate {
     @IBOutlet weak var groundFloor: TopButton!
     @IBOutlet weak var firstFloor: TopButton!
 
-    private var initial: CGFloat = 33.0
+    private var initial: CGFloat = 44.0
     private var floor: Floor = .ground
     private var descriptionActive: Bool = false
+
+    private let mapPhotos = [
+        7972: "keynote",
+        7973:"aud_10_11_12",
+        7974: "aud 15",
+        7975: "coding room 17",
+        7976: "workshop room 20"
+
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,10 +49,13 @@ class VenueController : UIViewController, MGLMapViewDelegate {
         mapView.addGestureRecognizer(singleTap)
 
         mapView.compassViewMargins.y += 50.0
+
+        showCard(room: Conference.room(id: 7972)!)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         hideDescription()
+
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -62,7 +75,7 @@ class VenueController : UIViewController, MGLMapViewDelegate {
         showFloor()
     }
 
-    @IBAction func closeTouch(_ sender: Any) {
+    @IBAction func onClose(_ sender: Any) {
         hideDescription()
     }
 
@@ -130,16 +143,40 @@ class VenueController : UIViewController, MGLMapViewDelegate {
     @objc @IBAction func handleMapTap(sender: UITapGestureRecognizer) {
         let spot = sender.location(in: mapView)
 
-        let features = mapView.visibleFeatures(at: spot)
+        let features = mapView.visibleFeatures(at: spot).map { feature in
+            feature.attribute(forKey: "name") as? String
+        }.filter { $0 != nil }
 
-        if let feature = features.first, let state = feature.attribute(forKey: "name") as? String {
-            showNote(state)
+        let room = Conference.roomByMapName(namesInArea: features as! [String])
+        if (room == nil) {
+            return
         }
-    }
 
-    func showNote(_ name: String) {
-        titleLabel.text = name.uppercased()
+        showCard(room: room!)
         showDescription()
     }
 
+    private func showCard(room: RoomData) {
+        cleanupCards()
+        let cards = Conference.roomSessions(roomId: room.id)
+
+        for card in cards {
+            let view = SessionCardView()
+            view.card = card
+            setupCard(view)
+            sessionsStack.addArrangedSubview(view)
+            sessionsStack.setCustomSpacing(5.0, after: view)
+        }
+
+        titleLabel.text = room.displayName().uppercased()
+        logoView.image = UIImage(named: mapPhotos[Int(room.id)]!)
+    }
+
+    private func cleanupCards() {
+        for item in sessionsStack.subviews {
+           let cardView = item as! SessionCardView
+           cardView.cleanup()
+           sessionsStack.removeArrangedSubview(item)
+        }
+    }
 }

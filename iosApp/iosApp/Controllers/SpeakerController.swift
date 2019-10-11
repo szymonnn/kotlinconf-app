@@ -37,15 +37,6 @@ class SpeakerController : UIViewController {
         }
     }
 
-    private func setupCard(_ view: SessionCardView) {
-        view.onTouch = {
-            let board = UIStoryboard(name: "Main", bundle: nil)
-            let controller = board.instantiateViewController(withIdentifier: "Session") as! SessionController
-            controller.card = view.card
-            self.navigationController?.pushViewController(controller, animated: true)
-        }
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         for item in talksContainer.subviews {
@@ -57,5 +48,16 @@ class SpeakerController : UIViewController {
 
     @IBAction func backButtonTouch(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+}
+
+extension UIViewController {
+    func setupCard(_ view: SessionCardView) {
+        view.onTouch = {
+            let board = UIStoryboard(name: "Main", bundle: nil)
+            let controller = board.instantiateViewController(withIdentifier: "Session") as! SessionController
+            controller.card = view.card
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
     }
 }
