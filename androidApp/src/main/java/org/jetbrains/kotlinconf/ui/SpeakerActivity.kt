@@ -18,6 +18,8 @@ class SpeakerActivity : AppCompatActivity() {
 
         val speakerId = intent.getStringExtra("speaker")
         showSpeaker(speakerId)
+
+        speaker_main.autoclear()
     }
 
     private fun showSpeaker(id: String) {
@@ -37,6 +39,7 @@ class SpeakerActivity : AppCompatActivity() {
 
     private fun setupCards(cards: List<SessionCard>) {
         speaker_cards.apply {
+            autoclear()
             layoutManager = LinearLayoutManager(context)
             adapter = object : RecyclerView.Adapter<SessionCardHolder>() {
                 override fun onCreateViewHolder(

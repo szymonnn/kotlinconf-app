@@ -2,6 +2,7 @@ package org.jetbrains.kotlinconf.backend
 
 import io.ktor.application.*
 import io.ktor.auth.*
+import io.ktor.content.TextContent
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.request.*
@@ -25,6 +26,7 @@ internal fun Routing.api(database: Database, production: Boolean, sessionizeUrl:
     apiFavorite(database, production)
     apiSynchronize(sessionizeUrl)
     apiTwitter()
+    apiTime()
 }
 
 /*
@@ -133,13 +135,13 @@ private fun Routing.apiVote(database: Database, production: Boolean) {
             val votingPeriodStarted = startVotesAt.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) }
             val votingPeriodEnded = endVotesAt.let { ZonedDateTime.of(it, keynoteTimeZone).isBefore(nowTime) }
 
-//            if (!votingPeriodStarted) {
-//                return@post call.respond(comeBackLater)
-//            }
-//
-//            if (votingPeriodEnded) {
-//                return@post call.respond(tooLate)
-//            }
+            if (!votingPeriodStarted) {
+                return@post call.respond(comeBackLater)
+            }
+
+            if (votingPeriodEnded) {
+                return@post call.respond(tooLate)
+            }
 
             val timestamp = LocalDateTime.now(Clock.systemUTC())
             val status = if (database.changeVote(principal.token, sessionId, rating, timestamp)) {
@@ -194,6 +196,19 @@ private fun Routing.apiSession() {
     }
 }
 
+private fun Routing.apiTwitter() {
+    get("feed") {
+        call.respond(TextContent("{}", contentType = ContentType.Application.Json))
+//        call.respond(getFeedData())
+    }
+}
+
+private fun Routing.apiTime() {
+    get("time") {
+        call.respond(GMTDate().timestamp.toString())
+    }
+}
+
 /*
 GET http://localhost:8080/sessionizeSync
 */
@@ -201,12 +216,6 @@ private fun Routing.apiSynchronize(sessionizeUrl: String) {
     get("sessionizeSync") {
         synchronizeWithSessionize(sessionizeUrl)
         call.respond(HttpStatusCode.OK)
-    }
-}
-
-private fun Routing.apiTwitter() {
-    get("feed") {
-        call.respond(getFeedData())
     }
 }
 

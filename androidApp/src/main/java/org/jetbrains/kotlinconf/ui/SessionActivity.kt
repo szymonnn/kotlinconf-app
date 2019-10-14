@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.view_session_speakers_item.view.*
 import org.jetbrains.kotlinconf.*
 import org.jetbrains.kotlinconf.BuildConfig.*
 import org.jetbrains.kotlinconf.presentation.*
+import android.content.*
 
 class SessionActivity : AppCompatActivity() {
     private var favoriteWatcher: Closeable? = null
@@ -121,6 +122,22 @@ class SessionActivity : AppCompatActivity() {
 
         session_favorite.setOnClickListener { KotlinConf.service.markFavorite(sessionId) }
 
+        session_share.setOnClickListener {
+            val sharingIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_SUBJECT, "Share")
+
+                val url = buildString {
+                    val day = card.session.startsAt.dayOfMonth
+                    append("https://kotlinconf.com/talks/")
+                    append("$day-dec?sessionId=$sessionId")
+                }
+                putExtra(Intent.EXTRA_TEXT, url)
+            }
+
+            startActivity(Intent.createChooser(sharingIntent, "Share"))
+        }
+
         val videoView = fragmentManager
             .findFragmentById(R.id.session_video_view) as LiveVideoFragment
 
@@ -142,7 +159,9 @@ class LiveVideoFragment : YouTubePlayerFragment(), YouTubePlayer.OnInitializedLi
 
     override fun onCreate(state: Bundle?) {
         super.onCreate(state)
-        initialize(YOUTUBE_API_KEY, this)
+        if (YOUTUBE_API_KEY.isNotBlank()) {
+            initialize(YOUTUBE_API_KEY, this)
+        }
     }
 
     override fun onDestroy() {

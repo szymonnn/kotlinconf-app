@@ -112,6 +112,8 @@ class ScheduleController : Fragment() {
             adapter = schedule
 
             addItemDecoration(SessionCardDecoration())
+
+            autoclear()
         }
     }
 

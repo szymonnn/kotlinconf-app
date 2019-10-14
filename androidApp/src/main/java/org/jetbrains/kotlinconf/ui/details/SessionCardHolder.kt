@@ -5,6 +5,7 @@ import androidx.annotation.*
 import androidx.core.view.*
 import androidx.recyclerview.widget.*
 import io.ktor.utils.io.core.*
+import kotlinx.android.synthetic.main.activity_speaker.*
 import kotlinx.android.synthetic.main.view_schedule_header_large.view.*
 import kotlinx.android.synthetic.main.view_schedule_header_small.view.*
 import kotlinx.android.synthetic.main.view_schedule_session_card.view.*
@@ -13,7 +14,7 @@ import org.jetbrains.kotlinconf.*
 import org.jetbrains.kotlinconf.presentation.*
 import org.jetbrains.kotlinconf.ui.*
 
-class SessionCardHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+internal class SessionCardHolder(private val view: View) : RecyclerView.ViewHolder(view) {
     private var liveWatcher: Closeable? = null
     private var favoriteWatcher: Closeable? = null
     private var ratingWatcher: Closeable? = null
@@ -68,19 +69,31 @@ class SessionCardHolder(private val view: View) : RecyclerView.ViewHolder(view) 
             }
 
             fun vote(rating: RatingData) {
-                card_vote_popup.visibility = View.INVISIBLE
+                card_vote_popup.isVisible = false
                 KotlinConf.service.vote(sessionId, rating)
             }
 
-            card_vote_button.setOnClickListener { card_vote_popup.visibility = View.VISIBLE }
+            card_vote_popup.apply {
+                isFocusable = true
+                isFocusableInTouchMode = true
+                setOnFocusChangeListener { view, hasFocus ->
+                    view.isVisible = hasFocus
+                }
+            }
+
+            card_vote_button.setOnClickListener {
+                card_vote_popup.apply {
+                    isVisible = true
+                    card_vote_popup.requestFocus()
+                }
+            }
+
             card_vote_good.setOnClickListener { vote(RatingData.GOOD) }
             card_vote_ok.setOnClickListener { vote(RatingData.OK) }
             card_vote_bad.setOnClickListener { vote(RatingData.BAD) }
 
             card_favorite_button.setOnClickListener {
-                KotlinConf.service.markFavorite(
-                    sessionId
-                )
+                KotlinConf.service.markFavorite(sessionId)
             }
 
             setOnTouchListener { view, event ->

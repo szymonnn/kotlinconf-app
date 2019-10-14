@@ -77,7 +77,7 @@ internal fun Application.main() {
     }
 
     launchSyncJob(sessionizeUrl, sessionizeInterval)
-    launchTwitterJob()
+//    launchTwitterJob()
 }
 
 private fun Route.authenticate() {

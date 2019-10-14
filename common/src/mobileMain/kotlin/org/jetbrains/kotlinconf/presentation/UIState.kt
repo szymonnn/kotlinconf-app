@@ -32,10 +32,6 @@ class SessionCard(
     val ratingData: CFlow<RatingData?>
 )
 
-fun SessionCard.minutesLeft(): Int {
-    val result = max(0L, (session.endsAt.timestamp - GMTDate().timestamp)) / (1000 * 60)
-    return result.toInt()
-}
 
 /**
  * Room name to display.

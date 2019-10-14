@@ -10,6 +10,7 @@ import org.jetbrains.kotlinconf.presentation.*
 import org.jetbrains.kotlinconf.storage.*
 import kotlin.collections.set
 import kotlin.coroutines.*
+import kotlin.math.*
 import kotlin.native.concurrent.*
 
 /**
@@ -36,6 +37,9 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
     private var firstLaunch: Boolean by storage(Boolean.serializer()) { true }
     private var notificationsAllowed: Boolean by storage(Boolean.serializer()) { false }
     private var locationAllowed: Boolean by storage(Boolean.serializer()) { false }
+
+    private var serverTime = GMTDate()
+    private var requestTime = GMTDate()
 
     /**
      * Cached.
@@ -116,7 +120,7 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
 
     init {
         launch {
-            userId?.let { Api.sign(it) }
+            userId?.let { ClientApi.sign(it) }
             refresh()
         }
 
@@ -138,8 +142,6 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
      * Returns true if app is launched first time.
      */
     fun isFirstLaunch(): Boolean {
-        return true
-
         val result = firstLaunch
         if (result) {
             firstLaunch = false
@@ -264,6 +266,21 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
     }
 
     /**
+     * Get current time synchronized with server.
+     */
+    fun now(): GMTDate {
+        return GMTDate() + (requestTime.timestamp - serverTime.timestamp)
+    }
+
+    /**
+     * Estimate how many minutes left for the session card.
+     */
+    fun minutesLeft(card: SessionCard): Int {
+        val remaining = (card.session.endsAt.timestamp - now().timestamp) / (1000 * 60)
+        return max(0, remaining.toInt())
+    }
+
+    /**
      * ------------------------------
      * User actions.
      * ------------------------------
@@ -279,16 +296,22 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
         }
 
         launch {
-            Api.sign(id)
+            ClientApi.sign(id)
         }
     }
 
+    /**
+     * Request permissions to send notifications.
+     */
     fun requestNotificationPermissions() {
         launch {
             notificationsAllowed = notificationManager.requestPermission()
         }
     }
 
+    /**
+     * Request permissions to get location.
+     */
     fun requestLocationPermission() {
         launch {
             locationAllowed = locationManager.requestPermission()
@@ -311,9 +334,9 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
 
                 if (newRating != null) {
                     val vote = VoteData(sessionId, rating)
-                    Api.postVote(userId, vote)
+                    ClientApi.postVote(userId, vote)
                 } else {
-                    Api.deleteVote(userId, sessionId)
+                    ClientApi.deleteVote(userId, sessionId)
                 }
             } catch (cause: Throwable) {
                 updateVote(sessionId, oldRating)
@@ -335,12 +358,12 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
             try {
                 updateFavorite(sessionId, newValue)
                 if (newValue) {
-                    Api.postFavorite(userId, sessionId)
+                    ClientApi.postFavorite(userId, sessionId)
                     if (notificationsAllowed) {
                         notificationManager.schedule(session(sessionId))
                     }
                 } else {
-                    Api.deleteFavorite(userId, sessionId)
+                    ClientApi.deleteFavorite(userId, sessionId)
                     if (notificationsAllowed) {
                         notificationManager.cancel(sessionId)
                     }
@@ -357,7 +380,9 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
      */
     fun refresh() {
         launch {
-            Api.getAll(userId).apply {
+            serverTime = ClientApi.getServerTime()
+
+            ClientApi.getAll(userId).apply {
                 _videos.offer(liveVideos)
                 _publicData.offer(allData)
                 _favorites.offer(favorites.toMutableSet())
@@ -368,6 +393,7 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
 
                 scheduledUpdate()
             }
+
         }
     }
 
@@ -376,14 +402,17 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
             refresh()
         }
 
+        synchronizeTime()
         updateLive()
         updateUpcoming()
         updateFeed()
     }
 
-    /**
-     * TODO: introduce timezone.
-     */
+    private suspend fun synchronizeTime() {
+        serverTime = ClientApi.getServerTime()
+        requestTime = GMTDate()
+    }
+
     private fun updateLive() {
         val sessions = _publicData.value.sessions
         if (sessions.isEmpty()) {
@@ -391,8 +420,7 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
             return
         }
 
-        val timezoneOffset = 1 * 60 * 60 * 1000L
-        val now = GMTDate() + timezoneOffset
+        val now = serverTime + TIMEZONE_OFFSET
 
         val result = sessions
             .filter { it.startsAt <= now && now <= it.endsAt && !it.isPlenumSession && !it.isServiceSession }
@@ -409,7 +437,7 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
             return
         }
 
-        val today = GMTDate().dayOfYear
+        val today = now().dayOfYear
         val cards = favorites
             .map { sessionCard(it) }
             .filter { it.session.startsAt.dayOfYear == today }
@@ -448,6 +476,6 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
     }
 
     private suspend fun updateFeed() {
-        _feed.offer(Api.getFeed())
+        _feed.offer(ClientApi.getFeed())
     }
 }

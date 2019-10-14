@@ -6,6 +6,7 @@ import io.ktor.client.features.json.JsonFeature
 import io.ktor.client.request.*
 import io.ktor.client.response.HttpResponse
 import io.ktor.http.*
+import io.ktor.util.date.*
 import io.ktor.utils.io.core.use
 import kotlin.native.concurrent.ThreadLocal
 
@@ -13,10 +14,10 @@ import kotlin.native.concurrent.ThreadLocal
  * Adapter to handle backend API and manage auth information.
  */
 @ThreadLocal
-internal object Api {
+internal object ClientApi {
 //    val endpoint = "https://konf-staging.kotlin-aws.intellij.net/"
-    val endpoint = "http://172.30.162.37:8080"
-//    val endpoint = "http://10.0.2.2:8080"
+//    val endpoint = "http://172.30.162.37:8080"
+    val endpoint = "http://10.0.2.2:8080"
 //    val endpoint = "http://0.0.0.0:8080"
 
     private val client = HttpClient {
@@ -93,9 +94,19 @@ internal object Api {
         body = VoteData(sessionId)
     }
 
+    /**
+     * Get news feed.
+     */
     suspend fun getFeed(): FeedData = client.get {
         apiUrl("feed")
     }
+
+    /**
+     * Get server time.
+     */
+    suspend fun getServerTime(): GMTDate = client.get<String> {
+        apiUrl("time")
+    }.let { response -> GMTDate(response.toLong()) }
 
     private fun HttpRequestBuilder.json() {
         contentType(ContentType.Application.Json)

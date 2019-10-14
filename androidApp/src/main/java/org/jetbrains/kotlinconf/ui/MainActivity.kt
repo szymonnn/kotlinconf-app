@@ -12,6 +12,7 @@ import org.jetbrains.kotlinconf.BuildConfig.*
 import org.jetbrains.kotlinconf.R
 import org.jetbrains.kotlinconf.storage.*
 import java.io.*
+import java.net.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var errorsWatcher: Closeable
@@ -27,6 +28,15 @@ class MainActivity : AppCompatActivity() {
                 is Unauthorized -> showActivity<WelcomeActivity> {
                     putExtra("page", PrivacyPolicyFragment.name)
                 }
+                is TooEarlyVote -> {
+                    Toast.makeText(this, "Session is not started", Toast.LENGTH_LONG).show()
+                }
+                is TooLateVote -> {
+                    Toast.makeText(this, "Too late for voting", Toast.LENGTH_LONG).show()
+                }
+                is ConnectException -> {
+                    Toast.makeText(this, "Check your internet connection.", Toast.LENGTH_LONG).show()
+                }
                 else -> {
                     Toast.makeText(this, cause.message, Toast.LENGTH_LONG).show()
                 }
@@ -37,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         setupNavigationBar()
 
         if (KotlinConf.service.isFirstLaunch()) {
-//            showActivity<WelcomeActivity>()
+            showActivity<WelcomeActivity>()
         }
     }
 

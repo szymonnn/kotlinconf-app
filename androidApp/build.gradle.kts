@@ -18,8 +18,8 @@ val localProperties = Properties().apply {
     load(file)
 }
 
-val YOUTUBE_API_KEY: String by localProperties
-val MAPBOX_ACCESS_TOKEN: String by localProperties
+val YOUTUBE_API_KEY: String = localProperties.getProperty("YOUTUBE_API_KEY", "")
+val MAPBOX_ACCESS_TOKEN: String = localProperties.getProperty("MAPBOX_ACCESS_TOKEN", "")
 
 plugins {
     id("com.android.application")

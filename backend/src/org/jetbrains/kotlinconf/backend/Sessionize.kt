@@ -13,9 +13,9 @@ private var sessionizeData: SessionizeData? = null
 
 val comeBackLater = HttpStatusCode(477, "Come Back Later")
 val tooLate = HttpStatusCode(478, "Too Late")
-val keynoteTimeZone = ZoneId.of("Europe/Paris")!!
+val keynoteTimeZone = ZoneId.of("Europe/Copenhagen")!!
 val keynoteEndDateTime = ZonedDateTime.of(
-    2018, 10, 4, 10, 0, 0, 0, keynoteTimeZone
+    2019, 12, 5, 10, 0, 0, 0, keynoteTimeZone
 )!!
 
 const val fakeSessionId = "007"

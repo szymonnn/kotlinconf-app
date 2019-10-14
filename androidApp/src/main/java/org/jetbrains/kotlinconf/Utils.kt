@@ -65,3 +65,10 @@ internal fun View.setPressedColor(event: MotionEvent, normal: Int, pressed: Int)
 
     setBackgroundColor(color(color))
 }
+
+internal fun View.autoclear() {
+    setOnTouchListener { view, event ->
+        view.clearFocus()
+        false
+    }
+}

@@ -18,16 +18,20 @@ actual class NotificationManager actual constructor(
         return true
     }
 
+    fun notificationId(sessionId: String): Int {
+        TODO()
+    }
+
     actual suspend fun schedule(
         sessionData: SessionData
     ): String? {
         val date = sessionData.startsAt - 15 * 60 * 1000
-        val id = sessionData.id
         if (date > GMTDate()) return null
 
+        val id = notificationId(sessionData.id)
         val delay = date.timestamp - GMTDate().timestamp
-        scheduleNotification(delay, sessionData.title, "Starts in 15 minutes", id.toInt())
-        return id
+        scheduleNotification(delay, sessionData.title, "Starts in 15 minutes", id)
+        return id.toString()
     }
 
     actual fun cancel(id: String) {

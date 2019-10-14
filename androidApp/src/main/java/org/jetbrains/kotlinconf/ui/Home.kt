@@ -30,8 +30,6 @@ class HomeController : Fragment() {
     private val reminders by lazy { RemaindersAdapter() }
     private val feed by lazy { FeedAdapter() }
 
-    private val START_TIME = GMTDate(0, 0, 8, 4, Month.DECEMBER, 2019)
-
     private lateinit var liveWatcher: Closeable
     private lateinit var remindersWatcher: Closeable
     private lateinit var feedWatcher: Closeable
@@ -77,7 +75,7 @@ class HomeController : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (GMTDate() >= START_TIME) {
+        if (KotlinConf.service.now() >= CONFERENCE_START) {
             return inflater.inflate(R.layout.fragment_home, container, false).apply {
                 setupLiveCards()
                 setupRemainders()
@@ -87,16 +85,6 @@ class HomeController : Fragment() {
         return inflater.inflate(R.layout.fragment_before, container, false).apply {
             setupTimer()
         }
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        val videoView = activity
-//            ?.fragmentManager
-//            ?.findFragmentById(R.id.before_video_fragment) as? LiveVideoFragment
-//        videoView?.showVideo("V1L0CTaTGRo")
-//        videoView?.showVideo("hjhb6bhiMS8")
     }
 
     private fun View.setupLiveCards() {
@@ -111,9 +99,9 @@ class HomeController : Fragment() {
     @UseExperimental(ExperimentalTime::class)
     private fun View.setupTimer() {
         timer = GlobalScope.launch(Dispatchers.Main) {
-            val now = GMTDate()
+            val now = KotlinConf.service.now()
 
-            val diff = (START_TIME.timestamp - now.timestamp) / 1000
+            val diff = (CONFERENCE_START.timestamp - now.timestamp) / 1000
             var time = diff.toDuration(DurationUnit.SECONDS)
 
             while (time.inSeconds >= 0) {
@@ -237,7 +225,7 @@ class LiveCardHolder(private val view: View) : RecyclerView.ViewHolder(view) {
                 KotlinConf.service.markFavorite(sessionCard.session.id)
             }
 
-            live_time.text = "${sessionCard.minutesLeft()} minutes left"
+            live_time.text = "${KotlinConf.service.minutesLeft(sessionCard)} minutes left"
 
             favoriteSubscription = sessionCard.isFavorite.watch {
                 val image = if (it) {

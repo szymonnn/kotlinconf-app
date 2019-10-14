@@ -167,7 +167,6 @@ class MapController : Fragment() {
         map_mapview.getMapAsync { map ->
             map.setStyle(floors[index]) { style ->
                 if (PermissionsManager.areLocationPermissionsGranted(context)) {
-
                     val options = LocationComponentActivationOptions
                         .builder(context, style)
                         .build()
