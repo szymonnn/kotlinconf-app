@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent"
-                                                   android:background="@color/dark_grey">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_grey">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -29,7 +28,7 @@
                 android:textSize="80sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/live_cards_container"
@@ -38,7 +37,7 @@
                 android:layout_marginTop="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/live_title"/>
+                app:layout_constraintTop_toBottomOf="@id/live_title" />
 
             <TextView
                 android:id="@+id/dont_miss_title"
@@ -52,14 +51,14 @@
                 android:textColor="@color/white"
                 android:textSize="80sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/live_cards_container"/>
+                app:layout_constraintTop_toBottomOf="@id/live_cards_container" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dont_miss_block"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="186dp"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/dont_miss_title"/>
+                app:layout_constraintTop_toBottomOf="@id/dont_miss_title" />
 
             <TextView
                 android:id="@+id/tweet_title"
@@ -73,7 +72,7 @@
                 android:textColor="@color/white"
                 android:textSize="80sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dont_miss_block"/>
+                app:layout_constraintTop_toBottomOf="@id/dont_miss_block" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tweet_feed_list"
@@ -82,7 +81,7 @@
                 android:layout_marginTop="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tweet_title"/>
+                app:layout_constraintTop_toBottomOf="@id/tweet_title" />
 
             <TextView
                 android:id="@+id/partners_title"
@@ -96,24 +95,21 @@
                 android:textColor="@color/white"
                 android:textSize="80sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tweet_feed_list"/>
+                app:layout_constraintTop_toBottomOf="@id/tweet_feed_list" />
 
             <TextView
-                android:id="@+id/partners_show"
+                android:id="@+id/show_partners"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="77dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginTop="90dp"
                 android:layout_marginRight="24dp"
-                android:fontFamily="sans-serif"
                 android:gravity="end"
                 android:lineSpacingExtra="9sp"
+                android:text="See All"
                 android:textColor="@color/red_orange"
                 android:textSize="15sp"
-                android:textStyle="normal"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tweet_feed_list"
-                tools:text="See All"/>
+                app:layout_constraintTop_toBottomOf="@id/tweet_feed_list" />
 
             <HorizontalScrollView
                 android:id="@+id/partners_view"
@@ -121,15 +117,180 @@
                 android:layout_height="450dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="20dp"
+                android:paddingBottom="77dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/partners_title">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/touchlab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="62dp"
+                        android:layout_marginTop="60dp"
+                        android:src="@drawable/touchlab_logo"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/shape"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="70dp"
+                        android:layout_marginTop="44dp"
+                        android:src="@drawable/logo_shape"
+                        app:layout_constraintStart_toEndOf="@id/touchlab"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/android"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="70dp"
+                        android:layout_marginTop="53dp"
+                        android:src="@drawable/logo_android"
+                        app:layout_constraintStart_toEndOf="@id/shape"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/gradle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="70dp"
+                        android:layout_marginTop="48dp"
+                        android:src="@drawable/logo_gradle"
+                        app:layout_constraintStart_toEndOf="@id/android"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/instil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="70dp"
+                        android:layout_marginTop="53dp"
+                        android:layout_marginRight="209dp"
+                        android:src="@drawable/logo_instl"
+                        app:layout_constraintStart_toEndOf="@id/gradle"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/bignerdranch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="62dp"
+                        android:layout_marginTop="87dp"
+                        android:src="@drawable/logo_bignerdranch"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/touchlab" />
+
+                    <ImageView
+                        android:id="@+id/pleo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="48dp"
+                        android:layout_marginTop="98dp"
+                        android:src="@drawable/logo_pleo"
+                        app:layout_constraintStart_toEndOf="@id/bignerdranch"
+                        app:layout_constraintTop_toBottomOf="@id/touchlab" />
+
+                    <ImageView
+                        android:id="@+id/n26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="68dp"
+                        android:layout_marginTop="90dp"
+                        android:src="@drawable/logo_n_26"
+                        app:layout_constraintStart_toEndOf="@id/pleo"
+                        app:layout_constraintTop_toBottomOf="@id/touchlab" />
+
+                    <ImageView
+                        android:id="@+id/kodein"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="48dp"
+                        android:layout_marginTop="100dp"
+                        android:src="@drawable/logo_kodein"
+                        app:layout_constraintStart_toEndOf="@id/n26"
+                        app:layout_constraintTop_toBottomOf="@id/touchlab" />
+
+                    <ImageView
+                        android:id="@+id/l47"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="68dp"
+                        android:layout_marginTop="81dp"
+                        android:src="@drawable/logo_47"
+                        app:layout_constraintStart_toEndOf="@id/kodein"
+                        app:layout_constraintTop_toBottomOf="@id/touchlab" />
+
+                    <ImageView
+                        android:id="@+id/sticker_mule"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="48dp"
+                        android:layout_marginTop="109dp"
+                        android:src="@drawable/logo_stickermule"
+                        app:layout_constraintStart_toEndOf="@id/l47"
+                        app:layout_constraintTop_toBottomOf="@id/touchlab" />
+
+                    <ImageView
+                        android:id="@+id/cash"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="68dp"
+                        android:layout_marginTop="81dp"
+                        android:paddingRight="60dp"
+                        android:src="@drawable/logo_cash"
+                        app:layout_constraintStart_toEndOf="@id/sticker_mule"
+                        app:layout_constraintTop_toBottomOf="@id/touchlab" />
+
+                    <ImageView
+                        android:id="@+id/pretix"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="397dp"
+                        android:layout_marginTop="75dp"
+                        android:src="@drawable/logo_pretix"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bignerdranch" />
+
+                    <ImageView
+                        android:id="@+id/manning"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="86dp"
+                        android:layout_marginTop="82dp"
+                        android:src="@drawable/logo_manning"
+                        app:layout_constraintStart_toEndOf="@id/pretix"
+                        app:layout_constraintTop_toBottomOf="@id/bignerdranch" />
+
+
+                    <ImageView
+                        android:id="@+id/data2viz"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="86dp"
+                        android:layout_marginTop="83dp"
+                        android:src="@drawable/logo_data_2_viz"
+                        app:layout_constraintStart_toEndOf="@id/manning"
+                        app:layout_constraintTop_toBottomOf="@id/bignerdranch" />
+
+                    <ImageView
+                        android:id="@+id/bitrise"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="86dp"
+                        android:layout_marginTop="74dp"
+                        android:src="@drawable/logo_bitrise"
+                        app:layout_constraintStart_toEndOf="@id/data2viz"
+                        app:layout_constraintTop_toBottomOf="@id/bignerdranch" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </HorizontalScrollView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

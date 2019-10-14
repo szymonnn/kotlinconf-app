@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_grey">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="77dp">
+
+            <TextView
+                android:id="@+id/gold_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="38dp"
+                android:layout_marginRight="24dp"
+                android:fontFamily="@font/druk_font"
+                android:lineSpacingExtra="-6sp"
+                android:text="GOLD PARTNERS"
+                android:textColor="#ffffff"
+                android:textSize="80sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <LinearLayout
+                android:id="@+id/gold_row_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:weightSum="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gold_title">
+
+                <ImageButton
+                    android:id="@+id/button_android"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_android" />
+
+                <View
+                    android:id="@+id/button_none"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/silver_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="38dp"
+                android:layout_marginRight="24dp"
+                android:fontFamily="@font/druk_font"
+                android:lineSpacingExtra="-6sp"
+                android:text="SILVER PARTNERS"
+                android:textColor="#ffffff"
+                android:textSize="80sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gold_row_1" />
+            <LinearLayout
+                android:id="@+id/silver_row_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1.0"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/silver_title">
+
+                <ImageButton
+                    android:id="@+id/button_47"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_47" />
+
+                <ImageButton
+                    android:id="@+id/button_freenow"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_freenow" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/silver_row_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1.0"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/silver_row_1">
+
+                <ImageButton
+                    android:id="@+id/button_bitrise"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_bitrise" />
+
+                <ImageButton
+                    android:id="@+id/button_instill"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_instl" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/silver_row_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1.0"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/silver_row_2">
+
+                <ImageButton
+                    android:id="@+id/button_gradle"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_gradle" />
+
+                <ImageButton
+                    android:id="@+id/button_n26"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_n_26" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/silver_row_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1.0"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/silver_row_3">
+
+                <ImageButton
+                    android:id="@+id/kodein"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_kodein" />
+
+                <View
+                    android:id="@+id/button_none_2"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/bronze_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="38dp"
+                android:layout_marginRight="24dp"
+                android:fontFamily="@font/druk_font"
+                android:lineSpacingExtra="-6sp"
+                android:text="BRONZE PARTNERS"
+                android:textColor="#ffffff"
+                android:textSize="80sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/silver_row_4" />
+            <LinearLayout
+                android:id="@+id/bronze_row_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1.0"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bronze_title">
+
+                <ImageButton
+                    android:id="@+id/button_data2viz"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_data_2_viz" />
+                <ImageButton
+                    android:id="@+id/button_pleo"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_pleo" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/bronze_row_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1.0"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bronze_row_1">
+
+                <ImageButton
+                    android:id="@+id/button_shape"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_shape" />
+
+                <ImageButton
+                    android:id="@+id/button_touchlab"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/touchlab_logo" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/bronze_row_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1.0"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bronze_row_2">
+
+                <ImageButton
+                    android:id="@+id/cash"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_cash" />
+
+                <View
+                    android:id="@+id/button_none_3"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_weight="0.5"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/media_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="38dp"
+                android:layout_marginRight="24dp"
+                android:fontFamily="@font/druk_font"
+                android:lineSpacingExtra="-6sp"
+                android:text="MEDIA PARTNERS"
+                android:textColor="#ffffff"
+                android:textSize="80sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bronze_row_3" />
+            <LinearLayout
+                android:id="@+id/media_row_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1.0"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/media_title">
+
+                <ImageButton
+                    android:id="@+id/button_bignerdranch"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_bignerdranch" />
+                <ImageButton
+                    android:id="@+id/button_manning"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_manning" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/media_row_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1.0"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/media_row_1">
+
+                <ImageButton
+                    android:id="@+id/button_pretix"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_pretix" />
+
+                <ImageButton
+                    android:id="@+id/button_stickermule"
+                    android:layout_width="0dp"
+                    android:layout_height="136dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_weight="0.5"
+                    android:background="@color/dark_grey_card"
+                    android:elevation="1dp"
+                    android:padding="16dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/logo_stickermule" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -75,13 +75,14 @@ class HomeController : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (KotlinConf.service.now() >= CONFERENCE_START) {
+//        if (KotlinConf.service.now() >= CONFERENCE_START) {
             return inflater.inflate(R.layout.fragment_home, container, false).apply {
                 setupLiveCards()
                 setupRemainders()
                 setupTwitter()
+                setupPartners()
             }
-        }
+//        }
         return inflater.inflate(R.layout.fragment_before, container, false).apply {
             setupTimer()
         }
@@ -132,6 +133,12 @@ class HomeController : Fragment() {
                 isNestedScrollingEnabled = true
             }
             adapter = feed
+        }
+    }
+
+    private fun View.setupPartners() {
+        show_partners.setOnClickListener {
+            showActivity<PartnersActivity>()
         }
     }
 
