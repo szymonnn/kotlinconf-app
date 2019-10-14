@@ -7,6 +7,7 @@ import androidx.fragment.app.*
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.*
 import com.google.android.youtube.player.*
+import io.ktor.util.date.GMTDate
 import io.ktor.utils.io.core.*
 import kotlinx.android.synthetic.main.fragment_before.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -72,17 +73,28 @@ class HomeController : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        if (KotlinConf.service.now() >= CONFERENCE_START) {
-        return inflater.inflate(R.layout.fragment_home, container, false).apply {
-            setupLiveCards()
-            setupRemainders()
-            setupTwitter()
-            setupPartners()
+        val now: GMTDate = KotlinConf.service.now()
+
+        val view: View = when {
+            now < CONFERENCE_START -> inflater.inflate(
+                R.layout.fragment_before, container, false
+            ).apply {
+                setupTimer()
+            }
+            now < CONFERENCE_END -> inflater.inflate(
+                R.layout.fragment_home, container, false
+            ).apply {
+                setupLiveCards()
+                setupRemainders()
+                setupTwitter()
+                setupPartners()
+            }
+            else -> inflater.inflate(
+                R.layout.fragment_after, container, false
+            )
         }
-//        }
-        return inflater.inflate(R.layout.fragment_before, container, false).apply {
-            setupTimer()
-        }
+
+        return view
     }
 
     private fun View.setupLiveCards() {
