@@ -117,7 +117,6 @@
                 android:layout_height="450dp"
                 android:layout_marginTop="25dp"
                 android:layout_marginBottom="20dp"
-                android:paddingBottom="77dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -125,7 +124,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:paddingBottom="77dp">
 
                     <ImageView
                         android:id="@+id/touchlab"
@@ -134,6 +134,7 @@
                         android:layout_marginLeft="62dp"
                         android:layout_marginTop="60dp"
                         android:src="@drawable/touchlab_logo"
+                        android:tag="touchlab"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -144,6 +145,7 @@
                         android:layout_marginLeft="70dp"
                         android:layout_marginTop="44dp"
                         android:src="@drawable/logo_shape"
+                        android:tag="shape"
                         app:layout_constraintStart_toEndOf="@id/touchlab"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -154,6 +156,7 @@
                         android:layout_marginLeft="70dp"
                         android:layout_marginTop="53dp"
                         android:src="@drawable/logo_android"
+                        android:tag="android"
                         app:layout_constraintStart_toEndOf="@id/shape"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -164,6 +167,7 @@
                         android:layout_marginLeft="70dp"
                         android:layout_marginTop="48dp"
                         android:src="@drawable/logo_gradle"
+                        android:tag="gradle"
                         app:layout_constraintStart_toEndOf="@id/android"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -175,6 +179,7 @@
                         android:layout_marginTop="53dp"
                         android:layout_marginRight="209dp"
                         android:src="@drawable/logo_instl"
+                        android:tag="instill"
                         app:layout_constraintStart_toEndOf="@id/gradle"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -185,6 +190,7 @@
                         android:layout_marginLeft="62dp"
                         android:layout_marginTop="87dp"
                         android:src="@drawable/logo_bignerdranch"
+                        android:tag="bignedranch"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/touchlab" />
 
@@ -195,6 +201,7 @@
                         android:layout_marginLeft="48dp"
                         android:layout_marginTop="98dp"
                         android:src="@drawable/logo_pleo"
+                        android:tag="pleo"
                         app:layout_constraintStart_toEndOf="@id/bignerdranch"
                         app:layout_constraintTop_toBottomOf="@id/touchlab" />
 
@@ -205,6 +212,7 @@
                         android:layout_marginLeft="68dp"
                         android:layout_marginTop="90dp"
                         android:src="@drawable/logo_n_26"
+                        android:tag="n26"
                         app:layout_constraintStart_toEndOf="@id/pleo"
                         app:layout_constraintTop_toBottomOf="@id/touchlab" />
 
@@ -215,6 +223,7 @@
                         android:layout_marginLeft="48dp"
                         android:layout_marginTop="100dp"
                         android:src="@drawable/logo_kodein"
+                        android:tag="kodein"
                         app:layout_constraintStart_toEndOf="@id/n26"
                         app:layout_constraintTop_toBottomOf="@id/touchlab" />
 
@@ -225,6 +234,7 @@
                         android:layout_marginLeft="68dp"
                         android:layout_marginTop="81dp"
                         android:src="@drawable/logo_47"
+                        android:tag="47"
                         app:layout_constraintStart_toEndOf="@id/kodein"
                         app:layout_constraintTop_toBottomOf="@id/touchlab" />
 
@@ -236,6 +246,7 @@
                         android:layout_marginTop="109dp"
                         android:src="@drawable/logo_stickermule"
                         app:layout_constraintStart_toEndOf="@id/l47"
+                        android:tag="sticker_mule"
                         app:layout_constraintTop_toBottomOf="@id/touchlab" />
 
                     <ImageView
@@ -246,17 +257,30 @@
                         android:layout_marginTop="81dp"
                         android:paddingRight="60dp"
                         android:src="@drawable/logo_cash"
+                        android:tag="cash"
                         app:layout_constraintStart_toEndOf="@id/sticker_mule"
                         app:layout_constraintTop_toBottomOf="@id/touchlab" />
+
+                    <ImageView
+                        android:id="@+id/freenow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="68dp"
+                        android:layout_marginTop="75dp"
+                        android:src="@drawable/logo_freenow"
+                        android:tag="freenow"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bignerdranch" />
 
                     <ImageView
                         android:id="@+id/pretix"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="397dp"
+                        android:layout_marginLeft="86dp"
                         android:layout_marginTop="75dp"
                         android:src="@drawable/logo_pretix"
-                        app:layout_constraintStart_toStartOf="parent"
+                        android:tag="pretix"
+                        app:layout_constraintStart_toEndOf="@id/freenow"
                         app:layout_constraintTop_toBottomOf="@id/bignerdranch" />
 
                     <ImageView
@@ -266,6 +290,7 @@
                         android:layout_marginLeft="86dp"
                         android:layout_marginTop="82dp"
                         android:src="@drawable/logo_manning"
+                        android:tag="manning"
                         app:layout_constraintStart_toEndOf="@id/pretix"
                         app:layout_constraintTop_toBottomOf="@id/bignerdranch" />
 
@@ -277,6 +302,7 @@
                         android:layout_marginLeft="86dp"
                         android:layout_marginTop="83dp"
                         android:src="@drawable/logo_data_2_viz"
+                        android:tag="data2viz"
                         app:layout_constraintStart_toEndOf="@id/manning"
                         app:layout_constraintTop_toBottomOf="@id/bignerdranch" />
 
@@ -287,6 +313,7 @@
                         android:layout_marginLeft="86dp"
                         android:layout_marginTop="74dp"
                         android:src="@drawable/logo_bitrise"
+                        android:tag="bitrise"
                         app:layout_constraintStart_toEndOf="@id/data2viz"
                         app:layout_constraintTop_toBottomOf="@id/bignerdranch" />
 

@@ -49,6 +49,11 @@
             android:name=".ui.PartnersActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.PartnerActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+
         <receiver android:name=".Publisher" />
     </application>
 

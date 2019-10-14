@@ -7,10 +7,7 @@ import androidx.fragment.app.*
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.*
 import com.google.android.youtube.player.*
-import io.ktor.util.date.*
 import io.ktor.utils.io.core.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.fragment_before.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
@@ -76,12 +73,12 @@ class HomeController : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 //        if (KotlinConf.service.now() >= CONFERENCE_START) {
-            return inflater.inflate(R.layout.fragment_home, container, false).apply {
-                setupLiveCards()
-                setupRemainders()
-                setupTwitter()
-                setupPartners()
-            }
+        return inflater.inflate(R.layout.fragment_home, container, false).apply {
+            setupLiveCards()
+            setupRemainders()
+            setupTwitter()
+            setupPartners()
+        }
 //        }
         return inflater.inflate(R.layout.fragment_before, container, false).apply {
             setupTimer()
@@ -137,6 +134,31 @@ class HomeController : Fragment() {
     }
 
     private fun View.setupPartners() {
+        listOf(
+            touchlab,
+            shape,
+            android,
+            gradle,
+            instil,
+            bignerdranch,
+            pleo,
+            n26,
+            kodein,
+            l47,
+            sticker_mule,
+            cash,
+            freenow,
+            pretix,
+            manning,
+            data2viz,
+            bitrise
+        ).forEach {
+            it.setOnClickListener {
+                showActivity<PartnerActivity> {
+                    putExtra("partner", it.tag.toString())
+                }
+            }
+        }
         show_partners.setOnClickListener {
             showActivity<PartnersActivity>()
         }
