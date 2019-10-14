@@ -135,22 +135,13 @@ class HomeController : Fragment() {
 
     private fun View.setupPartners() {
         listOf(
-            touchlab,
-            shape,
             android,
             gradle,
             instil,
-            bignerdranch,
-            pleo,
             n26,
             kodein,
             l47,
-            sticker_mule,
-            cash,
             freenow,
-            pretix,
-            manning,
-            data2viz,
             bitrise
         ).forEach {
             it.setOnClickListener {

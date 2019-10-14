@@ -32,7 +32,6 @@ class SessionCard(
     val ratingData: CFlow<RatingData?>
 )
 
-
 /**
  * Room name to display.
  */

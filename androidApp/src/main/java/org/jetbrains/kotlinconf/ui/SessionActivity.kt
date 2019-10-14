@@ -126,13 +126,7 @@ class SessionActivity : AppCompatActivity() {
             val sharingIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
                 putExtra(Intent.EXTRA_SUBJECT, "Share")
-
-                val url = buildString {
-                    val day = card.session.startsAt.dayOfMonth
-                    append("https://kotlinconf.com/talks/")
-                    append("$day-dec?sessionId=$sessionId")
-                }
-                putExtra(Intent.EXTRA_TEXT, url)
+                putExtra(Intent.EXTRA_TEXT, card.session.url)
             }
 
             startActivity(Intent.createChooser(sharingIntent, "Share"))

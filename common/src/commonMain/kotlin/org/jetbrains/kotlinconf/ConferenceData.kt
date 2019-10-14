@@ -44,6 +44,13 @@ data class SessionData(
     }
 }
 
+val SessionData.url: String
+    get() = buildString {
+        val day = startsAt.dayOfMonth
+        append("https://kotlinconf.com/talks/")
+        append("$day-dec?sessionId=$id")
+    }
+
 @Serializable
 class RoomData(
     val name: String,
@@ -129,7 +136,8 @@ class RatingData(val value: Int) {
         val OK = RatingData(0)
         val GOOD = RatingData(1)
 
-        fun valueOf(value: Int): RatingData = listOf(BAD, OK, GOOD).find { it.value == value } ?: error("Invalid rating value")
+        fun valueOf(value: Int): RatingData =
+            listOf(BAD, OK, GOOD).find { it.value == value } ?: error("Invalid rating value")
     }
 }
 

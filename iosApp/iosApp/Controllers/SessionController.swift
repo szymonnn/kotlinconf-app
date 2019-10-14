@@ -131,7 +131,7 @@ class SessionController : UIViewController, UIScrollViewDelegate {
     @IBAction func locationTouch(_ sender: Any) {
     }
     @IBAction func shareTouch(_ sender: Any) {
-        let items = [card.session.title]
+        let items = [card.session.url]
         let share = UIActivityViewController(activityItems: items, applicationActivities: nil)
 
         present(share, animated: true)

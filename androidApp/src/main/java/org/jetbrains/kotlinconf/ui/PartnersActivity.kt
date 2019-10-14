@@ -21,16 +21,7 @@ class PartnersActivity : AppCompatActivity() {
             button_instill,
             button_gradle,
             button_n26,
-            button_kodein,
-            button_data2viz,
-            button_pleo,
-            button_shape,
-            button_touchlab,
-            button_cash,
-            button_bignerdranch,
-            button_manning,
-            button_pretix,
-            button_stickermule
+            button_kodein
         ).forEach {
             it.setOnClickListener {
                 showActivity<PartnerActivity> {
