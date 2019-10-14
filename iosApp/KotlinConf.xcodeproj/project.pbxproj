@@ -35,6 +35,7 @@
 		8D82EE36F5FB5EC1BC6B26EE /* Pods_KotlinConf.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C31466D3383AF769D0B19EA /* Pods_KotlinConf.framework */; };
 		B33E0797228D6EC800F313A1 /* ScheduleTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33E0796228D6EC800F313A1 /* ScheduleTableHeader.swift */; };
 		B33E079C228D86DB00F313A1 /* ScheduleTableHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B33E079B228D86DB00F313A1 /* ScheduleTableHeader.xib */; };
+		B38305B62354EEEF00C2E52F /* PartnerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38305B52354EEEF00C2E52F /* PartnerController.swift */; };
 		B3C643F52305896D00C35EEA /* ScheduleTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C643F42305896D00C35EEA /* ScheduleTableCell.swift */; };
 		F861D7E1207FA40F0085E80D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F861D7E0207FA40F0085E80D /* AppDelegate.swift */; };
 		F861D7EB207FA4100085E80D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F861D7E9207FA4100085E80D /* LaunchScreen.storyboard */; };
@@ -84,6 +85,7 @@
 		9BB676F62E76662CB81A11F9 /* Pods-KotlinConf.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KotlinConf.release.xcconfig"; path = "Target Support Files/Pods-KotlinConf/Pods-KotlinConf.release.xcconfig"; sourceTree = "<group>"; };
 		B33E0796228D6EC800F313A1 /* ScheduleTableHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableHeader.swift; sourceTree = "<group>"; };
 		B33E079B228D86DB00F313A1 /* ScheduleTableHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ScheduleTableHeader.xib; sourceTree = "<group>"; };
+		B38305B52354EEEF00C2E52F /* PartnerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartnerController.swift; sourceTree = "<group>"; };
 		B39CBAB822BBC3A2005975C1 /* KotlinConf.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KotlinConf.entitlements; sourceTree = "<group>"; };
 		B3C643F42305896D00C35EEA /* ScheduleTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableCell.swift; sourceTree = "<group>"; };
 		F861D7DD207FA40F0085E80D /* KotlinConf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KotlinConf.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -163,6 +165,7 @@
 				2CFA8ECB22DF0512008B32E2 /* SpeakersController.swift */,
 				2CFA8ECD22DF0AD8008B32E2 /* PartnersController.swift */,
 				2C849F89233A424F00E9BD5A /* WelcomeController.swift */,
+				B38305B52354EEEF00C2E52F /* PartnerController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -368,6 +371,7 @@
 				2C1952F7228C14FE00BA0BB9 /* MainTabController.swift in Sources */,
 				2C46F100230ABB4900D40386 /* TopButton.swift in Sources */,
 				2C1952FA228C1BF300BA0BB9 /* Screen.swift in Sources */,
+				B38305B62354EEEF00C2E52F /* PartnerController.swift in Sources */,
 				B33E0797228D6EC800F313A1 /* ScheduleTableHeader.swift in Sources */,
 				2CF0141B22958ACB00C235D1 /* SpeakerController.swift in Sources */,
 				2C7CD27422B7B497000B3BD0 /* BaseView.swift in Sources */,

@@ -61,10 +61,16 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
         }
     }
 
-    @IBAction func showParners(_ sender: Any) {
+    @IBAction func showPartners(_ sender: Any) {
         showScreen(name: "Partners")
     }
 
+    @IBAction func showPartner(_ sender: UIButton, forEvent event: UIEvent) {
+        showScreen(name: "Partner") { controller in
+            (controller as! PartnerController).partnerId = sender.tag
+        }
+    }
+    
     func showScreen(name: String, config: (UIViewController) -> Void = { controller -> Void in return }) {
         let board = UIStoryboard(name: "Main", bundle: nil)
         let controller = board.instantiateViewController(withIdentifier: name)
@@ -76,8 +82,6 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
         switch collectionView {
         case videosView:
             return liveSessions.count
-//        case partnersView:
-//            return partners.count
         default:
             return 0
         }
@@ -118,11 +122,8 @@ extension HomeController : UIScrollViewDelegate, UICollectionViewDelegate {
     ) {
         let view: UICollectionView = {
             switch scrollView {
-//            case self.videosView:
             default:
                 return self.videosView
-//            default:
-//                return self.partnersView
             }
         }()
 

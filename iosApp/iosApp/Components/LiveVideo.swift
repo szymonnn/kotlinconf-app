@@ -23,9 +23,10 @@ class LiveVideo : UICollectionViewCell {
 
             location.text = card.location.name
 
-            if let videoId = card.roomVideo {
-                video.load(withVideoId: videoId)
-            }
+
+//            if let videoId = card.roomVideo {
+//                video.load(withVideoId: videoId)
+//            }
 
             favoriteObservable = card.isFavorite.watch { isFavorite in
                 self.favoriteButton.isSelected = isFavorite!.boolValue

@@ -3,7 +3,7 @@ import UIKit
 import youtube_ios_player_helper
 import KotlinConfAPI
 
-class SessionController : UIViewController, UIScrollViewDelegate {
+class SessionController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var speaker1: UIButton!
     @IBOutlet weak var speaker2: UIButton!
     @IBOutlet weak var speaker2Container: UIView!
@@ -34,7 +34,7 @@ class SessionController : UIViewController, UIScrollViewDelegate {
         scrollView.delegate = self
     }
 
-    @objc func onTouch(sender:UIGestureRecognizer) {
+    @objc func onTouch(sender: UIGestureRecognizer) {
         voteBar.isHidden = true
     }
 
@@ -113,6 +113,7 @@ class SessionController : UIViewController, UIScrollViewDelegate {
     @IBAction func voteTouch(_ sender: Any) {
         voteBar.isHidden = false
     }
+
     @IBAction func speaker1Touch(_ sender: Any) {
         showSpeaker(id: 0)
     }
@@ -130,6 +131,7 @@ class SessionController : UIViewController, UIScrollViewDelegate {
 
     @IBAction func locationTouch(_ sender: Any) {
     }
+
     @IBAction func shareTouch(_ sender: Any) {
         let items = [card.session.url]
         let share = UIActivityViewController(activityItems: items, applicationActivities: nil)
@@ -154,13 +156,13 @@ class SessionController : UIViewController, UIScrollViewDelegate {
     }
 
     private func liveChange(_ isLive: Bool) {
-        let videoId = card.roomVideo
-        if (isLive && videoId != nil) {
-            video.load(withVideoId: videoId!)
-            video.isHidden = !isLive
-        } else {
-            video.isHidden = true
-        }
+//        let videoId = card.roomVideo
+//        if (isLive && videoId != nil) {
+//            video.load(withVideoId: videoId!)
+//            video.isHidden = !isLive
+//        } else {
+//            video.isHidden = true
+//        }
     }
 
     private func ratingChange(_ rating: RatingData?) {
