@@ -26,6 +26,8 @@
 		2C7CD27A22B8F455000B3BD0 /* KotlinConfAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7CD27922B8F455000B3BD0 /* KotlinConfAPI.framework */; };
 		2C7CD27B22B8F455000B3BD0 /* KotlinConfAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7CD27922B8F455000B3BD0 /* KotlinConfAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2C80C1B023191AF200D2CBA6 /* ScheduleTableSmallHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C80C1AF23191AF200D2CBA6 /* ScheduleTableSmallHeader.swift */; };
+		2C840A3B2355EC740084BAEE /* BeforeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C840A3A2355EC740084BAEE /* BeforeController.swift */; };
+		2C840A3D2355FC2E0084BAEE /* AfterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C840A3C2355FC2E0084BAEE /* AfterController.swift */; };
 		2C849F8A233A424F00E9BD5A /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C849F89233A424F00E9BD5A /* WelcomeController.swift */; };
 		2CA5535E2350D22D005ABCF7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA5535D2350D22D005ABCF7 /* GoogleService-Info.plist */; };
 		2CCEC45F2350686700D3A899 /* TweetPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCEC45E2350686700D3A899 /* TweetPost.swift */; };
@@ -77,6 +79,8 @@
 		2C7CD27322B7B497000B3BD0 /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		2C7CD27922B8F455000B3BD0 /* KotlinConfAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KotlinConfAPI.framework; path = "../common/build/fat-framework/KotlinConfAPI.framework"; sourceTree = "<group>"; };
 		2C80C1AF23191AF200D2CBA6 /* ScheduleTableSmallHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableSmallHeader.swift; sourceTree = "<group>"; };
+		2C840A3A2355EC740084BAEE /* BeforeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeforeController.swift; sourceTree = "<group>"; };
+		2C840A3C2355FC2E0084BAEE /* AfterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterController.swift; sourceTree = "<group>"; };
 		2C849F89233A424F00E9BD5A /* WelcomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
 		2CA5535D2350D22D005ABCF7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2CCEC45E2350686700D3A899 /* TweetPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetPost.swift; sourceTree = "<group>"; };
@@ -170,6 +174,8 @@
 				2CFA8ECD22DF0AD8008B32E2 /* PartnersController.swift */,
 				2C849F89233A424F00E9BD5A /* WelcomeController.swift */,
 				B38305B52354EEEF00C2E52F /* PartnerController.swift */,
+				2C840A3A2355EC740084BAEE /* BeforeController.swift */,
+				2C840A3C2355FC2E0084BAEE /* AfterController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -365,6 +371,7 @@
 				2C38A899228EEBD000BAF882 /* SessionController.swift in Sources */,
 				2C46F0FE230AA48800D40386 /* ScheduleHeader.swift in Sources */,
 				2CFA8EC822DCB5DF008B32E2 /* HomeController.swift in Sources */,
+				2C840A3B2355EC740084BAEE /* BeforeController.swift in Sources */,
 				2CFA8ECC22DF0512008B32E2 /* SpeakersController.swift in Sources */,
 				2C674AF222FD5258001CA3F5 /* SessionCardView.swift in Sources */,
 				2C7496F7230BE20E001F8562 /* PopupUtils.swift in Sources */,
@@ -375,6 +382,7 @@
 				2CFA8ECE22DF0AD8008B32E2 /* PartnersController.swift in Sources */,
 				F861D7E1207FA40F0085E80D /* AppDelegate.swift in Sources */,
 				2CFA8EC422DCB398008B32E2 /* LiveVideo.swift in Sources */,
+				2C840A3D2355FC2E0084BAEE /* AfterController.swift in Sources */,
 				2C80C1B023191AF200D2CBA6 /* ScheduleTableSmallHeader.swift in Sources */,
 				2C1952F7228C14FE00BA0BB9 /* MainTabController.swift in Sources */,
 				2C46F100230ABB4900D40386 /* TopButton.swift in Sources */,

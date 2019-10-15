@@ -18,27 +18,25 @@ actual class NotificationManager actual constructor(
         return true
     }
 
-    fun notificationId(sessionId: String): Int {
-        TODO()
-    }
-
     actual suspend fun schedule(
         sessionData: SessionData
     ): String? {
         val date = sessionData.startsAt - 15 * 60 * 1000
-        if (date > GMTDate()) return null
-
-        val id = notificationId(sessionData.id)
         val delay = date.timestamp - GMTDate().timestamp
+        if (delay <= 0) {
+            return null
+        }
+
+        val id = sessionData.id.hashCode()
         scheduleNotification(delay, sessionData.title, "Starts in 15 minutes", id)
         return id.toString()
     }
 
-    actual fun cancel(id: String) {
+    actual fun cancel(sessionData: SessionData) {
         val appContext = context.activity
         val notificationIntent = Intent(appContext, Publisher::class.java)
         val pendingIntent = PendingIntent.getBroadcast(
-            appContext, id.toInt(), notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT
+            appContext, sessionData.id.hashCode(), notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT
         )
         val alarmManager = appContext.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         alarmManager.cancel(pendingIntent)

@@ -10,7 +10,7 @@ expect class NotificationManager(context: ApplicationContext) {
 
     suspend fun schedule(sessionData: SessionData): String?
 
-    fun cancel(id: String)
+    fun cancel(sessionData: SessionData)
 }
 
 

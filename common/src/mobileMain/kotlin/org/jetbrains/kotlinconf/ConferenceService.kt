@@ -12,12 +12,13 @@ import kotlin.collections.set
 import kotlin.coroutines.*
 import kotlin.math.*
 import kotlin.native.concurrent.*
+import kotlin.time.*
 
 /**
  * [ConferenceService] handles data and builds model.
  */
 @ThreadLocal
-@UseExperimental(ExperimentalCoroutinesApi::class)
+@UseExperimental(ExperimentalTime::class)
 class ConferenceService(val context: ApplicationContext) : CoroutineScope {
     private val exceptionHandler = object : CoroutineExceptionHandler {
         override val key: CoroutineContext.Key<*> = CoroutineExceptionHandler
@@ -88,6 +89,9 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
     private val _liveSessions = ConflatedBroadcastChannel<Set<String>>(mutableSetOf())
     private val _upcomingFavorites = ConflatedBroadcastChannel<Set<String>>(mutableSetOf())
 
+    @UseExperimental(ExperimentalTime::class)
+    private val _beforeTimer = ConflatedBroadcastChannel<Timestamp>()
+
     val liveSessions = _liveSessions.asFlow().map {
         it.toList().map { id -> sessionCard(id) }
     }.wrap()
@@ -117,6 +121,8 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
             .sortedBy { it.title }.map { sessionCard(it.id) }
     }.wrap()
 
+    val beforeTimer = _beforeTimer.asFlow().wrap()
+
     init {
         launch {
             userId?.let { ClientApi.sign(it) }
@@ -127,6 +133,23 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
             while (true) {
                 scheduledUpdate()
                 delay(60 * 1000)
+            }
+        }
+
+        launch {
+            while (true) {
+                val now = now()
+                val diff = (CONFERENCE_START.timestamp - now.timestamp) / 1000
+
+                if (diff <= 0) {
+                    break
+                }
+
+                var remaining = diff.toDuration(DurationUnit.SECONDS)
+                remaining.toComponents { days, hours, minutes, seconds, _ ->
+                    _beforeTimer.offer(Timestamp(days, hours, minutes, seconds))
+                }
+                delay(1000)
             }
         }
     }
@@ -366,7 +389,7 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
                 } else {
                     ClientApi.deleteFavorite(userId, sessionId)
                     if (notificationManager.isEnabled()) {
-                        notificationManager.cancel(sessionId)
+                        notificationManager.cancel(session(sessionId))
                     }
                 }
             } catch (cause: Throwable) {
@@ -374,7 +397,6 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
             }
         }
     }
-
 
     /**
      * Reload data model from server.

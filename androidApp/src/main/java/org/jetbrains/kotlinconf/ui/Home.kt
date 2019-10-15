@@ -7,7 +7,7 @@ import androidx.fragment.app.*
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.*
 import com.google.android.youtube.player.*
-import io.ktor.util.date.GMTDate
+import io.ktor.util.date.*
 import io.ktor.utils.io.core.*
 import kotlinx.android.synthetic.main.fragment_before.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -20,7 +20,6 @@ import org.jetbrains.kotlinconf.*
 import org.jetbrains.kotlinconf.BuildConfig.*
 import org.jetbrains.kotlinconf.R
 import org.jetbrains.kotlinconf.presentation.*
-import java.util.concurrent.*
 import kotlin.time.*
 
 class HomeController : Fragment() {
@@ -108,22 +107,12 @@ class HomeController : Fragment() {
 
     @UseExperimental(ExperimentalTime::class)
     private fun View.setupTimer() {
-        timer = GlobalScope.launch(Dispatchers.Main) {
-            val now = KotlinConf.service.now()
-
-            val diff = (CONFERENCE_START.timestamp - now.timestamp) / 1000
-            var time = diff.toDuration(DurationUnit.SECONDS)
-
-            while (time.inSeconds >= 0) {
-                time.toComponents { days, hours, minutes, seconds, nanoseconds ->
-                    before_days.text = days.toString()
-                    before_hours.text = hours.toString()
-                    before_minutes.text = minutes.toString()
-                    before_seconds.text = seconds.toString()
-                }
-
-                delay(1000)
-                time -= 1.toDuration(TimeUnit.SECONDS)
+        KotlinConf.service.beforeTimer.watch { timestamp ->
+            with(timestamp) {
+                before_days.text = days.toString()
+                before_hours.text = hours.toString()
+                before_minutes.text = minutes.toString()
+                before_seconds.text = seconds.toString()
             }
         }
     }

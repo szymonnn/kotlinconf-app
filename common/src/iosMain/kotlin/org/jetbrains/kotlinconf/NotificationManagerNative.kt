@@ -12,11 +12,7 @@ import kotlin.native.concurrent.*
 actual class NotificationManager actual constructor(context: ApplicationContext) {
     private val center = UNUserNotificationCenter.currentNotificationCenter()
 
-    actual suspend fun isEnabled(): Boolean = suspendCancellableCoroutine { continuation ->
-        center.getNotificationSettingsWithCompletionHandler { settings ->
-            continuation.resume(settings?.alertSetting == UNNotificationSettingEnabled)
-        }
-    }
+    actual suspend fun isEnabled(): Boolean = true
 
     actual suspend fun requestPermission(): Boolean = suspendCancellableCoroutine {
         center.requestAuthorizationWithOptions(UNAuthorizationOptionAlert) { allowed, error ->
@@ -31,40 +27,41 @@ actual class NotificationManager actual constructor(context: ApplicationContext)
     actual suspend fun schedule(
         sessionData: SessionData
     ): String? {
-        fire(sessionData, 5000)
-        fire(sessionData, 60 * 60 * 1000 + 5000)
-        return fire(sessionData, 2 * 60 * 60 * 1000 + 5000)
-    }
-
-    fun fire(
-        sessionData: SessionData, delay: Long
-    ): String? {
         val title = sessionData.title
-        val text = "Starts in 15 minutes $delay"
-        val date = GMTDate() + delay
-//        val date = sessionData.startsAt = 1
+        val delay = (sessionData.startsAt.timestamp - GMTDate().timestamp) / 1000.0
+        if (delay <= 0) {
+            return null
+        }
+
+        val body = "Starts in 15 minutes"
 
         val content = UNMutableNotificationContent().apply {
             setTitle(title)
-            setBody(text)
+            setBody(body)
         }
 
-        val id = NSUUID().UUIDString
-        val trigger = UNCalendarNotificationTrigger.triggerWithDateMatchingComponents(
-            date.toNSDateComponents(), false
+        val date = NSDate.dateWithTimeIntervalSinceNow(delay)
+
+        val componentsSet =
+            (NSCalendarUnitYear or NSCalendarUnitMonth or NSCalendarUnitDay or NSCalendarUnitHour or NSCalendarUnitMinute or NSCalendarUnitSecond)
+
+        val triggerDate = NSCalendar.currentCalendar.components(
+            componentsSet, date
         )
 
-        val request = UNNotificationRequest.requestWithIdentifier(id, content, trigger).freeze()
+        val trigger = UNCalendarNotificationTrigger.triggerWithDateMatchingComponents(
+            triggerDate, repeats = false
+        )
+
+        val request = UNNotificationRequest.requestWithIdentifier(title, content, trigger).freeze()
         val withCompletionHandler: (NSError?) -> Unit = { error: NSError? -> }.freeze()
 
         center.addNotificationRequest(request, withCompletionHandler)
-        println("Scheduled $id")
-        return id
+        return title
     }
 
-
-    actual fun cancel(id: String) {
-        center.removePendingNotificationRequestsWithIdentifiers(listOf(id))
+    actual fun cancel(sessionData: SessionData) {
+        center.removePendingNotificationRequestsWithIdentifiers(listOf(sessionData.title))
     }
 }
 

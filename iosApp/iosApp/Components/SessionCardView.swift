@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import UserNotifications
 import KotlinConfAPI
 
 class SessionCardView : UIView, Baloon {

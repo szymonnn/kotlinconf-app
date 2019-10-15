@@ -20,3 +20,5 @@ val CONFERENCE_END = GMTDate(
  * Conference location timezone offset in millis.
  */
 val TIMEZONE_OFFSET = 1 * 60 * 60 * 1000L
+
+class Timestamp(val days: Int, val hours: Int, val minutes: Int, val seconds: Int)
