@@ -136,23 +136,20 @@ class HomeController : Fragment() {
 
     private fun View.setupPartners() {
         listOf(
-            android,
-            gradle,
-            instil,
-            n26,
-            kodein,
-            l47,
-            freenow,
-            bitrise
+            button_android,
+            button_47,
+            button_bitrise,
+            button_freenow,
+            button_instill,
+            button_gradle,
+            button_n26,
+            button_kodein
         ).forEach {
             it.setOnClickListener {
                 showActivity<PartnerActivity> {
                     putExtra("partner", it.tag.toString())
                 }
             }
-        }
-        show_partners.setOnClickListener {
-            showActivity<PartnersActivity>()
         }
     }
 
