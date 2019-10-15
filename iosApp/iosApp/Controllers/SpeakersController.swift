@@ -75,7 +75,10 @@ class SpeakerCellView : UITableViewCell {
             speakerPosition.text = speaker.tagLine
 
             if let profilePicture = speaker.profilePicture {
-                Nuke.loadImage(with: URL(string: profilePicture)!, into: speakerPhoto)
+                Nuke.loadImage(
+                    with: URL(string: profilePicture)!,
+                    into: speakerPhoto
+                )
             }
         }
     }

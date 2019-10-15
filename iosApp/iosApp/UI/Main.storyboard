@@ -73,7 +73,7 @@
                                             <constraint firstItem="W5z-bH-YeO" firstAttribute="centerY" secondItem="b9Q-oh-RbQ" secondAttribute="centerY" id="tXK-30-VRL"/>
                                         </constraints>
                                     </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="112" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aP3-J2-s5g">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="112" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="aP3-J2-s5g">
                                         <rect key="frame" x="0.0" y="136" width="414" height="672"/>
                                         <color key="backgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="sectionIndexBackgroundColor" red="0.95686274509803915" green="0.95686274509803915" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -123,7 +123,6 @@
                                     <constraint firstItem="b9Q-oh-RbQ" firstAttribute="leading" secondItem="y6o-gI-Lkc" secondAttribute="leading" id="OL5-gM-YgK"/>
                                     <constraint firstItem="aP3-J2-s5g" firstAttribute="top" secondItem="b9Q-oh-RbQ" secondAttribute="bottom" id="Tqm-Qk-xhl"/>
                                     <constraint firstAttribute="trailing" secondItem="AGU-v3-f6t" secondAttribute="trailing" id="bDd-7f-Ee4"/>
-                                    <constraint firstAttribute="bottom" secondItem="aP3-J2-s5g" secondAttribute="bottom" id="lZ9-gV-4tH"/>
                                     <constraint firstItem="b9Q-oh-RbQ" firstAttribute="top" secondItem="AGU-v3-f6t" secondAttribute="bottom" id="qVr-iI-f8P"/>
                                     <constraint firstAttribute="trailing" secondItem="aP3-J2-s5g" secondAttribute="trailing" id="wZd-lM-7fg"/>
                                     <constraint firstItem="AGU-v3-f6t" firstAttribute="leading" secondItem="y6o-gI-Lkc" secondAttribute="leading" id="zdu-RQ-CSI"/>

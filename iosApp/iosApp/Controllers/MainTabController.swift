@@ -2,6 +2,7 @@ import Foundation
 import UIKit
 import FirebaseAnalytics
 import KotlinConfAPI
+import Nuke
 
 class MainTabController : UITabBarController {
     override func viewDidLoad() {
@@ -9,6 +10,7 @@ class MainTabController : UITabBarController {
             self.showError(error: error!)
         }
 
+        setupDiskCache()
         super.viewDidLoad()
 
         navigationController?.isNavigationBarHidden = true
@@ -30,5 +32,18 @@ class MainTabController : UITabBarController {
 
             viewControllers?[0] = beforeView
         }
+    }
+
+    private func setupDiskCache() {
+        DataLoader.sharedUrlCache.diskCapacity = 0
+
+        let pipeline = ImagePipeline {
+              let dataCache = try! DataCache(name: "org.jetbrain.kotlinconf.imagecache")
+              dataCache.sizeLimit = 200 * 1024 * 1024
+              $0.dataCache = dataCache
+        }
+
+        // 5
+        ImagePipeline.shared = pipeline
     }
 }

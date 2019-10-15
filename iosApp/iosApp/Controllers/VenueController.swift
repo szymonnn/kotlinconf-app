@@ -50,7 +50,10 @@ class VenueController : UIViewController, MGLMapViewDelegate {
 
         mapView.compassViewMargins.y += 50.0
 
-        showCard(room: Conference.room(id: 7972)!)
+        let room = Conference.room(id:7972)
+        if (room != nil) {
+            showCard(room: room!)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
