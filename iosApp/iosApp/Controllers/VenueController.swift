@@ -55,7 +55,6 @@ class VenueController : UIViewController, MGLMapViewDelegate {
 
     override func viewDidAppear(_ animated: Bool) {
         hideDescription()
-
     }
 
     override func viewWillAppear(_ animated: Bool) {
