@@ -1,8 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "filename" : "logoBitrise.pdf"
+      "filename" : "logoBitrise.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

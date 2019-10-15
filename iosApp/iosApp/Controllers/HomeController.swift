@@ -78,10 +78,6 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
         feedView.reloadData()
     }
 
-    @IBAction func showPartners(_ sender: Any) {
-        showScreen(name: "Partners")
-    }
-
     @IBAction func showPartner(_ sender: UIButton, forEvent event: UIEvent) {
         showScreen(name: "Partner") { controller in
             (controller as! PartnerController).partnerId = sender.tag

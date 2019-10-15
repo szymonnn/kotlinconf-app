@@ -1,8 +1,8 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
-      "filename" : "logoInstl.pdf"
+      "filename" : "logoInstl.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

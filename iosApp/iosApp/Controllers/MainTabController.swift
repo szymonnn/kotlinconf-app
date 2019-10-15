@@ -23,9 +23,12 @@ class MainTabController : UITabBarController {
             viewControllers?[0] = beforeView
 
         } else if (time.compareTo(other: TimeKt.CONFERENCE_END) > 0) {
-            print("after")
-        } else {
-            print("Conf")
+            let mainBoard = UIStoryboard(name: "Main", bundle: nil)
+            let beforeView = mainBoard.instantiateViewController(
+                withIdentifier: "After"
+            )
+
+            viewControllers?[0] = beforeView
         }
     }
 }
