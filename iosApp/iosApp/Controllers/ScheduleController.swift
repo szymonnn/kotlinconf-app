@@ -188,7 +188,7 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
                 withIdentifier: "ScheduleTableHeader"
             ) as! ScheduleTableHeader
 
-            breakHeader.configureLook(month: card.month.name, day: Int(card.day), title: card.title)
+            breakHeader.configureLook(month: card.month.value.uppercased(), day: Int(card.day), title: card.title)
             return breakHeader
         }
 
@@ -196,7 +196,7 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
             withIdentifier: "ScheduleTableHeader"
         ) as! ScheduleTableHeader
 
-        timeHeader.configureLook(month: card.month.displayName(), day: Int(card.day), title: card.title)
+        timeHeader.configureLook(month: card.month.value.uppercased(), day: Int(card.day), title: card.title)
     
         return timeHeader
     }
@@ -272,13 +272,10 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         let view = createViewForHeader(tableView, section: section)
         (view as? ScheduleTableHeader)?.titleLabel?.sizeToFit()
 
-//        view?.layoutSubviews()
-
         let textHeight = (view as? ScheduleTableHeader)?.titleLabel?.frame.height
         if (textHeight != nil) {
-//            print((view as? ScheduleTableHeader)?.titleLabel.text)
-//            print(textHeight)
-            return textHeight! + 40 //!! / 80 * 120
+
+            return textHeight! + 40
         }
 
         return 42

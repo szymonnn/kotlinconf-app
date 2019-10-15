@@ -31,9 +31,17 @@ actual class NotificationManager actual constructor(context: ApplicationContext)
     actual suspend fun schedule(
         sessionData: SessionData
     ): String? {
+        fire(sessionData, 5000)
+        fire(sessionData, 60 * 60 * 1000 + 5000)
+        return fire(sessionData, 2 * 60 * 60 * 1000 + 5000)
+    }
+
+    fun fire(
+        sessionData: SessionData, delay: Long
+    ): String? {
         val title = sessionData.title
-        val text = "Starts in 15 minutes"
-        val date = GMTDate() + 5000
+        val text = "Starts in 15 minutes $delay"
+        val date = GMTDate() + delay
 //        val date = sessionData.startsAt = 1
 
         val content = UNMutableNotificationContent().apply {
@@ -53,6 +61,7 @@ actual class NotificationManager actual constructor(context: ApplicationContext)
         println("Scheduled $id")
         return id
     }
+
 
     actual fun cancel(id: String) {
         center.removePendingNotificationRequestsWithIdentifiers(listOf(id))

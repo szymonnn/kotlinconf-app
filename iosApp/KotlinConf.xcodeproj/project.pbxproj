@@ -27,6 +27,7 @@
 		2C7CD27B22B8F455000B3BD0 /* KotlinConfAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2C7CD27922B8F455000B3BD0 /* KotlinConfAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2C80C1B023191AF200D2CBA6 /* ScheduleTableSmallHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C80C1AF23191AF200D2CBA6 /* ScheduleTableSmallHeader.swift */; };
 		2C849F8A233A424F00E9BD5A /* WelcomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C849F89233A424F00E9BD5A /* WelcomeController.swift */; };
+		2CA5535E2350D22D005ABCF7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CA5535D2350D22D005ABCF7 /* GoogleService-Info.plist */; };
 		2CCEC45F2350686700D3A899 /* TweetPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCEC45E2350686700D3A899 /* TweetPost.swift */; };
 		2CF0141B22958ACB00C235D1 /* SpeakerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF0141A22958ACB00C235D1 /* SpeakerController.swift */; };
 		2CFA8EC422DCB398008B32E2 /* LiveVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA8EC322DCB398008B32E2 /* LiveVideo.swift */; };
@@ -77,6 +78,7 @@
 		2C7CD27922B8F455000B3BD0 /* KotlinConfAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KotlinConfAPI.framework; path = "../common/build/fat-framework/KotlinConfAPI.framework"; sourceTree = "<group>"; };
 		2C80C1AF23191AF200D2CBA6 /* ScheduleTableSmallHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTableSmallHeader.swift; sourceTree = "<group>"; };
 		2C849F89233A424F00E9BD5A /* WelcomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeController.swift; sourceTree = "<group>"; };
+		2CA5535D2350D22D005ABCF7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2CCEC45E2350686700D3A899 /* TweetPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetPost.swift; sourceTree = "<group>"; };
 		2CF0141A22958ACB00C235D1 /* SpeakerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeakerController.swift; sourceTree = "<group>"; };
 		2CFA8EC322DCB398008B32E2 /* LiveVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveVideo.swift; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 		F861D7DF207FA40F0085E80D /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				2CA5535D2350D22D005ABCF7 /* GoogleService-Info.plist */,
 				F861D7E0207FA40F0085E80D /* AppDelegate.swift */,
 				B33E0795228D6EB500F313A1 /* Components */,
 				B33E0791228D3C8600F313A1 /* Controllers */,
@@ -304,6 +307,7 @@
 				2C5231A72302F5E400A73DEE /* ScheduleHeader.xib in Resources */,
 				2C674AF022FD4DC6001CA3F5 /* SessionCardView.xib in Resources */,
 				2C1952FC228C2B5F00BA0BB9 /* Assets.xcassets in Resources */,
+				2CA5535E2350D22D005ABCF7 /* GoogleService-Info.plist in Resources */,
 				2C195301228C306600BA0BB9 /* Main.storyboard in Resources */,
 				2C5231A32302D91A00A73DEE /* ScheduleTableSmallHeader.xib in Resources */,
 			);

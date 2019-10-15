@@ -35,7 +35,6 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
     private val storage: ApplicationStorage = ApplicationStorage(context)
     private var userId: String? by storage(NullableSerializer(String.serializer())) { null }
     private var firstLaunch: Boolean by storage(Boolean.serializer()) { true }
-    private var notificationsAllowed: Boolean by storage(Boolean.serializer()) { false }
     private var locationAllowed: Boolean by storage(Boolean.serializer()) { false }
 
     private var serverTime = GMTDate()
@@ -305,7 +304,9 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
      */
     fun requestNotificationPermissions() {
         launch {
-            notificationsAllowed = notificationManager.requestPermission()
+            if (!notificationManager.isEnabled()) {
+                notificationManager.requestPermission()
+            }
         }
     }
 
@@ -359,12 +360,12 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
                 updateFavorite(sessionId, newValue)
                 if (newValue) {
                     ClientApi.postFavorite(userId, sessionId)
-                    if (notificationsAllowed) {
+                    if (notificationManager.isEnabled()) {
                         notificationManager.schedule(session(sessionId))
                     }
                 } else {
                     ClientApi.deleteFavorite(userId, sessionId)
-                    if (notificationsAllowed) {
+                    if (notificationManager.isEnabled()) {
                         notificationManager.cancel(sessionId)
                     }
                 }

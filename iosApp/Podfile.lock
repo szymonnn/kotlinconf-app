@@ -1,24 +1,64 @@
 PODS:
+  - Firebase/Analytics (4.13.0):
+    - Firebase/Core
+  - Firebase/Core (4.13.0):
+    - FirebaseAnalytics (= 4.2.0)
+    - FirebaseCore (= 4.0.20)
+  - FirebaseAnalytics (4.2.0):
+    - FirebaseCore (~> 4.0)
+    - FirebaseInstanceID (~> 2.0)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - nanopb (~> 0.3)
+  - FirebaseCore (4.0.20):
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+  - FirebaseInstanceID (2.0.10):
+    - FirebaseCore (~> 4.0)
+  - GoogleToolboxForMac/Defines (2.2.1)
+  - "GoogleToolboxForMac/NSData+zlib (2.2.1)":
+    - GoogleToolboxForMac/Defines (= 2.2.1)
   - Mapbox-iOS-SDK (5.2.0)
+  - MarqueeLabel (4.0.0)
+  - nanopb (0.3.901):
+    - nanopb/decode (= 0.3.901)
+    - nanopb/encode (= 0.3.901)
+  - nanopb/decode (0.3.901)
+  - nanopb/encode (0.3.901)
   - Nuke (8.2.0)
   - youtube-ios-player-helper (0.1.6)
 
 DEPENDENCIES:
+  - Firebase/Analytics
   - Mapbox-iOS-SDK (~> 5.2)
+  - MarqueeLabel
   - Nuke (~> 8.0)
   - youtube-ios-player-helper (~> 0.1.4)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - Mapbox-iOS-SDK
     - Nuke
     - youtube-ios-player-helper
+  trunk:
+    - Firebase
+    - FirebaseAnalytics
+    - FirebaseCore
+    - FirebaseInstanceID
+    - GoogleToolboxForMac
+    - MarqueeLabel
+    - nanopb
 
 SPEC CHECKSUMS:
+  Firebase: 5ec5e863d269d82d66b4bf56856726f8fb8f0fb3
+  FirebaseAnalytics: 7ef69e76a5142f643aeb47c780e1cdce4e23632e
+  FirebaseCore: 90cb1c53d69b556f112a1bf72b5fcfaad7650790
+  FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
+  GoogleToolboxForMac: b3553629623a3b1bff17f555e736cd5a6d95ad55
   Mapbox-iOS-SDK: 3e095b305126d52ba166fe215d847b15b6fbee63
+  MarqueeLabel: b55b26e690b6ad41faedd95cbf5eae6f1d1735b4
+  nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Nuke: 0134d56b7c9dd3e69e9bce8bdcb37c2e0d55469f
   youtube-ios-player-helper: 21ab92db027c7ff86cb17a3843a3f6eafc8158d2
 
-PODFILE CHECKSUM: c8c8c154dca43cdc305bed325f9e420194aff684
+PODFILE CHECKSUM: 48e29e275dc05159bbfe857e9654bafbef36f8c8
 
 COCOAPODS: 1.8.3

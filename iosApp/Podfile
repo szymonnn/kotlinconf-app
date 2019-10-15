@@ -9,4 +9,7 @@ target 'KotlinConf' do
   pod "youtube-ios-player-helper", "~> 0.1.4"
   pod 'Mapbox-iOS-SDK', '~> 5.2'
   pod 'Nuke', '~> 8.0'
+  pod 'MarqueeLabel'
+  pod 'Firebase/Analytics'
+
 end

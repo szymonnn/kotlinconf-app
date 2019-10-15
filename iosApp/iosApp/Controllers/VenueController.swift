@@ -26,7 +26,7 @@ class VenueController : UIViewController, MGLMapViewDelegate {
 
     private let mapPhotos = [
         7972: "keynote",
-        7973:"aud_10_11_12",
+        7973: "aud_10_11_12",
         7974: "aud 15",
         7975: "coding room 17",
         7976: "workshop room 20"

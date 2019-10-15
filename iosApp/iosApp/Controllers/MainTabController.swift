@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import FirebaseAnalytics
 
 class MainTabController : UITabBarController {
     override func viewDidLoad() {
