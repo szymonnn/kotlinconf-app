@@ -56,7 +56,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dont_miss_block"
                 android:layout_width="match_parent"
-                android:layout_height="186dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/dont_miss_title" />
 

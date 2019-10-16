@@ -19,18 +19,6 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
     let tableHeader = UINib(nibName: "ScheduleHeader", bundle: nil)
         .instantiate(withOwner: nil, options: [:])[0] as! ScheduleHeader
 
-    lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-
-        refreshControl.addTarget(
-            self,
-            action: #selector(ScheduleController.onRefresh(_:)),
-            for: UIControl.Event.valueChanged
-        )
-
-        return refreshControl
-    }()
-
     private var all: [SessionGroup] = []
     private var favorites: [SessionGroup] = []
     private var sessions: [SessionCard] = []
@@ -47,8 +35,12 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+            searchBar.barStyle = .black
+        }
 
-        scheduleTable.addSubview(refreshControl)
         scheduleTable.register(
             UINib(nibName: "ScheduleTableHeader", bundle: nil),
             forHeaderFooterViewReuseIdentifier: "ScheduleTableHeader"
@@ -58,10 +50,6 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
             UINib(nibName: "ScheduleTableSmallHeader", bundle: nil),
             forHeaderFooterViewReuseIdentifier: "ScheduleTableSmallHeader"
         )
-
-        Conference.errors.watch { error in
-            self.refreshControl.endRefreshing()
-        }
 
         configureTableHeader()
 
@@ -86,8 +74,13 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        searchContainer.isHidden = true
         self.tabBarController?.tabBar.tintColor = UIColor.redOrange
+
+        if (searchActive) {
+            showSearch()
+        } else {
+            searchContainer.isHidden = true
+        }
     }
 
     func configureTableHeader() {
@@ -102,14 +95,18 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         }
 
         tableHeader.onSearchTouch = {
-            self.searchActive = true
-            self.scheduleTable.reloadData()
-
-            self.searchContainer.isHidden = false
-            self.headerView.isHidden = true
+            self.showSearch()
         }
 
         headerView.addSubview(tableHeader)
+    }
+
+    private func showSearch() {
+        self.searchActive = true
+       self.scheduleTable.reloadData()
+
+       self.searchContainer.isHidden = false
+       self.headerView.isHidden = true
     }
 
     @IBAction func onSearchCancel(_ sender: Any) {
@@ -123,7 +120,6 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
     func onSchedule(sessions: [SessionGroup]) {
         all = sessions
-        refreshControl.endRefreshing()
         if (section == .all) {
             scheduleTable.reloadData()
         }
@@ -223,14 +219,17 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         let query = searchBar.text?.lowercased()
 
         if (query == nil || query!.isEmpty) {
-            return
+            searchResult = sessions
+        } else {
+            searchResult = sessions.filter { card in
+                let title = card.session.title.lowercased()
+                let speakers = card.speakers.map { $0.fullName.lowercased() }.joined()
+                let room = card.location.name.lowercased()
+                return title.contains(query!) || speakers.contains(query!) || room.contains(query!)
+            }
         }
 
-        searchResult = sessions.filter { card in
-            let title = card.session.title.lowercased()
-            let speakers = card.speakers.map { $0.fullName.lowercased() }.joined()
-            return title.contains(query!) || speakers.contains(query!)
-        }
+
 
         scheduleTable.reloadData()
     }
@@ -242,15 +241,6 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
         cell.card.onTouch = {
             self.showSession(card: card)
-
-            if (self.searchActive) {
-                self.searchActive = false
-                self.scheduleTable.reloadData()
-
-                self.view.endEditing(false)
-                self.searchContainer.isHidden = true
-                self.headerView.isHidden = false
-            }
         }
     }
 
@@ -281,15 +271,19 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         return 42
     }
 
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if (section == currentTable.count - 1) {
+            return 50
+        }
+
+        return 0
+    }
     private let bounceGap = CGFloat(10.0)
     private var startOffset = CGFloat(0.0)
 
     private var active: Baloon? = nil
     func show(popup: Baloon) {
-        if (active != nil) {
-            active?.hide()
-        }
-
+        active?.hide()
         active = popup
     }
 

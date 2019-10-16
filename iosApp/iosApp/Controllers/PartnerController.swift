@@ -34,6 +34,10 @@ class PartnerController : UIViewController {
     var partnerId: Int!
     
     override func viewDidLoad() {
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .dark
+        }
+
         let name = partnersNames[partnerId]
         let partner = ConfPartners.partner(name: name)
         

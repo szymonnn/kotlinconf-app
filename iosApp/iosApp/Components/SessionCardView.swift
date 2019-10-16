@@ -43,7 +43,7 @@ class SessionCardView : UIView, Baloon {
                 favoriteObservable?.close()
             }
 
-            title.text = card.session.title
+            title.text = card.session.displayTitle
             location.text = card.location.displayName()
 
             speakers.text = card.speakers.map { speaker in

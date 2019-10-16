@@ -9,6 +9,7 @@ import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.util.date.*
+import io.ktor.util.date.Month
 import io.ktor.util.pipeline.*
 import org.jetbrains.kotlinconf.*
 import java.time.*
@@ -205,7 +206,10 @@ private fun Routing.apiTwitter() {
 
 private fun Routing.apiTime() {
     get("time") {
-        call.respond(GMTDate().timestamp.toString())
+        val timestamp = GMTDate(
+            0, 1, 8, 5, Month.DECEMBER, 2019
+        )
+        call.respond(timestamp.timestamp.toString())
     }
 }
 

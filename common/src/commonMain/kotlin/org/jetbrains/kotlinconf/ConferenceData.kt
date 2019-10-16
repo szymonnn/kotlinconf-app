@@ -39,6 +39,8 @@ data class SessionData(
     val questionAnswers: List<QuestionAnswerData> = emptyList(),
     val categoryItems: List<Int> = emptyList()
 ) {
+    val displayTitle: String get() = title.trim()
+
     init {
         if (descriptionText == null) descriptionText = ""
     }

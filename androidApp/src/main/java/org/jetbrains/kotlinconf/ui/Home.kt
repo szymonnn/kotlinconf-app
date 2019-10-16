@@ -4,8 +4,10 @@ import android.os.*
 import android.view.*
 import androidx.core.view.*
 import androidx.fragment.app.*
+import androidx.navigation.*
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.*
+import com.google.android.material.bottomnavigation.*
 import com.google.android.youtube.player.*
 import io.ktor.util.date.*
 import io.ktor.utils.io.core.*
@@ -109,6 +111,10 @@ class HomeController : Fragment() {
     private fun View.setupTimer() {
         KotlinConf.service.beforeTimer.watch { timestamp ->
             with(timestamp) {
+                if (listOf(days, hours, minutes, seconds).all { it == 0 }) {
+                    val controller = activity?.findNavController(R.id.nav_host_fragment)
+                    controller?.navigate(R.id.navigation_home)
+                }
                 before_days.text = days.toString()
                 before_hours.text = hours.toString()
                 before_minutes.text = minutes.toString()
@@ -236,7 +242,7 @@ class LiveCardHolder(private val view: View) : RecyclerView.ViewHolder(view) {
             liveSubscription = sessionCard.isLive.watch {
                 live_video_view.tag = it
             }
-            live_session_title.text = sessionCard.session.title
+            live_session_title.text = sessionCard.session.displayTitle
             live_session_speakers.text = sessionCard.speakers.joinToString { it.fullName }
             live_location.text = sessionCard.location.displayName()
             live_favorite.setOnClickListener {
@@ -296,7 +302,7 @@ class RemainderHolder(private val view: View) : RecyclerView.ViewHolder(view) {
                 true
             }
 
-            card_session_title.text = sessionCard.session.title
+            card_session_title.text = sessionCard.session.displayTitle
             card_session_speakers.text = sessionCard.speakers.joinToString { it.fullName }
             card_location_label.text = sessionCard.location.displayName()
 

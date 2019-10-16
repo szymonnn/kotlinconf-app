@@ -7,9 +7,12 @@ import android.view.inputmethod.*
 import androidx.core.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.*
+import com.brandongogetap.stickyheaders.*
+import com.brandongogetap.stickyheaders.exposed.*
 import com.google.android.material.tabs.*
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
 import org.jetbrains.kotlinconf.*
+import org.jetbrains.kotlinconf.R
 import org.jetbrains.kotlinconf.presentation.*
 import org.jetbrains.kotlinconf.ui.details.*
 
@@ -108,17 +111,16 @@ class ScheduleController : Fragment() {
 
     private fun View.setupSchedule() {
         listView = schedule_list.apply {
-            layoutManager = LinearLayoutManager(context)
             adapter = schedule
+            layoutManager = StickyLayoutManager(context, schedule)
 
             addItemDecoration(SessionCardDecoration())
-
             autoclear()
         }
     }
 
-    internal inner class ScheduleAdapter : RecyclerView.Adapter<SessionCardHolder>() {
-        private var schedule: List<ScheduleItem> = emptyList()
+    internal inner class ScheduleAdapter : RecyclerView.Adapter<SessionCardHolder>(), StickyHeaderHandler {
+        private var schedule: MutableList<ScheduleItem> = mutableListOf()
 
         var data: List<SessionGroup> = emptyList()
             set(value) {
@@ -167,6 +169,8 @@ class ScheduleController : Fragment() {
 
             schedule = result
         }
+
+        override fun getAdapterData(): MutableList<*> = schedule
     }
 
     internal inner class SearchAdapter : RecyclerView.Adapter<SessionCardHolder>() {
@@ -198,7 +202,8 @@ class ScheduleController : Fragment() {
         private fun updateSearchResults() {
             searchResults = data.filter {
                 val speakers = it.speakers.joinToString { it.fullName.toLowerCase() }
-                query in it.session.title.toLowerCase() || query in speakers
+                val room = it.location.name.toLowerCase()
+                query in it.session.title.toLowerCase() || query in speakers || query in room
             }
         }
     }

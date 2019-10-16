@@ -84,6 +84,8 @@ kotlin {
                 implementation("androidx.constraintlayout:constraintlayout:$android_constraint_layout")
 
                 implementation("com.android.support:multidex:$android_multidex")
+                implementation("com.brandongogetap:stickyheaders:0.6.0")
+
 
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
                 implementation("io.ktor:ktor-client-android:$ktor_version")

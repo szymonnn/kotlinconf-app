@@ -7,6 +7,12 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
     @IBOutlet weak var feedView: UICollectionView!
     @IBOutlet weak var upcomingFavorites: UIStackView!
     @IBOutlet weak var dontMissLabel: UILabel!
+    @IBOutlet weak var liveLabel: UILabel!
+
+    @IBOutlet weak var liveHider: NSLayoutConstraint!
+    @IBOutlet weak var videosHider: NSLayoutConstraint!
+    @IBOutlet weak var dontMissHider: NSLayoutConstraint!
+    @IBOutlet weak var cardsHider: NSLayoutConstraint!
 
     private var liveSessions: [SessionCard] = []
     private var feedData: [FeedPost] = []
@@ -14,6 +20,10 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .dark
+        }
 
         videosView.dataSource = self
         videosView.delegate = self
@@ -41,12 +51,33 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
     }
 
     private func onLiveSessions(sessions: [SessionCard]) {
+        let hidden = sessions.count == 0
+        videosView.isHidden = hidden
+        liveLabel.isHidden = hidden
+        if (hidden) {
+            liveHider.priority = UILayoutPriority(rawValue: 1000)
+            videosHider.priority = UILayoutPriority(rawValue: 1000)
+        } else {
+            liveHider.priority = UILayoutPriority(rawValue: 1)
+            videosHider.priority = UILayoutPriority(rawValue: 1)
+        }
+
         liveSessions = sessions
         videosView.reloadData()
     }
 
     private func onUpcomingFavorites(sessions: [SessionCard]) {
-        dontMissLabel.isHidden = sessions.count == 0
+        let hidden = sessions.count == 0
+        dontMissLabel.isHidden = hidden
+        upcomingFavorites.isHidden = hidden
+        if (hidden) {
+            dontMissHider.priority = UILayoutPriority(rawValue: 1000)
+            cardsHider.priority = UILayoutPriority(rawValue: 1000)
+        } else {
+            dontMissHider.priority = UILayoutPriority(rawValue: 1)
+            cardsHider.priority = UILayoutPriority(rawValue: 1)
+        }
+
         for card in upcoming {
             upcomingFavorites.removeArrangedSubview(card)
             card.cleanup()
@@ -67,6 +98,7 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
             upcomingFavorites.setCustomSpacing(5.0, after: view)
             return view
         }
+
     }
 
     private func onFeedData(feed: FeedData?) {

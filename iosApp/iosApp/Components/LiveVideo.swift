@@ -17,7 +17,7 @@ class LiveVideo : UICollectionViewCell {
         didSet {
             favoriteObservable?.close()
 
-            sessionTitle.text = card.session.title
+            sessionTitle.text = card.session.displayTitle
             speaker.text = card.speakers.map { (speaker) -> String in
                 speaker.fullName
             }.joined(separator: ", ")

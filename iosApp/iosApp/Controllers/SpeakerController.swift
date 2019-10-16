@@ -3,17 +3,19 @@ import UIKit
 import KotlinConfAPI
 import Nuke
 
-class SpeakerController : UIViewController {
+class SpeakerController : UIViewController, BaloonContainer, UIScrollViewDelegate {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var positionLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var talksContainer: UIStackView!
+    @IBOutlet weak var speakerScroll: UIScrollView!
 
     var speaker: SpeakerData!
 
     override func viewDidLoad() {
         nameLabel.text = speaker.fullName.uppercased()
+        speakerScroll.delegate = self
 
         if let profilePicture = speaker.profilePicture {
             Nuke.loadImage(with: URL(string: profilePicture)!, into: photoView)
@@ -31,6 +33,7 @@ class SpeakerController : UIViewController {
         for card in sessions {
             let view = SessionCardView()
             view.card = card
+            view.baloonContainer = self
             setupCard(view)
             talksContainer.addArrangedSubview(view)
             talksContainer.setCustomSpacing(5.0, after: view)
@@ -48,6 +51,22 @@ class SpeakerController : UIViewController {
 
     @IBAction func backButtonTouch(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
+    }
+
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        hide()
+    }
+
+    private var active: Baloon? = nil
+    func show(popup: Baloon) {
+        active?.hide()
+        active = popup
+    }
+
+    func hide() {
+        active?.hide()
+        active = nil
     }
 }
 

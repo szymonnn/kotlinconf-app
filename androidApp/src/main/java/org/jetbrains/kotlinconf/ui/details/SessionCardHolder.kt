@@ -4,6 +4,7 @@ import android.view.*
 import androidx.annotation.*
 import androidx.core.view.*
 import androidx.recyclerview.widget.*
+import com.brandongogetap.stickyheaders.exposed.*
 import io.ktor.utils.io.core.*
 import kotlinx.android.synthetic.main.activity_speaker.*
 import kotlinx.android.synthetic.main.view_schedule_header_large.view.*
@@ -34,7 +35,7 @@ internal class SessionCardHolder(private val view: View) : RecyclerView.ViewHold
             favoriteWatcher?.close()
             ratingWatcher?.close()
 
-            tweet_name.text = card.session.title
+            card_session_title.text = card.session.displayTitle
             card_session_speakers.text = card.speakers.joinToString { it.fullName }
             card_location_label.text = card.location.displayName()
             card_live_label.text = "Live now"
@@ -133,7 +134,7 @@ internal class SessionCardHolder(private val view: View) : RecyclerView.ViewHold
     private fun showSmallHeader(text: String, @ColorRes color: Int) {
         with(view) {
             schedule_header_text.apply {
-                this.text = text
+                this.text = text.repeat(100)
                 isSelected = true
                 setTextColor(color(color))
             }
@@ -142,7 +143,7 @@ internal class SessionCardHolder(private val view: View) : RecyclerView.ViewHold
 }
 
 sealed class ScheduleItem(val type: Int) {
-    class LargeHeader(val group: SessionGroup) : ScheduleItem(TYPE_LARGE)
+    class LargeHeader(val group: SessionGroup) : ScheduleItem(TYPE_LARGE), StickyHeader
     class SmallHeader(val text: String, @ColorRes val color: Int) : ScheduleItem(TYPE_SMALL)
     class Card(val card: SessionCard) : ScheduleItem(TYPE_CARD)
 

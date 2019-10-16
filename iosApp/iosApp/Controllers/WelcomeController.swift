@@ -19,40 +19,76 @@ class WelcomeController : UIPageViewController, UIPageViewControllerDelegate {
         dotsView.pageIndicatorTintColor = UIColor.dark20
         dotsView.currentPageIndicatorTintColor = UIColor.blackGray
     }
+
+    func showNextPage() -> Bool {
+        let controller = viewControllers!.first
+        let index = pages.firstIndex(of: controller!)!
+
+        let page = getPage(index: index + 1)
+        if (page == nil) {
+            return false
+        }
+
+        setViewControllers([page!], direction: .forward, animated: true, completion: nil)
+        return true
+    }
 }
 
 class WelcomePrivacyPolicyController : UIViewController {
+    @IBOutlet weak var nextButton: UIButton!
+
+    override func viewDidLoad() {
+        if (hasParentWelcome()) {
+            nextButton.setTitle("Next", for: .normal)
+        } else {
+            nextButton.setTitle("Close", for: .normal)
+        }
+    }
+
     @IBAction func acceptTouch(_ sender: Any) {
         Conference.acceptPrivacyPolicy()
-        navigationController?.popViewController(animated: true)
+        nextPage()
     }
     
     @IBAction func nextTouch(_ sender: Any) {
+        nextPage()
     }
 }
 
 class WelcomeLocationController : UIViewController {
+    @IBOutlet weak var nextButton: UIButton!
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if (hasParentWelcome()) {
+            nextButton.setTitle("Next", for: .normal)
+        } else {
+            nextButton.setTitle("Close", for: .normal)
+        }
+    }
+
     @IBAction func acceptTouch(_ sender: Any) {
+        Conference.requestLocationPermission()
+        nextPage()
     }
 
     @IBAction func nextTouch(_ sender: Any) {
+        nextPage()
     }
-
 }
 
 class WelcomeNotificationsController : UIViewController {
     @IBAction func acceptTouch(_ sender: Any) {
         Conference.requestNotificationPermissions()
+        close()
     }
 
     @IBAction func closeTouch(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        close()
     }
 }
 
-
 extension WelcomeController : UIPageViewControllerDataSource {
-
     func pageViewController(
         _ pageViewController: UIPageViewController,
         viewControllerBefore viewController: UIViewController
@@ -69,7 +105,7 @@ extension WelcomeController : UIPageViewControllerDataSource {
         return getPage(index: index + 1)
     }
 
-    private func getPage(index: Int) -> UIViewController? {
+    func getPage(index: Int) -> UIViewController? {
         if index < 0 || index >= pages.count {
             return nil
         }
@@ -83,6 +119,24 @@ extension WelcomeController : UIPageViewControllerDataSource {
 
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         return pages.firstIndex(of: pageViewController) ?? 0
+    }
+}
+
+private extension UIViewController {
+
+    func hasParentWelcome() -> Bool {
+        return (parent as? WelcomeController) != nil
+    }
+
+    func nextPage() {
+        let welcome = (parent as? WelcomeController)
+        if (welcome == nil || !welcome!.showNextPage()) {
+            close()
+        }
+    }
+
+    func close() {
+        navigationController?.popViewController(animated: true)
     }
 }
 

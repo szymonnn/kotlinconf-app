@@ -43,7 +43,10 @@ class MapController : Fragment() {
         setupTabs()
         setupMap()
 
-        map_bottom_sheet.setOnTouchListener { v, event -> true }
+        map_bottom_sheet.setOnTouchListener { view, _ ->
+            view.clearFocus()
+            true
+        }
 
         map_close_button.setOnClickListener {
             bottomCard(display = false)

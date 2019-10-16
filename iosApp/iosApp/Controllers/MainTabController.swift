@@ -6,6 +6,13 @@ import Nuke
 
 class MainTabController : UITabBarController {
     override func viewDidLoad() {
+        if (Conference.isFirstLaunch()) {
+            navigationController?.pushViewController(
+                createPage(name: "Welcome"),
+                animated: true
+            )
+        }
+
         Conference.errors.watch {error in
             self.showError(error: error!)
         }
@@ -14,7 +21,9 @@ class MainTabController : UITabBarController {
         super.viewDidLoad()
 
         navigationController?.isNavigationBarHidden = true
+    }
 
+    func updateHomeController() {
         let time = Conference.now()
         if (time.compareTo(other: TimeKt.CONFERENCE_START) < 0) {
             let mainBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -42,8 +51,6 @@ class MainTabController : UITabBarController {
               dataCache.sizeLimit = 200 * 1024 * 1024
               $0.dataCache = dataCache
         }
-
-        // 5
         ImagePipeline.shared = pipeline
     }
 }

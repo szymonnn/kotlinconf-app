@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -171,6 +169,7 @@
                         <constraint firstItem="25c-Th-RF0" firstAttribute="top" secondItem="VNB-wF-mU6" secondAttribute="top" id="6mp-ap-WQW"/>
                         <constraint firstItem="13Q-rN-deG" firstAttribute="leading" secondItem="hzf-2L-jzZ" secondAttribute="trailing" constant="20" id="89J-q8-q3Q"/>
                         <constraint firstItem="GRu-Nb-6pL" firstAttribute="leading" secondItem="jFW-4r-tgY" secondAttribute="trailing" constant="40" id="Agc-fb-hy1"/>
+                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="K0O-cM-RxV" secondAttribute="trailing" constant="3" id="BgO-1J-Wzq"/>
                         <constraint firstAttribute="height" constant="108" id="EQA-hn-PnP"/>
                         <constraint firstItem="du0-lW-nMf" firstAttribute="centerY" secondItem="GRu-Nb-6pL" secondAttribute="centerY" id="Edc-OF-rfu"/>
                         <constraint firstItem="13Q-rN-deG" firstAttribute="centerY" secondItem="l7p-F9-rnS" secondAttribute="centerY" id="FIw-6C-Y4Z"/>

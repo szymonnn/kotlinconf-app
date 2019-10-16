@@ -7,48 +7,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "6C659E92-E59C-458C-816D-C7DE7DCD19D7"
+            uuid = "5C27E5B7-2033-4227-A57F-A1463285A6DA"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iosApp/Components/SessionCardView.swift"
+            filePath = "iosApp/Controllers/HomeController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "setFavorite(favorite:)"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "onLiveSessions(sessions:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "29DE74F6-458F-4133-9C2A-73DA36C69B2F"
+            uuid = "963248DD-938B-487D-A794-95BF8480929A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "iosApp/Controllers/MainTabController.swift"
+            filePath = "iosApp/Controllers/SpeakerController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8A06D211-8A0E-465F-ABBC-E02AF4F8CF17"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "iosApp/Controllers/MainTabController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "scrollViewWillBeginDragging(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

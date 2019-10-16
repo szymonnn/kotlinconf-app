@@ -5,11 +5,16 @@ import Nuke
 
 class SpeakersController : UIViewController, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate {
     @IBOutlet weak var speakersList: UITableView!
-
     private var speakers: [SpeakerData] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        } else {
+            // Fallback on earlier versions
+        }
 
         speakersList.dataSource = self
         speakersList.delegate = self
@@ -34,10 +39,14 @@ class SpeakersController : UIViewController, UITableViewDataSource, UITableViewD
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1 //speakers.count
+        return 1
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if (section == speakers.count - 1) {
+            return 100
+        }
+        
         return 20
     }
 

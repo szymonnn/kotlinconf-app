@@ -1,18 +1,17 @@
 package org.jetbrains.kotlinconf.ui
 
+import android.content.*
 import android.os.*
 import android.view.*
+import android.widget.*
 import androidx.appcompat.app.*
 import androidx.core.view.*
-import androidx.recyclerview.widget.*
 import com.google.android.youtube.player.*
 import io.ktor.utils.io.core.*
 import kotlinx.android.synthetic.main.activity_session.*
-import kotlinx.android.synthetic.main.view_session_speakers_item.view.*
 import org.jetbrains.kotlinconf.*
 import org.jetbrains.kotlinconf.BuildConfig.*
 import org.jetbrains.kotlinconf.presentation.*
-import android.content.*
 
 class SessionActivity : AppCompatActivity() {
     private var favoriteWatcher: Closeable? = null
@@ -39,49 +38,41 @@ class SessionActivity : AppCompatActivity() {
         val card = KotlinConf.service.sessionCard(id)
         val session = card.session
 
-        session_title.text = session.title.toUpperCase()
+        session_title.text = session.displayTitle.toUpperCase()
 
-        session_speaker_list.apply {
-            layoutManager = LinearLayoutManager(context)
-            adapter = object : RecyclerView.Adapter<SpeakerNameViewHolder>() {
-                private val speakers = card.speakers
+        val speakers = card.speakers
 
-                override fun onCreateViewHolder(
-                    parent: ViewGroup,
-                    viewType: Int
-                ): SpeakerNameViewHolder {
-                    val view = layoutInflater.inflate(
-                        R.layout.view_session_speakers_item, parent, false
-                    )
-                    return SpeakerNameViewHolder(view)
-                }
+        fun showSpeaker(
+            speaker: SpeakerData?,
+            name: TextView,
+            icon: ImageView,
+            divider: ImageView
+        ) {
+            name.apply {
+                isVisible = speaker != null
+                if (speaker != null) {
+                    text = speaker.fullName
 
-                override fun getItemCount(): Int {
-                    return speakers.size
-                }
-
-                override fun onBindViewHolder(holder: SpeakerNameViewHolder, position: Int) {
-                    val speaker = speakers[position]
-                    holder.view.session_speaker.apply {
-                        text = speaker.fullName
-
-                        setOnClickListener {
-                            showActivity<SpeakerActivity> {
-                                putExtra("speaker", speaker.id)
-                            }
+                    setOnClickListener {
+                        showActivity<SpeakerActivity> {
+                            putExtra("speaker", speaker.id)
                         }
                     }
                 }
             }
+
+            icon.isVisible = speaker != null
+            divider.isVisible = speaker != null
         }
+
+        val speaker = if (speakers.isNotEmpty()) speakers[0] else null
+        showSpeaker(speaker, speaker_1_name, session_human_1, session_divider_11)
+        val speaker1 = if (speakers.size >= 2) speakers[1] else null
+        showSpeaker(speaker1, speaker_2_name, session_human_2, session_divider_2)
 
         session_location_text.text = card.location.displayName()
         session_description.text = session.descriptionText
         session_time_label.text = "${card.date} ${card.time}"
-
-        val hasSpeakers = card.speakers.isNotEmpty()
-        session_human.isVisible = hasSpeakers
-        session_divider_1.isVisible = hasSpeakers
 
         favoriteWatcher = card.isFavorite.watch {
             val image = if (it) {
@@ -132,6 +123,11 @@ class SessionActivity : AppCompatActivity() {
             startActivity(Intent.createChooser(sharingIntent, "Share"))
         }
 
+        val x = session_main.isInTouchMode
+        session_main.setOnTouchListener { _, _ ->
+            session_vote_popup.isVisible = false
+            false
+        }
         val videoView = fragmentManager
             .findFragmentById(R.id.session_video_view) as LiveVideoFragment
 
@@ -206,5 +202,3 @@ class LiveVideoFragment : YouTubePlayerFragment(), YouTubePlayer.OnInitializedLi
     }
 
 }
-
-private class SpeakerNameViewHolder(val view: View) : RecyclerView.ViewHolder(view)

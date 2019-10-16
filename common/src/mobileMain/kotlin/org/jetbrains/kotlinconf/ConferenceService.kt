@@ -139,16 +139,17 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
         launch {
             while (true) {
                 val now = now()
-                val diff = (CONFERENCE_START.timestamp - now.timestamp) / 1000
+                val diff = max(0, (CONFERENCE_START.timestamp - now.timestamp) / 1000)
+
+                val remaining = diff.toDuration(DurationUnit.SECONDS)
+                remaining.toComponents { days, hours, minutes, seconds, _ ->
+                    _beforeTimer.offer(Timestamp(days, hours, minutes, seconds))
+                }
 
                 if (diff <= 0) {
                     break
                 }
 
-                var remaining = diff.toDuration(DurationUnit.SECONDS)
-                remaining.toComponents { days, hours, minutes, seconds, _ ->
-                    _beforeTimer.offer(Timestamp(days, hours, minutes, seconds))
-                }
                 delay(1000)
             }
         }
@@ -291,7 +292,7 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
      * Get current time synchronized with server.
      */
     fun now(): GMTDate {
-        return GMTDate() + (requestTime.timestamp - serverTime.timestamp)
+        return GMTDate() + (serverTime.timestamp - requestTime.timestamp)
     }
 
     /**
@@ -446,7 +447,7 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
         val now = serverTime + TIMEZONE_OFFSET
 
         val result = sessions
-            .filter { it.startsAt <= now && now <= it.endsAt && !it.isPlenumSession && !it.isServiceSession }
+            .filter { it.startsAt <= now && now <= it.endsAt && !it.isServiceSession }
             .map { it.id }
             .toSet()
 
@@ -460,10 +461,11 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
             return
         }
 
-        val today = now().dayOfYear
+        val now = now()
+        val today = now.dayOfYear
         val cards = favorites
             .map { sessionCard(it) }
-            .filter { it.session.startsAt.dayOfYear == today }
+            .filter { it.session.startsAt.dayOfYear == today && it.session.endsAt >= now + TIMEZONE_OFFSET }
             .map { it.session.id }
             .toSet()
 

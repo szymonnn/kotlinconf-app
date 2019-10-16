@@ -8,17 +8,19 @@ enum Floor {
     case first
 }
 
-class VenueController : UIViewController, MGLMapViewDelegate {
+class VenueController : UIViewController, MGLMapViewDelegate, BaloonContainer, UIScrollViewDelegate {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var logoView: UIImageView!
     @IBOutlet weak var sessionsStack: UIStackView!
 
+    @IBOutlet weak var cardsScroll: UIScrollView!
     @IBOutlet weak var mapView: MGLMapView!
     @IBOutlet weak var dragBar: UIView!
     @IBOutlet weak var overlay: UIView!
 
     @IBOutlet weak var groundFloor: TopButton!
     @IBOutlet weak var firstFloor: TopButton!
+    @IBOutlet weak var distance: NSLayoutConstraint!
 
     private var initial: CGFloat = 44.0
     private var floor: Floor = .ground
@@ -33,15 +35,22 @@ class VenueController : UIViewController, MGLMapViewDelegate {
 
     ]
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+
         mapView.delegate = self
+        cardsScroll.delegate = self
 
         let gesture = UIPanGestureRecognizer(
             target: self,
-            action: #selector(VenueController.wasDragged(_:))
+            action: #selector(VenueController.onPan(_:))
         )
+
         dragBar.addGestureRecognizer(gesture)
         dragBar.isUserInteractionEnabled = true
 
@@ -57,6 +66,7 @@ class VenueController : UIViewController, MGLMapViewDelegate {
     }
 
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         hideDescription()
     }
 
@@ -93,53 +103,26 @@ class VenueController : UIViewController, MGLMapViewDelegate {
         }
     }
 
-    @objc func wasDragged(_ gestureRecognizer: UIPanGestureRecognizer) {
-        let translation = gestureRecognizer.translation(in: self.view)
+    private var start: CGFloat = 0
+    @objc func onPan(_ recognizer: UIPanGestureRecognizer) {
+        let state = recognizer.state
+        let translation = recognizer.translation(in: self.view)
+        let current = distance.constant
 
-        overlay.center = CGPoint(x: overlay.center.x, y: overlay.center.y + translation.y)
-        gestureRecognizer.setTranslation(CGPoint.zero, in: self.view)
+        if state == .began {
+            start = current
+        }
 
-        if gestureRecognizer.state == .ended {
-            let top = self.overlay.frame.origin.y
+        distance.constant += translation.y
+        recognizer.setTranslation(CGPoint.zero, in: self.view)
 
-            if (!descriptionActive && top - initial > 50) {
+        if state == .cancelled || state == .ended {
+            if (!descriptionActive && start - current > 50) {
                 showDescription()
-                return
-            }
-
-            if (descriptionActive && top < self.overlay.frame.height - 50) {
+            } else {
                 hideDescription()
-                return
             }
         }
-    }
-
-    func showDescription() {
-        descriptionActive = true
-
-        UIView.transition(
-            with: overlay,
-            duration: 0.3,
-            options: [],
-            animations: {
-                self.overlay.frame.origin.y = self.initial
-        },
-            completion: nil
-        )
-    }
-
-    func hideDescription() {
-        descriptionActive = false
-
-        UIView.transition(
-            with: overlay,
-            duration: 0.3,
-            options: [],
-            animations: {
-                self.overlay.frame.origin.y = self.overlay.frame.height - 100
-        },
-            completion: nil
-        )
     }
 
     @objc @IBAction func handleMapTap(sender: UITapGestureRecognizer) {
@@ -165,6 +148,7 @@ class VenueController : UIViewController, MGLMapViewDelegate {
         for card in cards {
             let view = SessionCardView()
             view.card = card
+            view.baloonContainer = self
             setupCard(view)
             sessionsStack.addArrangedSubview(view)
             sessionsStack.setCustomSpacing(5.0, after: view)
@@ -180,5 +164,37 @@ class VenueController : UIViewController, MGLMapViewDelegate {
            cardView.cleanup()
            sessionsStack.removeArrangedSubview(item)
         }
+    }
+
+    private func showDescription() {
+        descriptionActive = true
+        self.distance.constant = 50
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+
+    private func hideDescription() {
+        descriptionActive = false
+        hide()
+        self.distance.constant = self.view.frame.height - 200
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        hide()
+    }
+
+    private var active: Baloon? = nil
+    func show(popup: Baloon) {
+        active?.hide()
+        active = popup
+    }
+
+    func hide() {
+        active?.hide()
+        active = nil
     }
 }
