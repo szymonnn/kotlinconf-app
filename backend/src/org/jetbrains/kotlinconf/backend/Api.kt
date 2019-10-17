@@ -199,8 +199,8 @@ private fun Routing.apiSession() {
 
 private fun Routing.apiTwitter() {
     get("feed") {
-        call.respond(TextContent("{}", contentType = ContentType.Application.Json))
-//        call.respond(getFeedData())
+//        call.respond(TextContent("{}", contentType = ContentType.Application.Json))
+        call.respond(getFeedData())
     }
 }
 

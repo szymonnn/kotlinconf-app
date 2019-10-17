@@ -7,7 +7,6 @@ import androidx.fragment.app.*
 import androidx.navigation.*
 import androidx.recyclerview.widget.*
 import com.bumptech.glide.*
-import com.google.android.material.bottomnavigation.*
 import com.google.android.youtube.player.*
 import io.ktor.util.date.*
 import io.ktor.utils.io.core.*
@@ -109,11 +108,14 @@ class HomeController : Fragment() {
 
     @UseExperimental(ExperimentalTime::class)
     private fun View.setupTimer() {
-        KotlinConf.service.beforeTimer.watch { timestamp ->
+        lateinit var subscription: Closeable
+
+        subscription = KotlinConf.service.beforeTimer.watch { timestamp ->
             with(timestamp) {
                 if (listOf(days, hours, minutes, seconds).all { it == 0 }) {
                     val controller = activity?.findNavController(R.id.nav_host_fragment)
                     controller?.navigate(R.id.navigation_home)
+                    subscription.close()
                 }
                 before_days.text = days.toString()
                 before_hours.text = hours.toString()
@@ -336,6 +338,13 @@ class TweetHolder(private val view: View) : RecyclerView.ViewHolder(view) {
             tweet_name.text = post.user.name
             tweet_text.text = post.text
             tweet_time.text = post.displayDate()
+
+            val photoUrl = post.entities.media.map { it.media_url_https }.firstOrNull()
+            if (photoUrl != null) {
+                Glide.with(view)
+                    .load(photoUrl)
+                    .into(tweet_photo)
+            }
         }
     }
 }

@@ -121,6 +121,7 @@ extension UIFont {
 func TextWithLineHeight(text: String, height: CGFloat) -> NSAttributedString {
     let style = NSMutableParagraphStyle()
     style.minimumLineHeight = height
+    style.maximumLineHeight = height
 
     return NSAttributedString(string: text, attributes: [
         NSMutableAttributedString.Key.paragraphStyle: style

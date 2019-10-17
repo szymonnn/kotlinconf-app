@@ -74,7 +74,15 @@ class VenueController : UIViewController, MGLMapViewDelegate, BaloonContainer, U
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.tintColor = UIColor.deepSkyBlue
 
+        if (Conference.isLocationEnabled()) {
+            mapView.showsUserLocation = true
+        }
+
         showFloor()
+    }
+
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return Conference.isLocationEnabled()
     }
 
     @IBAction func groundFloorSelect(_ sender: Any) {

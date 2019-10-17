@@ -90,7 +90,10 @@ class ScheduleController : Fragment() {
         search_bar.visibility = View.VISIBLE
         tab_bar.visibility = View.GONE
         lastAdapter = listView.adapter
-        listView.adapter = search
+        listView.apply {
+            listView.adapter = search
+            layoutManager = StickyLayoutManager(context, search)
+        }
     }
 
     private fun View.stopSearch() {
@@ -99,13 +102,24 @@ class ScheduleController : Fragment() {
         search_box.setText("")
         search.query = ""
         search.notifyDataSetChanged()
-        listView.adapter = lastAdapter ?: schedule
+        listView.apply {
+            adapter = lastAdapter ?: schedule
+            layoutManager = StickyLayoutManager(context, (lastAdapter as? StickyHeaderHandler) ?: schedule)
+        }
     }
 
     private fun displayTab(id: Int) {
-        when (id) {
-            0 -> listView.adapter = schedule
-            else -> listView.adapter = favorites
+        listView.apply {
+            when (id) {
+                0 -> {
+                    adapter = schedule
+                    layoutManager = StickyLayoutManager(context, schedule)
+                }
+                else -> {
+                    adapter = favorites
+                    layoutManager = StickyLayoutManager(context, favorites)
+                }
+            }
         }
     }
 
@@ -173,7 +187,7 @@ class ScheduleController : Fragment() {
         override fun getAdapterData(): MutableList<*> = schedule
     }
 
-    internal inner class SearchAdapter : RecyclerView.Adapter<SessionCardHolder>() {
+    internal inner class SearchAdapter : RecyclerView.Adapter<SessionCardHolder>(), StickyHeaderHandler {
         var data: List<SessionCard> = emptyList()
             set(value) {
                 field = value
@@ -186,7 +200,7 @@ class ScheduleController : Fragment() {
                 updateSearchResults()
             }
 
-        private var searchResults: List<SessionCard> = emptyList()
+        private var searchResults: MutableList<SessionCard> = mutableListOf()
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SessionCardHolder {
             val holder = layoutInflater.inflate(R.layout.view_schedule_session_card, parent, false)
@@ -199,12 +213,20 @@ class ScheduleController : Fragment() {
             holder.show(ScheduleItem.Card(searchResults[position]))
         }
 
+        override fun getAdapterData(): MutableList<*> = searchResults
+
         private fun updateSearchResults() {
-            searchResults = data.filter {
-                val speakers = it.speakers.joinToString { it.fullName.toLowerCase() }
-                val room = it.location.name.toLowerCase()
-                query in it.session.title.toLowerCase() || query in speakers || query in room
+            val result = mutableListOf<SessionCard>().apply {
+                addAll(
+                    data.filter {
+                        val speakers = it.speakers.joinToString { it.fullName.toLowerCase() }
+                        val room = it.location.name.toLowerCase()
+                        query in it.session.title.toLowerCase() || query in speakers || query in room
+                    }
+                )
             }
+
+            searchResults = result
         }
     }
 }

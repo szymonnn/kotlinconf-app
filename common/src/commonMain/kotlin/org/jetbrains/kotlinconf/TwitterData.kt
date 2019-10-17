@@ -11,7 +11,8 @@ class FeedData(
 class FeedPost(
     val created_at: String,
     val text: String,
-    val user: FeedUser
+    val user: FeedUser,
+    val entities: FeedEntities
 )
 
 @Serializable
@@ -19,4 +20,16 @@ class FeedUser(
     val name: String,
     val profile_image_url_https: String,
     val screen_name: String
+)
+
+@Serializable
+class FeedEntities(
+    val media: List<FeedMedia> = emptyList()
+)
+
+@Serializable
+class FeedMedia(
+    val media_url: String? = null,
+    val media_url_https: String? = null,
+    val type: String? = null
 )

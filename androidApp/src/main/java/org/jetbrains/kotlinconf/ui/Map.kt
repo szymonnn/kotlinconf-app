@@ -170,7 +170,7 @@ class MapController : Fragment() {
     private fun View.showFloor(index: Int) {
         map_mapview.getMapAsync { map ->
             map.setStyle(floors[index]) { style ->
-                val tracking = PermissionsManager.areLocationPermissionsGranted(context)
+                val tracking = KotlinConf.service.isLocationEnabled()
                 map_track.isVisible = tracking
                 if (tracking) {
                     val options = LocationComponentActivationOptions

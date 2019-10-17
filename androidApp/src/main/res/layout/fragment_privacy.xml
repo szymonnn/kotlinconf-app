@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="59dp"
@@ -52,26 +52,27 @@
         <TextView
             android:id="@+id/privacy_policy_text"
             android:layout_width="361dp"
-            android:layout_height="54dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="28dp"
             android:layout_marginTop="25dp"
             android:layout_marginRight="28dp"
-
             android:lineSpacingExtra="9sp"
             android:textColor="@color/dark_grey"
             android:textSize="15sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/privacy_logo"
-            android:text="Please accept privacy policy to use favorites and vote"
+            android:text="@string/privacy_description"
         />
 
         <LinearLayout
+            android:layout_marginTop="25dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/privacy_policy_text"
         >
             <Button
                 android:id="@+id/welcome_privacy_accept"

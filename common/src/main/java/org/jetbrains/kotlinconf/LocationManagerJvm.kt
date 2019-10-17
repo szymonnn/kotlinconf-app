@@ -4,9 +4,9 @@ import com.mapbox.android.core.permissions.*
 import org.jetbrains.kotlinconf.storage.*
 
 actual class LocationManager actual constructor(private val context: ApplicationContext) {
-    actual suspend fun requestPermission(): Boolean {
+    actual fun requestPermission() {
         if (PermissionsManager.areLocationPermissionsGranted(context.activity)) {
-            return true
+            return
         }
 
         val handler = object : PermissionsListener {
@@ -14,6 +14,7 @@ actual class LocationManager actual constructor(private val context: Application
             override fun onPermissionResult(granted: Boolean) {}
         }
         PermissionsManager(handler).requestLocationPermissions(context.activity)
-        return true
     }
+
+    actual fun isEnabled(): Boolean = PermissionsManager.areLocationPermissionsGranted(context.activity)
 }

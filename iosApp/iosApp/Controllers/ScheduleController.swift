@@ -264,8 +264,7 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
 
         let textHeight = (view as? ScheduleTableHeader)?.titleLabel?.frame.height
         if (textHeight != nil) {
-
-            return textHeight! + 40
+            return textHeight! + 40 + 15
         }
 
         return 42

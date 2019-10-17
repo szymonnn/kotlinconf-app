@@ -1,4 +1,5 @@
 import UIKit
+import CoreLocation
 
 class WelcomeController : UIPageViewController, UIPageViewControllerDelegate {
     private(set) lazy var pages: [UIViewController] = {
@@ -36,6 +37,7 @@ class WelcomeController : UIPageViewController, UIPageViewControllerDelegate {
 
 class WelcomePrivacyPolicyController : UIViewController {
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var privacyPolicy: UILabel!
 
     override func viewDidLoad() {
         if (hasParentWelcome()) {
@@ -43,20 +45,31 @@ class WelcomePrivacyPolicyController : UIViewController {
         } else {
             nextButton.setTitle("Close", for: .normal)
         }
+
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(openPrivacyPolicy(_:)))
+        privacyPolicy.addGestureRecognizer(recognizer)
     }
 
     @IBAction func acceptTouch(_ sender: Any) {
         Conference.acceptPrivacyPolicy()
         nextPage()
     }
-    
+
+    @objc func openPrivacyPolicy(_ sender: Any) {
+        let url = URL(string: "https://www.jetbrains.com/company/privacy.html")
+        UIApplication.shared.open(url!)
+
+    }
+
     @IBAction func nextTouch(_ sender: Any) {
         nextPage()
     }
 }
 
-class WelcomeLocationController : UIViewController {
+class WelcomeLocationController : UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var nextButton: UIButton!
+    private let manager = CLLocationManager()
+
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -69,6 +82,13 @@ class WelcomeLocationController : UIViewController {
 
     @IBAction func acceptTouch(_ sender: Any) {
         Conference.requestLocationPermission()
+        let status = CLLocationManager.authorizationStatus()
+        if status == .notDetermined {
+            manager.delegate = self
+            manager.requestWhenInUseAuthorization()
+        }
+    }
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         nextPage()
     }
 

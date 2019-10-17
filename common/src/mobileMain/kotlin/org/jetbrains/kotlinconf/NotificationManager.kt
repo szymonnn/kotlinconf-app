@@ -12,8 +12,3 @@ expect class NotificationManager(context: ApplicationContext) {
 
     fun cancel(sessionData: SessionData)
 }
-
-
-expect class LocationManager(context: ApplicationContext) {
-    suspend fun requestPermission(): Boolean
-}

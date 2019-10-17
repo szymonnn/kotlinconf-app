@@ -123,7 +123,6 @@ class SessionActivity : AppCompatActivity() {
             startActivity(Intent.createChooser(sharingIntent, "Share"))
         }
 
-        val x = session_main.isInTouchMode
         session_main.setOnTouchListener { _, _ ->
             session_vote_popup.isVisible = false
             false

@@ -146,10 +146,6 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
                     _beforeTimer.offer(Timestamp(days, hours, minutes, seconds))
                 }
 
-                if (diff <= 0) {
-                    break
-                }
-
                 delay(1000)
             }
         }
@@ -174,7 +170,7 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
     }
 
     fun isLocationEnabled(): Boolean {
-        return locationAllowed
+        return locationAllowed && locationManager.isEnabled()
     }
 
     /**
@@ -338,9 +334,8 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
      * Request permissions to get location.
      */
     fun requestLocationPermission() {
-        launch {
-            locationAllowed = locationManager.requestPermission()
-        }
+        locationAllowed = true
+        locationManager.requestPermission()
     }
 
     /**

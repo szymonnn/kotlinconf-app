@@ -1,9 +1,17 @@
 package org.jetbrains.kotlinconf
 
 import org.jetbrains.kotlinconf.storage.*
+import platform.CoreLocation.*
 
 actual class LocationManager actual constructor(context: ApplicationContext) {
-    actual suspend fun requestPermission(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    actual fun requestPermission(): Unit = Unit
+
+    actual fun isEnabled(): Boolean {
+        val status: CLAuthorizationStatus = CLLocationManager.authorizationStatus()
+        return status in setOf(
+            kCLAuthorizationStatusAuthorized,
+            kCLAuthorizationStatusAuthorizedAlways,
+            kCLAuthorizationStatusAuthorizedWhenInUse
+        )
     }
 }

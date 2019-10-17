@@ -46,7 +46,7 @@ class SessionController: UIViewController, UIScrollViewDelegate {
         voteBar.isHidden = true
 
         // Title
-        titleLabel.text = session.title.uppercased()
+        titleLabel.attributedText = TextWithLineHeight(text: session.title.uppercased(), height: 57)
 
         // Description
 
@@ -78,7 +78,8 @@ class SessionController: UIViewController, UIScrollViewDelegate {
         }
 
         // Location
-        locationLabel.setTitle(" " + card.location.name, for: .normal)
+
+        locationLabel.setTitle(card.location.displayName(), for: .normal)
 
         // Favorite
         favoriteObserver = card.isFavorite.watch { isFavorite in
@@ -140,9 +141,9 @@ class SessionController: UIViewController, UIScrollViewDelegate {
     }
 
     @IBAction func shareTouch(_ sender: Any) {
-        let items = [card.session.url]
+        let url = URL(string: card.session.url)!
+        let items: [Any] = [card.session.displayTitle, url]
         let share = UIActivityViewController(activityItems: items, applicationActivities: nil)
-
         present(share, animated: true)
     }
 

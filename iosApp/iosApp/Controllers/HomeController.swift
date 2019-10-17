@@ -55,8 +55,8 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
         videosView.isHidden = hidden
         liveLabel.isHidden = hidden
         if (hidden) {
-            liveHider.priority = UILayoutPriority(rawValue: 1000)
-            videosHider.priority = UILayoutPriority(rawValue: 1000)
+            liveHider.priority = UILayoutPriority(rawValue: 999)
+            videosHider.priority = UILayoutPriority(rawValue: 999)
         } else {
             liveHider.priority = UILayoutPriority(rawValue: 1)
             videosHider.priority = UILayoutPriority(rawValue: 1)
@@ -71,8 +71,8 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
         dontMissLabel.isHidden = hidden
         upcomingFavorites.isHidden = hidden
         if (hidden) {
-            dontMissHider.priority = UILayoutPriority(rawValue: 1000)
-            cardsHider.priority = UILayoutPriority(rawValue: 1000)
+            dontMissHider.priority = UILayoutPriority(rawValue: 999)
+            cardsHider.priority = UILayoutPriority(rawValue: 999)
         } else {
             dontMissHider.priority = UILayoutPriority(rawValue: 1)
             cardsHider.priority = UILayoutPriority(rawValue: 1)

@@ -1,10 +1,12 @@
 package org.jetbrains.kotlinconf.ui
 
+import android.content.*
+import android.net.*
 import android.os.*
+import android.text.*
 import android.view.*
 import android.view.View.*
 import androidx.appcompat.app.*
-import androidx.core.view.*
 import androidx.fragment.app.*
 import kotlinx.android.synthetic.main.activity_welcome.*
 import kotlinx.android.synthetic.main.fragment_location.view.*
@@ -50,6 +52,13 @@ internal class PrivacyPolicyFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? = inflater.inflate(R.layout.fragment_privacy, container, false).apply {
+        privacy_policy_text.text = Html.fromHtml(getString(R.string.privacy_description))
+
+        privacy_policy_text.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.jetbrains.com/company/privacy.html"))
+            startActivity(intent)
+        }
+
         welcome_privacy_accept.setOnClickListener {
             KotlinConf.service.acceptPrivacyPolicy()
             activity!!.welcome_pager.currentItem += 1
