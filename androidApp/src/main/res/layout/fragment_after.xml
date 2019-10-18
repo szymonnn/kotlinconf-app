@@ -42,9 +42,7 @@
                 android:layout_marginRight="24dp"
                 android:layout_marginEnd="24dp"
                 android:fontFamily="@font/druk_font"
-                android:text="IS OVER.
-THANK YOU ALL.
-IT WAS GREAT"
+                android:text="IS OVER.\nTHANK YOU ALL.\nIT WAS GREAT"
                 android:textColor="@color/white"
                 android:textSize="80sp"
                 android:lineSpacingExtra="-8sp"

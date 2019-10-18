@@ -77,6 +77,10 @@ private class SpeakerViewHolder(private val speakerView: View) : RecyclerView.Vi
             Glide.with(this)
                 .load(picture)
                 .into(speaker_photo)
+
+            speaker_photo.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply {
+                setSaturation(0f)
+            })
         }
     }
 }

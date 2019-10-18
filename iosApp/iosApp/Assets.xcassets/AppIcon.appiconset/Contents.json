@@ -141,8 +141,9 @@
       "scale" : "2x"
     },
     {
-      "idiom" : "ios-marketing",
       "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "appicon_1024.png",
       "scale" : "1x"
     },
     {
@@ -202,14 +203,8 @@
     {
       "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "appicon_1024.png",
+      "filename" : "appicon_1024-1.png",
       "scale" : "2x"
-    },
-    {
-      "size" : "120x120",
-      "idiom" : "car",
-      "filename" : "appicon_120.png",
-      "scale" : "1x"
     }
   ],
   "info" : {

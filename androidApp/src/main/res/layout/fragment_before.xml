@@ -18,7 +18,7 @@
             <TextView
                 android:id="@+id/kotlinconf_title"
                 android:layout_width="match_parent"
-                android:layout_height="75sp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginEnd="24dp"
@@ -37,11 +37,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="-5dp"
                 android:layout_marginLeft="24dp"
                 android:fontFamily="@font/druk_font"
-                android:text="IS JUST
-AROUND
-THE CORNER"
+                android:text="IS JUST\nAROUND\nTHE CORNER"
                 android:textColor="@color/white"
                 android:textSize="80sp"
                 app:layout_constraintEnd_toEndOf="parent"

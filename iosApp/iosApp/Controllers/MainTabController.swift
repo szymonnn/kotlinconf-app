@@ -18,6 +18,7 @@ class MainTabController : UITabBarController {
         }
 
         setupDiskCache()
+        updateHomeController()
         super.viewDidLoad()
 
         navigationController?.isNavigationBarHidden = true
@@ -35,11 +36,11 @@ class MainTabController : UITabBarController {
 
         } else if (time.compareTo(other: TimeKt.CONFERENCE_END) > 0) {
             let mainBoard = UIStoryboard(name: "Main", bundle: nil)
-            let beforeView = mainBoard.instantiateViewController(
+            let afterView = mainBoard.instantiateViewController(
                 withIdentifier: "After"
             )
 
-            viewControllers?[0] = beforeView
+            viewControllers?[0] = afterView
         }
     }
 

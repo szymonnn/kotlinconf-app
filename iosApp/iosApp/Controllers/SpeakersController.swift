@@ -83,11 +83,28 @@ class SpeakerCellView : UITableViewCell {
             speakerName.text = speaker.fullName.uppercased()
             speakerPosition.text = speaker.tagLine
 
+            let colorParams: [String: Any] = [
+                "inputSaturation": "0.0",
+                "inputContrast": "0.93"
+            ]
+
             if let profilePicture = speaker.profilePicture {
-                Nuke.loadImage(
-                    with: URL(string: profilePicture)!,
-                    into: speakerPhoto
+                let request = ImageRequest(
+                    url: URL(string: profilePicture)!,
+                    processors: [ImageProcessor.CoreImageFilter(
+                        name: "CIColorControls",
+                        parameters: colorParams,
+                        identifier: "CIColorControls"
+                    )]
                 )
+
+                Nuke.loadImage(with: request, into: speakerPhoto)
+
+//
+//                Nuke.loadImage(
+//                    with:
+//                    into: speakerPhoto
+//                )
             }
         }
     }

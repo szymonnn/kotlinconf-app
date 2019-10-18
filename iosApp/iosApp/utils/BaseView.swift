@@ -31,7 +31,8 @@ extension UIViewController {
             title = "Not Allowed"
             errorMessage = "Rating is only permitted up to 15 minutes after the session end"
         default:
-            errorMessage = "Unknown Error"
+            return
+//            errorMessage = "Unknown Error"
         }
         
         self.showError(title: title, message: errorMessage)

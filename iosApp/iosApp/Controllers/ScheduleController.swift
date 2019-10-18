@@ -271,12 +271,9 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if (section == currentTable.count - 1) {
-            return 50
-        }
-
         return 0
     }
+
     private let bounceGap = CGFloat(10.0)
     private var startOffset = CGFloat(0.0)
 
