@@ -13,14 +13,14 @@ let partnersNames = [
 ]
 
 let partnersLogos = [
-    "android": "logoAndroid",
-    "47": "logo47",
-    "freenow": "logoFreenow",
-    "bitrise": "logoBitrise",
-    "instill": "logoInstl",
-    "gradle": "logoGradle",
-    "n26": "logoN26",
-    "kodein": "logoKodein"
+    "android": "logoAndroidBig",
+    "47": "logo47Big",
+    "freenow": "logoFreenowBig",
+    "bitrise": "logoBitriseBig",
+    "instill": "logoInstlBig",
+    "gradle": "logoGradleBig",
+    "n26": "logoN26Big",
+    "kodein": "logoKodeinBig"
 ]
 
 let ConfPartners = Partners()
@@ -40,10 +40,14 @@ class PartnerController : UIViewController {
 
         let name = partnersNames[partnerId]
         let partner = ConfPartners.partner(name: name)
+
+        if (partner == nil) {
+            return
+        }
         
-        titleText.text = partner.title
+        titleText.text = partner!.title
         partnerDescription.text = ConfPartners.descriptionByName(name: name)
-        partnerLink.setTitle(partner.url, for: .normal)
+        partnerLink.setTitle(partner!.url, for: .normal)
         
         logo.image = UIImage(named: partnersLogos[name]!)
     }

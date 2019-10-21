@@ -3,12 +3,12 @@ package org.jetbrains.kotlinconf.ui
 import android.graphics.*
 import android.os.*
 import android.view.*
+import android.widget.*
 import androidx.core.view.*
 import androidx.fragment.app.*
 import androidx.recyclerview.widget.*
 import com.google.android.material.bottomsheet.*
 import com.google.android.material.tabs.*
-import com.mapbox.android.core.permissions.*
 import com.mapbox.mapboxsdk.location.*
 import com.mapbox.mapboxsdk.location.modes.*
 import com.mapbox.mapboxsdk.maps.*
@@ -115,8 +115,14 @@ class MapController : Fragment() {
                 KotlinConf.service.roomByMapName(features)?.let {
                     showRoom(it)
                     bottomCard(display = true)
+                    return@addOnMapClickListener true
                 }
 
+                val partner = features.mapNotNull { Partners.partnerByRoomName(it) }.firstOrNull()
+                    ?: return@addOnMapClickListener true
+
+                showPartner(partner)
+                bottomCard(display = true)
                 return@addOnMapClickListener true
             }
         }
@@ -130,9 +136,28 @@ class MapController : Fragment() {
         }
     }
 
+    private fun showPartner(partner: Partner) {
+        map_room_name.text = partner.title.toUpperCase()
+        map_room_photo.apply {
+            val logo = PARTNER_LOGOS[partner.key]
+            setImageResource(logo!!)
+            scaleType = ImageView.ScaleType.FIT_CENTER
+        }
+
+        map_room_description.text = Partners.descriptionByName(partner.key)
+        map_room_description.visibility = View.VISIBLE
+        map_room_cards.visibility = View.GONE
+        map_card_scroll.smoothScrollTo(0, 0)
+    }
+
     private fun showRoom(room: RoomData) {
         map_room_name.text = room.displayName().toUpperCase()
-        map_room_photo.setImageResource(roomPhoto[room.id]!!)
+        map_room_photo.apply {
+            scaleType = ImageView.ScaleType.CENTER_CROP
+            setImageResource(roomPhoto[room.id]!!)
+        }
+        map_room_description.visibility = View.GONE
+        map_room_cards.visibility = View.VISIBLE
 
         val cards = KotlinConf.service.roomSessions(room.id)
 

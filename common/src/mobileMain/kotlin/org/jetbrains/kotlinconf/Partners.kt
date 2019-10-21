@@ -1,46 +1,25 @@
 package org.jetbrains.kotlinconf
 
-class Partner(val title: String, val url: String)
+class Partner(
+    val key: String,
+    val title: String,
+    val url: String,
+    val mapName: String
+)
 
 object Partners {
-    private val all = listOf(
-        "android",
-        "47",
-        "freenow",
-        "bitrise",
-        "instill",
-        "gradle",
-        "n26",
-        "kodein",
-        "data2viz",
-        "pleo",
-        "shape",
-        "touchlab",
-        "cash",
-        "bignerdranch",
-        "manning",
-        "pretix",
-        "stickermule"
-    )
-
-    private val partners = mapOf(
-        "android" to Partner("Android", "https://developer.android.com/"),
-        "47" to Partner("47 degrees", "https://www.47deg.com"),
-        "freenow" to Partner("FREE NOW", "https://free-now.com/"),
-        "bitrise" to Partner("Bitrise", "https://www.bitrise.io/"),
-        "instill" to Partner("Instill", "https://www.instil.co"),
-        "gradle" to Partner("Gradle", "https://gradle.com/"),
-        "n26" to Partner("N26", "https://n26.com/"),
-        "kodein" to Partner("Kodein", "https://kodein.net"),
-        "data2viz" to Partner("Data2Viz", "https://data2viz.io/"),
-        "pleo" to Partner("Pleo", "https://www.pleo.io"),
-        "shape" to Partner("Shape", "https://www.shape.dk/"),
-        "touchlab" to Partner("Touchlab", "https://touchlab.co/"),
-        "cash" to Partner("Cash", "https://cash.app/"),
-        "bignerdranch" to Partner("", ""),
-        "manning" to Partner("", ""),
-        "pretix" to Partner("", ""),
-        "stickermule" to Partner("", "")
+    private val partners = listOf(
+        Partner("android", "Android", "https://developer.android.com/", "partner table-android"),
+        Partner("47", "47 degrees", "https://www.47deg.com", "partner table-47"),
+        Partner("freenow", "FREE NOW", "https://free-now.com/", "partner table-freenow"),
+        Partner("bitrise", "Bitrise", "https://www.bitrise.io/", "partner table-bitrise"),
+        Partner("instill", "Instill", "https://www.instil.co", "partner table-instil"),
+        Partner("gradle", "Gradle", "https://gradle.com/", "partner table-gradle"),
+        Partner("n26", "N26", "https://n26.com/", "partner table-n26"),
+        Partner("kodein", "Kodein", "https://kodein.net", "partner table-kodein"),
+        Partner("data2viz", "Data2Viz", "https://data2viz.io/", "partner table-data2viz"),
+        Partner("pleo", "Pleo", "https://www.pleo.io", "partner table-pleo"),
+        Partner("shape", "Shape", "https://www.shape.dk/", "partner table-shape")
     )
 
     private val descriptions = mutableMapOf(
@@ -54,16 +33,12 @@ object Partners {
         "kodein" to "Kodein Koders is the first startup in Europe to be entirely dedicated to Kotlin, anywhere Kotlin goes! From the ground up, we invested into making the Kodein Framework the first Open-Source Kotlin/Multiplatform Framework.",
         "data2viz" to "Data2viz is a company that creates libraries and tools for data-visualizations. We base our solutions on Kotlin, deeply convinced by the vast benefits it can provide to manipulate data and render the visualizations on different platforms: mobiles, web, and desktop.",
         "pleo" to "Pleo is a fundamentally new way to manage company expenses. Offering smart payment cards to employees, Pleo enables everyone to buy whatever they need for work, all the while making sure the company remains in full control of spending.",
-        "shape" to "Shape is an award winning digital product studio. We are a team of 70+ devoted in-house developers, designers and strategists that combine innovation with digital craftsmanship to deliver lasting products for mobile and beyond.",
-        "touchlab" to "",
-        "cash" to "",
-        "bignerdranch" to "",
-        "manning" to "",
-        "pretix" to "",
-        "stickermule" to ""
+        "shape" to "Shape is an award winning digital product studio. We are a team of 70+ devoted in-house developers, designers and strategists that combine innovation with digital craftsmanship to deliver lasting products for mobile and beyond."
     )
 
-    fun partner(name: String): Partner = partners[name]!!
+    fun partner(name: String): Partner? = partners.find { name == it.key }
+
+    fun partnerByRoomName(name: String): Partner? = partners.find { it.mapName == name }
 
     fun descriptionByName(name: String): String = descriptions[name] ?: ""
 }

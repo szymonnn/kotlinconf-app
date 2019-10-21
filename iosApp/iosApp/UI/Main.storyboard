@@ -1455,24 +1455,33 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7oV-oo-1On" userLabel="Content View">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="keynote" translatesAutoresizingMaskIntoConstraints="NO" id="645-zX-Eev" userLabel="Photo">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="keynote" translatesAutoresizingMaskIntoConstraints="NO" id="645-zX-Eev" userLabel="Photo">
                                                         <rect key="frame" x="24" y="0.0" width="366" height="162"/>
                                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="162" id="PhM-mI-5xw"/>
                                                         </constraints>
                                                     </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r5t-nc-ro3" userLabel="Description">
+                                                        <rect key="frame" x="24" y="181" width="366" height="18"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                        <color key="textColor" red="0.1529411765" green="0.15686274510000001" blue="0.17254901959999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QAT-Ye-biv" userLabel="Sessions">
                                                         <rect key="frame" x="8" y="170" width="398" height="478"/>
                                                     </stackView>
                                                 </subviews>
                                                 <color key="tintColor" name="white"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="r5t-nc-ro3" secondAttribute="trailing" constant="24" id="01W-wv-b3m"/>
                                                     <constraint firstItem="QAT-Ye-biv" firstAttribute="top" secondItem="645-zX-Eev" secondAttribute="bottom" constant="8" id="4XE-AN-ba7"/>
                                                     <constraint firstItem="645-zX-Eev" firstAttribute="centerX" secondItem="QAT-Ye-biv" secondAttribute="centerX" id="I4n-sl-dpN"/>
+                                                    <constraint firstItem="r5t-nc-ro3" firstAttribute="top" secondItem="645-zX-Eev" secondAttribute="bottom" constant="19" id="Ixt-OL-0Pp"/>
                                                     <constraint firstAttribute="trailing" secondItem="645-zX-Eev" secondAttribute="trailing" constant="24" id="KYS-fo-t9A"/>
                                                     <constraint firstItem="645-zX-Eev" firstAttribute="top" secondItem="7oV-oo-1On" secondAttribute="top" id="doM-AH-Keg"/>
                                                     <constraint firstAttribute="trailing" secondItem="QAT-Ye-biv" secondAttribute="trailing" constant="8" id="g4D-FK-1d1"/>
+                                                    <constraint firstItem="r5t-nc-ro3" firstAttribute="leading" secondItem="7oV-oo-1On" secondAttribute="leading" constant="24" id="k7D-7T-xya"/>
                                                     <constraint firstAttribute="bottom" secondItem="QAT-Ye-biv" secondAttribute="bottom" constant="77" id="kM6-Uq-HaE"/>
                                                     <constraint firstItem="QAT-Ye-biv" firstAttribute="leading" secondItem="7oV-oo-1On" secondAttribute="leading" constant="8" id="lUy-RE-YKz"/>
                                                     <constraint firstItem="645-zX-Eev" firstAttribute="leading" secondItem="7oV-oo-1On" secondAttribute="leading" constant="24" id="zWh-O1-m6i"/>
@@ -1537,6 +1546,7 @@
                         <outlet property="logoView" destination="645-zX-Eev" id="AhC-4j-4TR"/>
                         <outlet property="mapView" destination="Dga-iC-aVV" id="4j6-Ih-Mrr"/>
                         <outlet property="overlay" destination="tcu-QK-Od0" id="T4V-wY-3Lo"/>
+                        <outlet property="partnerDescription" destination="r5t-nc-ro3" id="ksu-oL-jZw"/>
                         <outlet property="sessionsStack" destination="QAT-Ye-biv" id="Yqz-Hl-wh1"/>
                         <outlet property="titleLabel" destination="5Rz-ry-gWa" id="IKn-9M-FZX"/>
                     </connections>

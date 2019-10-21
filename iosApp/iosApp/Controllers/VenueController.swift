@@ -12,6 +12,7 @@ class VenueController : UIViewController, MGLMapViewDelegate, BaloonContainer, U
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var logoView: UIImageView!
     @IBOutlet weak var sessionsStack: UIStackView!
+    @IBOutlet weak var partnerDescription: UILabel!
 
     @IBOutlet weak var cardsScroll: UIScrollView!
     @IBOutlet weak var mapView: MGLMapView!
@@ -32,7 +33,6 @@ class VenueController : UIViewController, MGLMapViewDelegate, BaloonContainer, U
         7974: "aud 15",
         7975: "coding room 17",
         7976: "workshop room 20"
-
     ]
 
 
@@ -141,17 +141,31 @@ class VenueController : UIViewController, MGLMapViewDelegate, BaloonContainer, U
         }.filter { $0 != nil }
 
         let room = Conference.roomByMapName(namesInArea: features as! [String])
-        if (room == nil) {
+        if (room != nil) {
+            showCard(room: room!)
+            showDescription()
             return
         }
 
-        showCard(room: room!)
+        let partners = features.map { name in
+             ConfPartners.partnerByRoomName(name: name!)
+        }.filter { $0 != nil }
+
+        if (partners.count > 0) {
+            showPartner(partner: partners.first!!)
+            showDescription()
+            return
+        }
+
+        showPartner(partner: ConfPartners.partnerByRoomName(name: "partner table-n26")!)
         showDescription()
     }
 
     private func showCard(room: RoomData) {
         cleanupCards()
         let cards = Conference.roomSessions(roomId: room.id)
+        partnerDescription.isHidden = true
+        sessionsStack.isHidden = false
 
         for card in cards {
             let view = SessionCardView()
@@ -164,6 +178,18 @@ class VenueController : UIViewController, MGLMapViewDelegate, BaloonContainer, U
 
         titleLabel.text = room.displayName().uppercased()
         logoView.image = UIImage(named: mapPhotos[Int(room.id)]!)
+        logoView.contentMode = .scaleAspectFill
+    }
+
+    private func showPartner(partner: Partner) {
+        cleanupCards()
+        sessionsStack.isHidden = true
+        partnerDescription.isHidden = false
+
+        titleLabel.text = partner.title.uppercased()
+        partnerDescription.attributedText = TextWithLineHeight(text: ConfPartners.descriptionByName(name: partner.key), height: 24)
+        logoView.image = UIImage(named: partnersLogos[partner.key]!)
+        logoView.contentMode = .center
     }
 
     private func cleanupCards() {
