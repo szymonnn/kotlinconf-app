@@ -197,7 +197,5 @@ class LiveVideoFragment : YouTubePlayerFragment(), YouTubePlayer.OnInitializedLi
         provider: YouTubePlayer.Provider,
         result: YouTubeInitializationResult
     ) {
-        println("")
     }
-
 }

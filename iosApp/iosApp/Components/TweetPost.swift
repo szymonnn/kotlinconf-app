@@ -29,6 +29,8 @@ class TweetPost : UICollectionViewCell {
 
             if (links.count > 0) {
                 Nuke.loadImage(with: URL(string: links[0]!)!, into: media)
+            } else {
+                media.image = nil
             }
         }
     }

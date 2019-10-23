@@ -15,8 +15,8 @@ import kotlin.native.concurrent.ThreadLocal
  */
 @ThreadLocal
 internal object ClientApi {
-    val endpoint = "https://konf-staging.kotlin-aws.intellij.net/"
-//    val endpoint = "http://172.30.162.37:8080"
+//    val endpoint = "https://konf-staging.kotlin-aws.intellij.net/"
+    val endpoint = "http://172.30.162.37:8080"
 //    val endpoint = "http://10.0.2.2:8080"
 //    val endpoint = "http://0.0.0.0:8080"
 
@@ -44,9 +44,8 @@ internal object ClientApi {
     /**
      * @return status of request.
      */
-    suspend fun sign(userId: String): Boolean = client.request<HttpResponse> {
+    suspend fun sign(userId: String): Boolean = client.post<HttpResponse> {
         apiUrl("users")
-        method = HttpMethod.Post
         body = userId
     }.use {
         it.status.isSuccess()
@@ -57,7 +56,7 @@ internal object ClientApi {
      * Load favorites and votes info if [userId] provided.
      */
     suspend fun getAll(userId: String?): ConferenceData = client.get {
-        apiUrl("all", userId)
+        apiUrl("all2019", userId)
     }
 
     /**
