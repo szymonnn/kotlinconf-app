@@ -26,6 +26,7 @@ class SessionCardView : UIView, Baloon {
 
     @IBOutlet weak var voteBar: UIView!
     @IBOutlet weak var touchView: UIView!
+    @IBOutlet weak var locationDistance: NSLayoutConstraint!
     
     var baloonContainer: BaloonContainer? = nil
 
@@ -68,8 +69,11 @@ class SessionCardView : UIView, Baloon {
             if (displayTime) {
                 locationArrow.isHidden = true
                 location.text = card.displayTime()
+                locationDistance.constant = 1.0
             } else {
-                location.text = card.location.displayName()
+                let isWorkshop = card.session.isWorkshop()
+                location.text = card.location.displayName(isWorkshop: isWorkshop)
+                locationDistance.constant = 35.0
             }
         }
     }

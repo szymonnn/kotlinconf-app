@@ -140,7 +140,7 @@ class MapController : Fragment() {
     }
 
     private fun showRoom(room: RoomData) {
-        map_room_name.text = room.displayName().toUpperCase()
+        map_room_name.text = room.displayName(isWorkshop = false).toUpperCase()
         map_room_photo.apply {
             scaleType = ImageView.ScaleType.CENTER_CROP
             setImageResource(roomPhoto[room.id]!!)
@@ -185,6 +185,10 @@ class MapController : Fragment() {
     private fun View.showFloor(index: Int) {
         map_mapview.getMapAsync { map ->
             map.setStyle(floors[index])
+            map.uiSettings.apply {
+                setAttributionMargins(20.dp, 10.dp, 10.dp, 230.dp)
+                setAttributionTintColor(color(R.color.dark_grey))
+            }
         }
     }
 }

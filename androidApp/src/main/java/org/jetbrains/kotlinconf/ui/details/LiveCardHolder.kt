@@ -41,7 +41,8 @@ class LiveCardHolder(private val view: View) : RecyclerView.ViewHolder(view) {
             }
             live_session_title.text = sessionCard.session.displayTitle
             live_session_speakers.text = sessionCard.speakers.joinToString { it.fullName }
-            live_location.text = sessionCard.location.displayName()
+
+            live_location.text = sessionCard.location.displayName(sessionCard.session.isWorkshop())
             live_favorite.setOnClickListener {
                 KotlinConf.service.markFavorite(sessionCard.session.id)
             }

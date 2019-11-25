@@ -46,7 +46,8 @@ internal class SessionCardHolder(
                 card_live_label.isVisible = false
             } else {
                 card_location_arrow.visibility = View.VISIBLE
-                card_location_label.text = card.location.displayName()
+                val isWorkshop = card.session.isWorkshop()
+                card_location_label.text = card.location.displayName(isWorkshop)
             }
 
             liveWatcher = card.isLive.watch {

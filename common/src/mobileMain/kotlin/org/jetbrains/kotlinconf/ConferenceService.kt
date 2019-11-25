@@ -221,6 +221,7 @@ class ConferenceService(val context: ApplicationContext) : CoroutineScope {
     fun roomSessions(roomId: Int): List<SessionCard> = talks().filter { it.roomId == roomId }
         .map { sessionCard(it.id) }
         .sortedBy { it.session.startsAt }
+        .filter { !it.session.isWorkshop() }
 
     /**
      * Find room by location label.

@@ -167,10 +167,10 @@
 				2C38A898228EEBD000BAF882 /* SessionController.swift */,
 				2CF0141A22958ACB00C235D1 /* SpeakerController.swift */,
 				2C416B9F229591C300BBA441 /* VenueController.swift */,
-				2CFA8EC722DCB5DF008B32E2 /* HomeController.swift */,
 				2CFA8ECB22DF0512008B32E2 /* SpeakersController.swift */,
 				2C849F89233A424F00E9BD5A /* WelcomeController.swift */,
 				B38305B52354EEEF00C2E52F /* PartnerController.swift */,
+				2CFA8EC722DCB5DF008B32E2 /* HomeController.swift */,
 				2C840A3A2355EC740084BAEE /* BeforeController.swift */,
 				2C840A3C2355FC2E0084BAEE /* AfterController.swift */,
 			);
@@ -532,7 +532,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 2ZEFAR8TH3;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -552,6 +552,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = (
 					"-v",
 					"$(inherited)",
@@ -572,7 +573,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_TEAM = 2ZEFAR8TH3;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -592,6 +593,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0.0;
 				OTHER_LDFLAGS = (
 					"-v",
 					"$(inherited)",

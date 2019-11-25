@@ -36,7 +36,8 @@ class RemainderHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
             card_session_title.text = sessionCard.session.displayTitle
             card_session_speakers.text = sessionCard.speakers.joinToString { it.fullName }
-            card_location_label.text = sessionCard.location.displayName()
+            val isWorkshop = sessionCard.session.isWorkshop()
+            card_location_label.text = sessionCard.location.displayName(isWorkshop)
 
             card_favorite_button.setOnClickListener {
                 KotlinConf.service.markFavorite(sessionCard.session.id)

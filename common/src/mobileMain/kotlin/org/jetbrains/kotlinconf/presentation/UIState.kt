@@ -42,11 +42,24 @@ fun SessionCard.displayTime(): String = buildString {
 }
 
 /**
+ * Check if day is workshop day.
+ */
+fun SessionData.isWorkshop(): Boolean =
+    startsAt.dayOfMonth == 4
+
+/**
  * Room name to display.
  */
-fun RoomData.displayName(): String {
-    val separator = name.indexOf('-').takeIf { it >= 0 } ?: return name
-    return name.substring(separator + 1).trim()
+fun RoomData.displayName(isWorkshop: Boolean): String {
+    if ('-' !in name) {
+        return name
+    }
+
+    val names = name.split('-')
+    return when {
+        isWorkshop -> names[0]
+        else -> names[1]
+    }.trim()
 }
 
 fun FeedPost.displayDate(): String {

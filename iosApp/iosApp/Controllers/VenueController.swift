@@ -58,6 +58,7 @@ class VenueController : UIViewController, MGLMapViewDelegate, BaloonContainer, U
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(sender:)))
         mapView.addGestureRecognizer(singleTap)
 
+        setupAttribution()
         mapView.compassViewMargins.y += 50.0
 
         let room = Conference.room(id:7972)
@@ -69,6 +70,11 @@ class VenueController : UIViewController, MGLMapViewDelegate, BaloonContainer, U
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         hideDescription()
+        self.navigationController!.interactivePopGestureRecognizer!.isEnabled = false
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController!.interactivePopGestureRecognizer!.isEnabled = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -170,7 +176,7 @@ class VenueController : UIViewController, MGLMapViewDelegate, BaloonContainer, U
             sessionsStack.setCustomSpacing(5.0, after: view)
         }
 
-        titleLabel.text = room.displayName().uppercased()
+        titleLabel.text = room.displayName(isWorkshop: false).uppercased()
         logoView.image = UIImage(named: mapPhotos[Int(room.id)]!)
         logoView.contentMode = .scaleAspectFill
     }
@@ -207,10 +213,16 @@ class VenueController : UIViewController, MGLMapViewDelegate, BaloonContainer, U
         descriptionActive = false
         closeButton.isHidden = true
         hide()
-        self.distance.constant = self.view.frame.height - 300
+        self.distance.constant = view.frame.height - 300
         UIView.animate(withDuration: 0.3, animations: {
             self.view.layoutIfNeeded()
         })
+    }
+
+    private func setupAttribution() {
+        mapView.attributionButtonPosition = .topLeft
+        mapView.attributionButtonMargins.y = view.frame.height - 330
+        mapView.attributionButton.tintColor = UIColor.blackGray
     }
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {

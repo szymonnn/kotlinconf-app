@@ -77,7 +77,8 @@ class SessionController: UIViewController, UIScrollViewDelegate {
         }
 
         // Location
-        locationLabel.setTitle(card.location.displayName(), for: .normal)
+        let isWorkshop = card.session.isWorkshop()
+        locationLabel.setTitle(card.location.displayName(isWorkshop: isWorkshop), for: .normal)
 
         // Favorite
         favoriteObserver = card.isFavorite.watch { isFavorite in

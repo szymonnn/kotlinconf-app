@@ -83,6 +83,14 @@ class ScheduleController : UIViewController, UITableViewDelegate, UITableViewDat
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController!.interactivePopGestureRecognizer!.isEnabled = false
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController!.interactivePopGestureRecognizer!.isEnabled = true
+    }
+
     func configureTableHeader() {
         tableHeader.onAllTouch = {
             self.section = .all

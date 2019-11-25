@@ -59,12 +59,21 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
             self.progressView.progress = progress
         }
 
+        navigationController!.interactivePopGestureRecognizer!.delegate = self
+        self.navigationController!.interactivePopGestureRecognizer!.isEnabled = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.tabBarController?.tabBar.tintColor = UIColor.redOrange
-        navigationController!.interactivePopGestureRecognizer!.delegate = self
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
     private func onLiveSessions(sessions: [SessionCard]) {

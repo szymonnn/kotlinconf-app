@@ -29,6 +29,14 @@ class SpeakersController : UIViewController, UITableViewDataSource, UITableViewD
         self.tabBarController?.tabBar.tintColor = UIColor.deepSkyBlue
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController!.interactivePopGestureRecognizer!.isEnabled = false
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        self.navigationController!.interactivePopGestureRecognizer!.isEnabled = true
+    }
+
     func onSpeakers(speakers: [SpeakerData]) {
         self.speakers = speakers
         speakersList.reloadData()

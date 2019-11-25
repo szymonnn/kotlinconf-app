@@ -70,7 +70,8 @@ class SessionActivity : AppCompatActivity() {
         val speaker1 = if (speakers.size >= 2) speakers[1] else null
         showSpeaker(speaker1, speaker_2_name, session_human_2, session_divider_2)
 
-        session_location_text.text = card.location.displayName()
+        val isWorkshop = session.isWorkshop()
+        session_location_text.text = card.location.displayName(isWorkshop)
         session_description.text = session.descriptionText
         session_time_label.text = "${card.date} ${card.time}"
 
