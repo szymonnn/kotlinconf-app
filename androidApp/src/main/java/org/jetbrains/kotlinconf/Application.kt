@@ -13,6 +13,7 @@ class KotlinConf : Application() {
     }
 
     companion object {
+        @Volatile
         lateinit var service: ConferenceService
     }
 }

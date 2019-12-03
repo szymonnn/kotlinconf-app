@@ -31,8 +31,8 @@ class VenueController : UIViewController, MGLMapViewDelegate, BaloonContainer, U
     private let mapPhotos = [
         7972: "keynote",
         7973: "aud_10_11_12",
-        7974: "aud 15",
-        7975: "coding room 17",
+        7974: "aud_10_11_12",
+        7975: "aud 15",
         7976: "workshop room 20"
     ]
 

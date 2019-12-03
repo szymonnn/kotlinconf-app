@@ -1,26 +1,30 @@
 package org.jetbrains.kotlinconf.ui
 
-import android.content.*
-import android.net.*
-import android.os.*
-import android.text.*
-import android.view.*
-import androidx.core.view.*
-import androidx.fragment.app.*
-import androidx.navigation.*
-import androidx.recyclerview.widget.*
-import io.ktor.utils.io.core.*
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
+import android.text.Html
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import io.ktor.utils.io.core.Closeable
 import kotlinx.android.synthetic.main.fragment_after.view.*
 import kotlinx.android.synthetic.main.fragment_before.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.view_session_live_card.view.*
 import org.jetbrains.kotlinconf.*
-import org.jetbrains.kotlinconf.BuildConfig.*
-import org.jetbrains.kotlinconf.R
-import org.jetbrains.kotlinconf.presentation.*
-import org.jetbrains.kotlinconf.ui.details.*
-import kotlin.math.*
+import org.jetbrains.kotlinconf.BuildConfig.YOUTUBE_API_KEY
+import org.jetbrains.kotlinconf.presentation.SessionCard
+import org.jetbrains.kotlinconf.ui.details.LiveCardHolder
+import org.jetbrains.kotlinconf.ui.details.RemainderHolder
+import org.jetbrains.kotlinconf.ui.details.TweetHolder
+import kotlin.math.min
 
 class HomeController : Fragment() {
     private val liveCards by lazy { LiveCardsAdapter() }
@@ -108,6 +112,7 @@ class HomeController : Fragment() {
                 setupRemainders()
                 setupTwitter()
                 setupPartners()
+                setupLocator()
                 setupVoteMeter()
             }
         }
@@ -177,6 +182,14 @@ class HomeController : Fragment() {
                     putExtra("partner", it.tag.toString())
                 }
             }
+        }
+    }
+
+    private fun View.setupLocator() {
+        locator_link.setOnClickListener {
+            val url = Uri.parse("https://play.google.com/store/apps/details?id=org.jetbrains.kotlin.locator")
+            val intent = Intent(Intent.ACTION_VIEW, url)
+            startActivity(intent)
         }
     }
 

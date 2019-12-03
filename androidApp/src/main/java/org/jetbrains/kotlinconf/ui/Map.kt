@@ -27,8 +27,8 @@ class MapController : Fragment() {
     private val roomPhoto = mapOf(
         7972 to R.drawable.keynote,
         7973 to R.drawable.aud_10_11_12,
-        7974 to R.drawable.aud15,
-        7975 to R.drawable.coding17,
+        7974 to R.drawable.aud_10_11_12,
+        7975 to R.drawable.aud15,
         7976 to R.drawable.room20
     )
 

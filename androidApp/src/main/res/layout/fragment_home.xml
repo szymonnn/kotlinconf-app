@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/dark_grey">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:background="@color/dark_grey">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:textSize="80sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/live_cards_container"
@@ -37,7 +37,7 @@
                 android:layout_marginTop="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/live_title" />
+                app:layout_constraintTop_toBottomOf="@id/live_title"/>
 
             <TextView
                 android:id="@+id/dont_miss_title"
@@ -51,14 +51,14 @@
                 android:textColor="@color/white"
                 android:textSize="80sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/live_cards_container" />
+                app:layout_constraintTop_toBottomOf="@id/live_cards_container"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dont_miss_block"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@id/dont_miss_title" />
+                app:layout_constraintTop_toBottomOf="@id/dont_miss_title"/>
 
             <TextView
                 android:id="@+id/tweet_title"
@@ -72,7 +72,7 @@
                 android:textColor="@color/white"
                 android:textSize="75sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dont_miss_block" />
+                app:layout_constraintTop_toBottomOf="@id/dont_miss_block"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/tweet_feed_list"
@@ -81,7 +81,7 @@
                 android:layout_marginTop="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tweet_title" />
+                app:layout_constraintTop_toBottomOf="@id/tweet_title"/>
 
             <TextView
                 android:id="@+id/partners_title"
@@ -95,7 +95,7 @@
                 android:textColor="@color/white"
                 android:textSize="80sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tweet_feed_list" />
+                app:layout_constraintTop_toBottomOf="@id/tweet_feed_list"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/partner_buttons"
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/partners_title"
                 android:layout_marginTop="24dp"
-                >
+            >
 
                 <LinearLayout
                     android:id="@+id/row_1"
@@ -126,7 +126,7 @@
                         android:padding="16dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/logo_android"
-                        android:tag="android" />
+                        android:tag="android"/>
 
                     <ImageButton
                         android:id="@+id/button_kodein"
@@ -140,7 +140,7 @@
                         android:padding="16dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/logo_kodein"
-                        android:tag="kodein" />
+                        android:tag="kodein"/>
 
                 </LinearLayout>
 
@@ -165,7 +165,7 @@
                         android:padding="16dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/logo_47"
-                        android:tag="47" />
+                        android:tag="47"/>
 
                     <ImageButton
                         android:id="@+id/button_freenow"
@@ -179,7 +179,7 @@
                         android:padding="16dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/logo_freenow"
-                        android:tag="freenow" />
+                        android:tag="freenow"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -203,7 +203,7 @@
                         android:padding="16dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/logo_bitrise"
-                        android:tag="bitrise" />
+                        android:tag="bitrise"/>
 
                     <ImageButton
                         android:id="@+id/button_instill"
@@ -217,7 +217,7 @@
                         android:padding="16dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/logo_instl"
-                        android:tag="instill" />
+                        android:tag="instill"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -242,7 +242,7 @@
                         android:padding="16dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/logo_gradle"
-                        android:tag="gradle" />
+                        android:tag="gradle"/>
 
                     <ImageButton
                         android:id="@+id/button_n26"
@@ -256,7 +256,7 @@
                         android:padding="16dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/logo_n_26"
-                        android:tag="n26" />
+                        android:tag="n26"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -281,7 +281,7 @@
                         android:padding="16dp"
                         android:scaleType="centerInside"
                         android:src="@drawable/logo_badoo_small"
-                        android:tag="badoo" />
+                        android:tag="badoo"/>
 
                     <View
                         android:layout_width="0dp"
@@ -291,9 +291,80 @@
                         android:layout_weight="0.5"
                         android:elevation="1dp"
                         android:padding="16dp"
-                        android:tag="" />
+                        android:tag=""/>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/locator_photo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/locator_image"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/partner_buttons"
+            />
+
+            <TextView
+                android:id="@+id/locator_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="70sp"
+                android:lineSpacingExtra="-6sp"
+                android:text="KOTLIN LOCATOR GAME"
+                android:layout_marginStart="21dp"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="37dp"
+                android:layout_marginBottom="37dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginRight="21dp"
+                android:fontFamily="@font/druk_font"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/locator_photo"/>
+
+            <TextView
+                android:id="@+id/locator_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="#99ffffff"
+                android:lineSpacingExtra="9sp"
+                app:layout_constraintTop_toBottomOf="@id/locator_title"
+                android:layout_marginStart="21dp"
+                android:layout_marginLeft="21dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginRight="21dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Join the quest. Look for clues, solve the puzzles, and win the secret Kotlin prize!"
+            />
+
+            <TextView
+                android:id="@+id/locator_link"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="normal"
+                android:textColor="@color/red_orange"
+                android:lineSpacingExtra="9sp"
+                android:text="Get the app"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginLeft="21dp"
+                android:layout_marginEnd="21dp"
+                android:layout_marginRight="21dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/locator_text"
+            />
 
             <TextView
                 android:id="@+id/vote_meter_title"
@@ -309,7 +380,7 @@
                 android:fontFamily="@font/druk_font"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/partner_buttons" />
+                app:layout_constraintTop_toBottomOf="@id/locator_link"/>
 
             <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"

@@ -36,8 +36,8 @@ android {
         minSdkVersion(16)
         targetSdkVersion(28)
         multiDexEnabled = true
-        versionCode = 17
-        versionName = "2.0.0"
+        versionCode = 20
+        versionName = "2.0.2"
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "YOUTUBE_API_KEY", YOUTUBE_API_KEY)

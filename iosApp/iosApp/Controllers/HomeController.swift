@@ -76,6 +76,11 @@ class HomeController : UIViewController, UICollectionViewDataSource, UIGestureRe
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
 
+    @IBAction func locatorTouch(_ sender: Any) {
+        let url = URL(string: "https://apps.apple.com/us/app/id1487944666?ls=1")!
+        UIApplication.shared.open(url)
+    }
+
     private func onLiveSessions(sessions: [SessionCard]) {
         let hidden = sessions.count == 0
         videosView.isHidden = hidden
