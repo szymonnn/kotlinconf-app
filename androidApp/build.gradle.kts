@@ -38,7 +38,7 @@ android {
         multiDexEnabled = true
         versionCode = 20
         versionName = "2.0.2"
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "YOUTUBE_API_KEY", YOUTUBE_API_KEY)
         buildConfigField("String", "MAPBOX_ACCESS_TOKEN", MAPBOX_ACCESS_TOKEN)
@@ -89,6 +89,15 @@ kotlin {
 
                 implementation("com.github.bumptech.glide:glide:$glide_version")
                 implementation("com.google.firebase:firebase-analytics:17.2.0")
+
+                implementation("androidx.test.espresso:espresso-core:3.1.0")
+                implementation("androidx.test:runner:1.1.0")
+                implementation("androidx.test:rules:1.1.0")
+                implementation("androidx.test.ext:junit:1.1.1")
+                implementation("com.schibsted.spain:barista:3.2.0")
+                implementation("org.mockito:mockito-core:2.28.2")
+                implementation("com.nhaarman:mockito-kotlin-kt1.1:1.6.0")
+                implementation("org.mockito:mockito-inline:2.28.2")
             }
         }
     }

@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_privacy.view.*
 import org.jetbrains.kotlinconf.*
 import org.jetbrains.kotlinconf.ui.details.*
 
-internal class WelcomeActivity : AppCompatActivity() {
+class WelcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
